@@ -8,7 +8,7 @@
 
 ------------------------
 
-__GOOSE GitHub : https://github.com/dev-goose/simple-note__  
+__GOOSE GitHub : https://github.com/RedgooseDev/goose__  
 __DEMO : http://projects.redgoose.me/2015/goose/app/simple-note/__  
 __goose-dev article : http://src.goose-dev.com/article/7/__
 
