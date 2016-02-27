@@ -1,0 +1,28 @@
+// Variables
+$font-eng-key: 'HelveticaNeue-CondensedBold', sans-serif;
+$font-arial: Arial, sans-serif;
+
+$color-key: #64B80C;
+$color-link: #206BDF;
+$color-text-basic: #222;
+$color-text-blur: #999;
+
+$size-max-mobile: 900px;
+
+
+// Elements
+*, *:before, *:after {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+body {min-width: 320px;}
+body, button, input {font-family: 'Noto Sans', sans-serif; color: $color-text-basic;}
+a {color: $color-link;}
+
+
+// Attributes
+.blind {
+	position: absolute; overflow: hidden; visibility: hidden;
+	width: 0; height: 0; font-size: 0; line-height: 0;
+}

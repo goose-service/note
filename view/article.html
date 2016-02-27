@@ -1,0 +1,104 @@
+<?php
+if(!defined("__GOOSE__")){exit();}
+
+// is markdown
+if ($pref->json['article']['type'] == 'markdown')
+{
+	echo '<link rel="stylesheet" href="'.__GOOSE_ROOT__.'/vendor/Parsedown/markdown.css">';
+}
+?>
+
+<section class="article-view" id="article">
+	<header>
+		<h1><?=$data['article']['title']?></h1>
+		<div class="metas">
+			<p>
+				<span>Category</span>
+				<em><?=$data['category']['name']?></em>
+			</p>
+			<p>
+				<span>Date</span>
+				<em><?=$data['article']['regdate']?></em>
+			</p>
+			<p>
+				<span>Hit</span>
+				<em><?=$data['article']['hit']?></em>
+			</p>
+			<?php
+			if ($pref->json['article']['updateLike'])
+			{
+				?>
+				<p>
+					<span>Like</span>
+					<em data-like><?=(isset($data['article']['json']['like'])) ? $data['article']['json']['like'] : 0 ?></em>
+				</p>
+				<?php
+			}
+			?>
+		</div>
+	</header>
+
+	<div class="body">
+		<?=$data['article']['content']?>
+	</div>
+
+	<nav class="bottom">
+		<a href="<?=(isset($_SESSION['referer'])) ? $_SESSION['referer'] : __ROOT__?>" class="active" title="go to list"><i class="lnr lnr-menu"></i></a>
+		<?php
+		if ($pref->json['article']['updateLike'])
+		{
+			$str_active = (!$_COOKIE[ $pref->json['article']['cookiePrefix'] . 'like-' . $data['article']['srl'] ]) ? 'class="active"' : '';
+			?>
+			<a href="<?= __ROOT__ ?>/upLike/<?= $data['article']['srl'] ?>/" title="like it" <?= $str_active ?>
+			   data-action="onLike"><i class="lnr lnr-star"></i></a>
+			<?php
+		}
+		?>
+	</nav>
+
+	<?php
+	if ($data['anotherArticle']['prev'] || $data['anotherArticle']['next'])
+	{
+		?>
+		<nav class="another-article">
+			<div class="prev">
+				<?php
+				if ($data['anotherArticle']['next'])
+				{
+					$url = makeLinkUrl(
+						'article',
+						['article' => $data['anotherArticle']['next']['srl']],
+						[ 'page' => $_GET['page'], 'keyword' => $_GET['keyword'] ]
+					);
+					?>
+					<a href="<?= $url ?>">
+						<i class="lnr lnr-chevron-left"></i>
+						<span><?= $data['anotherArticle']['next']['title'] ?></span>
+					</a>
+					<?
+				}
+				?>
+			</div>
+			<div class="next">
+				<?php
+				if ($data['anotherArticle']['prev'])
+				{
+					$url = makeLinkUrl(
+						'article',
+						['article' => $data['anotherArticle']['prev']['srl']],
+						[ 'page' => $_GET['page'], 'keyword' => $_GET['keyword'] ]
+					);
+					?>
+					<a href="<?= $url ?>">
+						<i class="lnr lnr-chevron-right"></i>
+						<span><?= $data['anotherArticle']['prev']['title'] ?></span>
+					</a>
+					<?php
+				}
+				?>
+			</div>
+		</nav>
+		<?php
+	}
+	?>
+</section>

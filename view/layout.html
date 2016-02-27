@@ -1,0 +1,69 @@
+<!doctype html>
+<?php
+$title = $pref->json['meta']['title'];
+$title .= ($_target == 'index' && isset($data['nest']['name'])) ? ' - '.$data['nest']['name'] : '';
+$title .= ($_target == 'index' && isset($data['category_name'])) ? ' - '.$data['category_name'] : '';
+$title .= ($_target == 'article' && isset($data['article']['title'])) ? ' - '.$data['article']['title'] : '';
+$description = ($_target == 'article' && isset($data['article']['content'])) ? renderDescription($data['article']['content']) : $pref->json['meta']['description'];
+?>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title><?=$title?></title>
+<meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="author" content="<?=$pref->json['meta']['author']?>">
+<meta name="keywords" content="<?=$pref->json['meta']['keywords']?>">
+<meta name="description" content="<?=$description?>">
+
+<meta property="og:title" content="<?=$title?>">
+<meta property="og:site_name" content="<?=__ROOT_URL__?>">
+<meta property="og:url" content="<?=__ROOT_URL__.$_SERVER['REQUEST_URI']?>" />
+<meta property="og:description" content="<?=$description?>">
+<meta property="og:locale" content="ko_KR" />
+<?=(isset($data['article']['json']['thumnail']['url'])) ? '<meta property="og:image" content="'.__GOOSE_URL__.'/'.$data['article']['json']['thumnail']['url'].'">' : ''?>
+
+<link rel="stylesheet" href="<?=__ROOT__?>/dist/fonts/fonts.pkgd.css">
+<link rel="stylesheet" href="<?=__ROOT__?>/dist/css/layout.pkgd.css">
+
+</head>
+<body>
+<main>
+	<!-- Header -->
+	<header class="header">
+		<h1>
+			<a href="<?=__ROOT__?>"><?=$pref->json['string']['title']?></a>
+		</h1>
+		<nav class="gnb">
+			<button type="button" class="toggle-button">
+				<span>NAVIGATION</span>
+				<i class="lnr lnr-chevron-down"></i>
+			</button>
+			<?=(count($gnb->json)) ? renderGNB($gnb->json, 1) : ''?>
+		</nav>
+	</header>
+	<!-- // Header -->
+
+	<!-- Container -->
+	<div class="container">
+		<?php
+		if (file_exists($loc_container))
+		{
+			require_once($loc_container);
+		}
+		?>
+	</div>
+	<!-- // Container -->
+
+	<!-- Footer -->
+	<footer class="footer">
+		<p class="copyright"><?=$pref->json['string']['copyright']?></p>
+	</footer>
+	<!-- // Footer -->
+</main>
+<script>
+var pref = JSON.parse(decodeURIComponent('<?=$pref->string?>'));
+</script>
+<script src="<?=__ROOT__?>/dist/js/vendor.pkgd.js"></script>
+<script src="<?=__ROOT__?>/dist/js/app.pkgd.js"></script>
+</body>
+</html>
