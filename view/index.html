@@ -94,8 +94,8 @@ $index_title_url = ($nest_id) ? __ROOT__.'/index/'.$nest_id.'/' : __ROOT__.'/';
 						<a href="<?=__ROOT__.'/article/'.$v['srl'].'/'?>">
 							<strong><?=$v['title']?></strong>
 							<div class="meta">
-								<?=($v['category_name']) ? '<p><span>'.$v['category_name'].'</span></p>' : ''?>
 								<p><span><?=$v['regdate']?></span></p>
+								<?=($v['category_name']) ? '<p><span>Cateogry</span><em>'.$v['category_name'].'</em></p>' : ''?>
 								<p><span>Hit</span><em><?=$v['hit']?></em></p>
 								<?php
 								if ($pref->json['article']['updateLike'])

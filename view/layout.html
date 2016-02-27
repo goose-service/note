@@ -24,7 +24,7 @@ $description = ($_target == 'article' && isset($data['article']['content'])) ? r
 
 <link rel="stylesheet" href="<?=__ROOT__?>/dist/fonts/fonts.pkgd.css">
 <link rel="stylesheet" href="<?=__ROOT__?>/dist/css/layout.pkgd.css">
-
+<?=(file_exists(__PWD__.'/dist/css/layout.user.css')) ? '<link rel="stylesheet" href="'.__ROOT__.'/dist/css/layout.user.css">' : ''?>
 </head>
 <body>
 <main>

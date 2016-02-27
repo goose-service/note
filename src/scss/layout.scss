@@ -5,8 +5,6 @@ body {padding: 0 60px;}
 main {max-width: 1280px; margin: 0 auto;}
 @media screen and (max-width: $size-max-mobile) {
 	body {padding: 0;}
-
-
 }
 
 
@@ -259,7 +257,7 @@ main {max-width: 1280px; margin: 0 auto;}
 			text-decoration: none;
 			strong {
 				display: block;
-				font-size: 14px; color: $color-text-basic;
+				font-size: 14px; color: $color-text-basic; font-weight: 600;
 			}
 		}
 		.meta {
@@ -375,7 +373,7 @@ main {max-width: 1280px; margin: 0 auto;}
 		display: -webkit-flex;
 		display: flex;
 		margin: 50px 0 0;
-		border: 1px solid #eee; border-radius: 5px;
+		border: 1px solid #ddd; border-radius: 5px;
 		> div {
 			-webkit-flex: initial;
 			flex: initial;
@@ -421,7 +419,7 @@ main {max-width: 1280px; margin: 0 auto;}
 			display: block;
 			> div {
 				display: block; width: auto;
-				border-top: 1px solid #eee;
+				border-top: 1px solid #ddd;
 				&:first-child {border-top: none;}
 			}
 		}
@@ -439,8 +437,7 @@ main {max-width: 1280px; margin: 0 auto;}
 			}
 			p {
 				margin: 0;
-				font-size: 13px;
-				color: #666;
+				font-size: 13px; color: #666;
 			}
 		}
 		.body {
@@ -450,6 +447,7 @@ main {max-width: 1280px; margin: 0 auto;}
 				margin: 60px 0;
 				border-top: 1px solid transparent;
 				border-bottom: 1px solid transparent;
+				&:first-child {margin-top: 30px;}
 				> header {
 					margin: 20px 0;
 					h1 {
@@ -466,11 +464,13 @@ main {max-width: 1280px; margin: 0 auto;}
 				}
 				.text-lead {font-size: 16px;}
 				> figure {
-					margin: 30px 0;
+					margin: 30px 20px;
 					img {
-						display: block;
-						margin: 0 auto;
+						display: block; margin: 0 auto;
 						max-width: 100%;
+					}
+					@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+						img {zoom: 0.5;}
 					}
 				}
 			}
