@@ -24,14 +24,20 @@ $description = ($_target == 'article' && isset($data['article']['content'])) ? r
 
 <link rel="stylesheet" href="<?=__ROOT__?>/dist/fonts/fonts.pkgd.css">
 <link rel="stylesheet" href="<?=__ROOT__?>/dist/css/layout.pkgd.css">
-<?=(file_exists(__PWD__.'/dist/css/layout.user.css')) ? '<link rel="stylesheet" href="'.__ROOT__.'/dist/css/layout.user.css">' : ''?>
+
+<?php
+if (file_exists(__PWD__.'/view/layout-head.user.html'))
+{
+	require_once(__PWD__.'/view/layout-head.user.html');
+}
+?>
 </head>
 <body>
 <main>
 	<!-- Header -->
 	<header class="header">
 		<h1>
-			<a href="<?=__ROOT__?>"><?=$pref->json['string']['title']?></a>
+			<a href="<?=__ROOT__?>/"><?=$pref->json['string']['title']?></a>
 		</h1>
 		<nav class="gnb">
 			<button type="button" class="toggle-button">

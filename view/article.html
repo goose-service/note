@@ -43,7 +43,7 @@ if ($pref->json['article']['type'] == 'markdown')
 	</div>
 
 	<nav class="bottom">
-		<a href="<?=(isset($_SESSION['referer'])) ? $_SESSION['referer'] : __ROOT__?>" class="active" title="go to list"><i class="lnr lnr-menu"></i></a>
+		<a href="<?=(isset($_SESSION['referer'])) ? $_SESSION['referer'] : __ROOT__.'/'?>" class="active" title="go to list"><i class="lnr lnr-menu"></i></a>
 		<?php
 		if ($pref->json['article']['updateLike'])
 		{

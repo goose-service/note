@@ -131,7 +131,9 @@ $srl_json_pref = 1;
 ]
 ```
 
-### 사용자 css 사용하기
+### 사용자 head 사용하기
 
-git에 영향을 받지않고 css 속성을 수정할 수 있도록 `{GOOSE}/dist/css/layout.user.css` 파일을 만들어서 사용자 css를 작성하면 불러들일 수 있습니다.  
-`{GOOSE}/dist/css/layout.pkgd.css` 파일을 수정할 필요없이 `layout.user.css`파일을 만들어 css속성을 더하여 사용하시면 됩니다.
+`<head/>` 엘리먼트 속의 내용을 git에 영향을 받지않고 사용자 사용자 공간을 만들어 수정할 수 있도록 장치를 마련했습니다.  
+`{GOOSE}/view/layout-head.user.html` 파일을 만들어서 원하는대로 소스를 넣어서 사용할 수 있습니다.
+
+이렇게 하는 이유는 git 업데이트에 영향을 받지 않으면서 js,css,meta에 기능을 더할 수 있습니다.
