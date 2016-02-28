@@ -131,3 +131,7 @@ $srl_json_pref = 1;
 ]
 ```
 
+### 사용자 css 사용하기
+
+git에 영향을 받지않고 css 속성을 수정할 수 있도록 `{GOOSE}/dist/css/layout.user.css` 파일을 만들어서 사용자 css를 작성하면 불러들일 수 있습니다.  
+`{GOOSE}/dist/css/layout.pkgd.css` 파일을 수정할 필요없이 `layout.user.css`파일을 만들어 css속성을 더하여 사용하시면 됩니다.
