@@ -17,6 +17,13 @@ $articleIndexBarItems.children('button').on('click', function(){
 		{
 			$articleIndexBarItems.removeClass('active');
 			$parent.addClass('active');
+
+			// focus keyword form
+			var $keyword = $parent.find('input[name=keyword]');
+			if ($keyword.length)
+			{
+				$keyword.focus();
+			}
 		}
 	}
 	else
