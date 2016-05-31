@@ -37,7 +37,6 @@ $index_title_url = ($nest_id) ? __ROOT__.'/index/'.$nest_id.'/' : __ROOT__.'/';
 									<?php
 									foreach ($data['category'] as $k=>$v)
 									{
-										Util::console($v);
 										$url = __ROOT__.'/index/'.$nest_id.'/';
 										$url .= ($v['srl'] > 0) ? $v['srl'].'/' : '';
 										$active = ($v['active']) ? 'class="active"' : '';
