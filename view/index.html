@@ -16,46 +16,11 @@ else
 $index_title_url = ($nest_id) ? __ROOT__.'/index/'.$nest_id.'/' : __ROOT__.'/';
 ?>
 
-
 <article class="article-index">
 	<header>
 		<h1><?=$index_title?></h1>
 		<nav>
-			<ul class="bar">
-				<?php
-				if (count($data['category']))
-				{
-					?>
-					<li>
-						<button type="button" title="toggle category"><i class="lnr lnr-menu"></i></button>
-						<?php
-						if (count($data['category']))
-						{
-							?>
-							<div>
-								<ul class="category-index">
-									<?php
-									foreach ($data['category'] as $k=>$v)
-									{
-										$url = __ROOT__.'/index/'.$nest_id.'/';
-										$url .= ($v['srl'] > 0) ? $v['srl'].'/' : '';
-										$active = ($v['active']) ? 'class="active"' : '';
-										?>
-										<li <?=$active?>>
-											<a href="<?=$url?>" data-key="<?=$v['srl']?>"><span><?=$v['name']?></span><em><?=$v['count']?></em></a>
-										</li>
-										<?php
-									}
-									?>
-								</ul>
-							</div>
-							<?php
-						}
-						?>
-					</li>
-					<?php
-				}
-				?>
+			<ul>
 				<li>
 					<button type="button" title="toggle search"><i class="lnr lnr-magnifier"></i></button>
 					<div>
@@ -81,29 +46,75 @@ $index_title_url = ($nest_id) ? __ROOT__.'/index/'.$nest_id.'/' : __ROOT__.'/';
 	</header>
 
 	<?php
-	if (count($data['articles']))
+	if (count($data['category']))
 	{
 		?>
-		<ul class="index">
+		<div>
+			<ul class="category-index">
+				<?php
+				foreach ($data['category'] as $k=>$v)
+				{
+					$url = __ROOT__.'/index/'.$nest_id.'/';
+					$url .= ($v['srl'] > 0) ? $v['srl'].'/' : '';
+					$active = ($v['active']) ? 'class="active"' : '';
+					?>
+					<li <?=$active?>>
+						<a href="<?=$url?>" data-key="<?=$v['srl']?>"><span><?=$v['name']?></span><em><?=$v['count']?></em></a>
+					</li>
+					<?php
+				}
+				?>
+			</ul>
+		</div>
+		<?php
+	}
+
+	if (count($data['articles']))
+	{
+		$prefClassNames = $pref->json['index']['classNames'];
+		?>
+		<!--
+			style guide
+			"style-card" : card style
+			"style-thumnail" : thumnail style
+			"color-dark" : dark color
+		-->
+		<ul class="index <?=$prefClassNames['list']?>">
 			<?php
 			foreach($data['articles'] as $k=>$v)
 			{
 				?>
 					<li>
 						<a href="<?=__ROOT__.'/article/'.$v['srl'].'/'?>">
-							<strong><?=$v['title']?></strong>
-							<div class="meta">
-								<p><span><?=$v['regdate']?></span></p>
-								<?=($v['category_name']) ? '<p><span>Cateogry</span><em>'.$v['category_name'].'</em></p>' : ''?>
-								<p><span>Hit</span><em><?=$v['hit']?></em></p>
-								<?php
-								if ($pref->json['article']['updateLike'])
+							<?php
+							if ($pref->json['index']['print_thumbnail'])
+							{
+								if ($v['json']['thumnail']['url'])
 								{
-									?>
-									<p><span>Like</span><em><?= ($v['json']['like']) ? $v['json']['like'] : 0 ?></em></p>
-									<?php
+									$thumnailUrl = __GOOSE_ROOT__.'/'.$v['json']['thumnail']['url'];
+									echo "<figure style=\"background-image: url('".$thumnailUrl."')\"></figure>";
 								}
-								?>
+								else
+								{
+									echo "<figure class=\"not-image\"></figure>";
+								}
+							}
+							?>
+							<div>
+								<strong><?=$v['title']?></strong>
+								<div class="meta">
+									<p><span><?=$v['regdate']?></span></p>
+									<?=($v['category_name']) ? '<p><span>Cateogry</span><em>'.$v['category_name'].'</em></p>' : ''?>
+									<p><span>Hit</span><em><?=$v['hit']?></em></p>
+									<?php
+									if ($pref->json['article']['updateLike'])
+									{
+										?>
+										<p><span>Like</span><em><?= ($v['json']['like']) ? $v['json']['like'] : 0 ?></em></p>
+										<?php
+									}
+									?>
+								</div>
 							</div>
 						</a>
 					</li>

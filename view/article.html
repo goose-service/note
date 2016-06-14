@@ -61,10 +61,12 @@ if ($pref->json['article']['type'] == 'markdown')
 	{
 		?>
 		<nav class="another-article">
-			<div class="prev">
-				<?php
-				if ($data['anotherArticle']['next'])
-				{
+			<?php
+			if ($data['anotherArticle']['next'])
+			{
+				?>
+				<div class="prev">
+					<?php
 					$url = makeLinkUrl(
 						'article',
 						['article' => $data['anotherArticle']['next']['srl']],
@@ -75,14 +77,14 @@ if ($pref->json['article']['type'] == 'markdown')
 						<i class="lnr lnr-chevron-left"></i>
 						<span><?= $data['anotherArticle']['next']['title'] ?></span>
 					</a>
-					<?php
-				}
+				</div>
+			<?php
+			}
+			if ($data['anotherArticle']['prev'])
+			{
 				?>
-			</div>
-			<div class="next">
-				<?php
-				if ($data['anotherArticle']['prev'])
-				{
+				<div class="next">
+					<?php
 					$url = makeLinkUrl(
 						'article',
 						['article' => $data['anotherArticle']['prev']['srl']],
@@ -93,10 +95,10 @@ if ($pref->json['article']['type'] == 'markdown')
 						<i class="lnr lnr-chevron-right"></i>
 						<span><?= $data['anotherArticle']['prev']['title'] ?></span>
 					</a>
-					<?php
-				}
-				?>
-			</div>
+				</div>
+			<?php
+			}
+			?>
 		</nav>
 		<?php
 	}

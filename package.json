@@ -1,21 +1,21 @@
 {
-	"name": "simple-note",
-	"version": "1.0.3",
-	"private": false,
-	"license": "MIT",
-	"author": "Redgoose",
-	"description": "Note style app from goose",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/dev-goose/simple-note.git"
-	},
-	"devDependencies": {
-		"gulp": "^3.9.0",
-		"gulp-concat": "^2.6.0",
-		"gulp-rename": "^1.2.2",
-		"gulp-sass": "^2.1.1",
-		"gulp-sourcemaps": "^1.6.0",
-		"gulp-uglify": "^1.5.1",
-		"jquery": "^2.2.0"
-	}
+  "name": "simple-note",
+  "version": "1.0.4",
+  "private": false,
+  "license": "MIT",
+  "author": "Redgoose",
+  "description": "Note style app from goose",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dev-goose/simple-note.git"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.3.1",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-uglify": "^1.5.3",
+    "jquery": "^2.2.4"
+  }
 }

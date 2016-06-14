@@ -6,7 +6,7 @@ $title .= ($_target == 'index' && isset($data['category_name'])) ? ' - '.$data['
 $title .= ($_target == 'article' && isset($data['article']['title'])) ? ' - '.$data['article']['title'] : '';
 $description = ($_target == 'article' && isset($data['article']['content'])) ? renderDescription($data['article']['content']) : $pref->json['meta']['description'];
 ?>
-<html lang="ko">
+<html lang="<?=$pref->json['meta']['lang']?>">
 <head>
 <meta charset="utf-8">
 <title><?=$title?></title>
@@ -19,13 +19,14 @@ $description = ($_target == 'article' && isset($data['article']['content'])) ? r
 <meta property="og:site_name" content="<?=__ROOT_URL__?>">
 <meta property="og:url" content="<?=__ROOT_URL__.$_SERVER['REQUEST_URI']?>" />
 <meta property="og:description" content="<?=$description?>">
-<meta property="og:locale" content="ko_KR" />
+<meta property="og:locale" content="<?=$pref->json['meta']['locale']?>" />
 <?=(isset($data['article']['json']['thumnail']['url'])) ? '<meta property="og:image" content="'.__GOOSE_URL__.'/'.$data['article']['json']['thumnail']['url'].'">' : ''?>
 
 <link rel="stylesheet" href="<?=__ROOT__?>/dist/fonts/fonts.pkgd.css">
 <link rel="stylesheet" href="<?=__ROOT__?>/dist/css/layout.pkgd.css">
 
 <?php
+// load head.user file
 if (file_exists(__PWD__.'/view/layout-head.user.html'))
 {
 	require_once(__PWD__.'/view/layout-head.user.html');

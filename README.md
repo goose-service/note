@@ -48,11 +48,13 @@ $srl_json_pref = 1;
           "app": 3
      },
      "meta": {
+          "lang": "ko",
           "title": "Simple Note",
           "author": "redgoose",
           "keywords": "note documents",
           "description": "Note style app from goose",
-          "headerKey": "goose"
+          "headerKey": "goose",
+          "locale": "ko_KR"
      },
      "string": {
           "copyright": "Copyright 2016 Redgoose. All right reserved.",
@@ -64,6 +66,10 @@ $srl_json_pref = 1;
                "item": 20,
                "pageScale": 5
           },
+          "classNames": {
+               "list": "style-card"
+          },
+          "print_thumbnail" : true,
           "print_paginate": true
      },
      "article": {
@@ -74,6 +80,31 @@ $srl_json_pref = 1;
      }
 }
 ```
+
+preference 설정에 대한 소개는 다음과 같습니다.
+
+* srl {object} goose 모듈과 연결하기위한 srl값 설정
+  * json_gnb {int} 네비게이션에 사용되는 json모듈의 srl값
+  * app {int} app모듈의 srl값
+* meta {object} &lt;meta>태그의 값 설정
+* index {object} 목록 페이지
+  * count {object}
+    * item {int} : 한페이지에 출력되는 글 갯수입니다.
+    * pageScale {int} : 페이지 네비게이션에서 출력하는 숫자의 갯수입니다.
+  * classNames {object}
+    * list {string} : 목록 스타일
+      "" : list
+      "style-card" : card style
+      "style-thumbnail" : thumbnail style
+      "color-dark" : dark theme
+  * print_thumbnail {boolean} 썸네일 이미지 출력
+  * print_paginate {boolean} 페이지 네비게이션 출력
+* article {object} 상세페이지
+  * type {string} 글 내용 출력방식
+    "markdown" : 마크다운 형식
+  * updateHit {boolean} 조회수 업데이트 기능
+  * updateLike {boolean} 좋아요 업데이트 기능
+  * cookiePrefix {string} cookie key name(prefix)
 
 
 ### JSON - Navigation
