@@ -1,6 +1,14 @@
 var log = function(o) { console.log(o); };
 
 
+/* Header */
+var $gnb = $('.header .gnb');
+
+// active dep-1 item
+$gnb.find('.dep-2 .active').parent().closest('li').addClass('active');
+
+
+
 /* Article INDEX */
 
 // header bar event

@@ -33,7 +33,26 @@
 
 
 // Roboto Condensed
-@import url(https://fonts.googleapis.com/css?family=Roboto+Condensed:700,700italic);
+@font-face {
+	font-family: 'Roboto Condensed';
+	src: local('Roboto Condensed');
+	src:  url(src/RobotoCondensed-Bold.eot);
+	src:  url(src/RobotoCondensed-Bold.eot?#iefix) format('embedded-opentype'),
+		url(src/RobotoCondensed-Bold.woff) format('woff'),
+		url(src/RobotoCondensed-Bold.ttf) format('truetype');
+	font-weight: 700;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Roboto Condensed';
+	src: local('Roboto Condensed');
+	src:  url(src/RobotoCondensed-BoldItalic.eot);
+	src:  url(src/RobotoCondensed-BoldItalic.eot?#iefix) format('embedded-opentype'),
+	url(src/RobotoCondensed-BoldItalic.woff) format('woff'),
+	url(src/RobotoCondensed-BoldItalic.ttf) format('truetype');
+	font-weight: 700;
+	font-style: italic;
+}
 
 
 
