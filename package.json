@@ -1,6 +1,6 @@
 {
   "name": "simple-note",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "private": false,
   "license": "MIT",
   "author": "Redgoose",
@@ -13,9 +13,9 @@
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.0",
     "gulp-rename": "^1.2.2",
-    "gulp-sass": "^2.3.1",
+    "gulp-sass": "^2.3.2",
     "gulp-sourcemaps": "^1.6.0",
-    "gulp-uglify": "^1.5.3",
+    "gulp-uglify": "^1.5.4",
     "jquery": "^2.2.4"
   }
 }

@@ -20,7 +20,7 @@ $description = ($_target == 'article' && isset($data['article']['content'])) ? r
 <meta property="og:url" content="<?=__ROOT_URL__.$_SERVER['REQUEST_URI']?>" />
 <meta property="og:description" content="<?=$description?>">
 <meta property="og:locale" content="<?=$pref->json['meta']['locale']?>" />
-<?=(isset($data['article']['json']['thumnail']['url'])) ? '<meta property="og:image" content="'.__GOOSE_URL__.'/'.$data['article']['json']['thumnail']['url'].'">' : ''?>
+<?=(isset($data['article']['json']['thumbnail']['url'])) ? '<meta property="og:image" content="'.__GOOSE_URL__.'/'.$data['article']['json']['thumbnail']['url'].'">' : ''?>
 
 <link rel="stylesheet" href="<?=__ROOT__?>/dist/fonts/fonts.pkgd.css">
 <link rel="stylesheet" href="<?=__ROOT__?>/dist/css/layout.pkgd.css">

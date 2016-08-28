@@ -417,6 +417,9 @@ main {max-width: 1280px; margin: 0 auto;}
 		&, & .markdown-body {
 			font-size: 14px;
 		}
+		.markdown-body {
+			word-break: break-all;
+		}
 		@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
 			img {zoom: 0.5;}
 		}

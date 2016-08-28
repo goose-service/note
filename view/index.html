@@ -76,7 +76,7 @@ $index_title_url = ($nest_id) ? __ROOT__.'/index/'.$nest_id.'/' : __ROOT__.'/';
 		<!--
 			style guide
 			"style-card" : card style
-			"style-thumnail" : thumnail style
+			"style-thumbnail" : thumbnail style
 			"color-dark" : dark color
 		-->
 		<ul class="index <?=$prefClassNames['list']?>">
@@ -89,10 +89,10 @@ $index_title_url = ($nest_id) ? __ROOT__.'/index/'.$nest_id.'/' : __ROOT__.'/';
 							<?php
 							if ($pref->json['index']['print_thumbnail'])
 							{
-								if ($v['json']['thumnail']['url'])
+								if ($v['json']['thumbnail']['url'])
 								{
-									$thumnailUrl = __GOOSE_ROOT__.'/'.$v['json']['thumnail']['url'];
-									echo "<figure style=\"background-image: url('".$thumnailUrl."')\"></figure>";
+									$thumbnailUrl = __GOOSE_ROOT__.'/'.$v['json']['thumbnail']['url'];
+									echo "<figure style=\"background-image: url('".$thumbnailUrl."')\"></figure>";
 								}
 								else
 								{
