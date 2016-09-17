@@ -45,7 +45,7 @@ if (file_exists(__PWD__.'/view/layout-head.user.html'))
 				<span>NAVIGATION</span>
 				<i class="lnr lnr-chevron-down"></i>
 			</button>
-			<?=(count($gnb->json)) ? renderGNB($gnb->json, 1) : ''?>
+			<?=(count($pref->json['navigation'])) ? renderGNB($pref->json['navigation'], 1) : ''?>
 		</nav>
 	</header>
 	<!-- // Header -->

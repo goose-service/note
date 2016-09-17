@@ -26,42 +26,29 @@ require_once('libs/func.php');
 
 
 // get preferences
+$pref = new stdClass();
 try
 {
-	$tmp = Spawn::item([
-		'table' => Spawn::getTableName('json'),
+	$tmp = core\Spawn::item([
+		'table' => core\Spawn::getTableName('JSON'),
 		'field' => 'json',
-		'where' => 'srl='.(int)$srl_json_pref,
+		'where' => 'srl='.(int)$srl_json_pref
 	])['json'];
 	if (!$tmp) throw new Exception('not found preference data');
-	$pref = new Object([
-		'string' => $tmp,
-		'json' => Util::jsonToArray($tmp, true, true),
-	]);
-	// get GNB data
-	if ($pref->json['srl']['json_gnb'])
-	{
-		$tmp = Spawn::item([
-			'table' => Spawn::getTableName('json'),
-			'field' => 'json',
-			'where' => 'srl='.(int)$pref->json['srl']['json_gnb'],
-		])['json'];
-		if (!$tmp) throw new Exception('not found global navigation data');
-		$gnb = new Object([
-			'string' => $tmp,
-			'json' => Util::jsonToArray($tmp, true, true),
-		]);
-	}
+
+	// set pref
+	$pref->string = $tmp;
+	$pref->json = core\Util::jsonToArray($tmp, null, true);
 }
 catch(Exception $e)
 {
 	echo $e->getMessage();
-	Goose::end();
+	core\Goose::end();
 }
 
 
 // init router
-$router = Module::load('router');
+$router = core\Module::load('Router');
 $router->route->setBasePath(__ROOT__);
 require_once('libs/map.php');
 $router->match = $router->route->match();
@@ -112,8 +99,7 @@ if ($router->match)
 			}
 			if ($data['state'] == 'error')
 			{
-				Goose::error(101, $data['message'], __ROOT_URL__);
-				Goose::end();
+				core\Goose::error(101, $data['message'], __ROOT_URL__);
 			}
 
 			$loc_container = 'view/index.html';
@@ -142,24 +128,23 @@ if ($router->match)
 			]);
 			if ($data['state'] == 'error')
 			{
-				Goose::error(101, $data['message'], __ROOT_URL__);
-				Goose::end();
+				core\Goose::error(101, $data['message'], __ROOT_URL__);
 			}
 
 			// get another article data
 			if (isset($data['anotherArticle']['prev']['srl']))
 			{
-				$data['anotherArticle']['prev'] = Spawn::item([
-					'table' => Spawn::getTableName('article'),
+				$data['anotherArticle']['prev'] = core\Spawn::item([
+					'table' => core\Spawn::getTableName('Article'),
 					'field' => 'srl,title',
-					'where' => 'srl='.(int)$data['anotherArticle']['prev']['srl'],
+					'where' => 'srl=' . (int)$data['anotherArticle']['prev']['srl'],
 					'debug' => false
 				]);
 			}
 			if (isset($data['anotherArticle']['next']['srl']))
 			{
-				$data['anotherArticle']['next'] = Spawn::item([
-					'table' => Spawn::getTableName('article'),
+				$data['anotherArticle']['next'] = core\Spawn::item([
+					'table' => core\Spawn::getTableName('article'),
 					'field' => 'srl,title',
 					'where' => 'srl='.(int)$data['anotherArticle']['next']['srl'],
 					'debug' => false
@@ -177,7 +162,7 @@ if ($router->match)
 			if ($_GET['popup'])
 			{
 				require_once($loc_container);
-				Goose::end();
+				core\Goose::end();
 			}
 
 			break;
@@ -215,7 +200,7 @@ if ($router->match)
 			$render_data = json_encode($data, JSON_PRETTY_PRINT);
 			print_r($render_data);
 
-			Goose::end();
+			core\Goose::end();
 			break;
 	}
 
@@ -224,6 +209,5 @@ if ($router->match)
 else
 {
 	// 404 error
-	Goose::error(404, null, __ROOT_URL__);
-	Goose::end();
+	core\Goose::error(404, null, __ROOT_URL__);
 }

@@ -115,7 +115,7 @@ function renderDescription($str, $length=120)
  *
  * @param array $array
  * @param string $key
- * @return array
+ * @return bool
  */
 function searchValueInArray($array, $key)
 {

@@ -24,7 +24,7 @@ __goose-dev article : http://src.goose-dev.com/article/7/__
 define('__GOOSE__', true);
 define('__USE_GOOSE_SESSION__', true);
 define('__GOOSE_ROOT__', '/goose'); // goose 경로
-define('__GOOSE_LIB__', '../goose/core/lib.php'); // goose 라이브러리 파일 경로 (상대경로)
+define('__GOOSE_LIB__', '../goose/bootstrap/lib.php'); // goose 라이브러리 파일 경로 (상대경로)
 define('__PWD__', dirname(__FILE__)); // App 경로 (절대경로)
 define('__ROOT__', '/simple-note'); // App 경로
 define('__ROOT_URL__', 'http://domain-name.com/simple-note'); // App 경로 (http://... 포함된 전체경로)
@@ -43,41 +43,88 @@ $srl_json_pref = 1;
 
 ```
 {
-     "srl": {
-          "json_gnb": 8,
-          "app": 3
-     },
-     "meta": {
-          "lang": "ko",
-          "title": "Simple Note",
-          "author": "redgoose",
-          "keywords": "note documents",
-          "description": "Note style app from goose",
-          "headerKey": "goose",
-          "locale": "ko_KR"
-     },
-     "string": {
-          "copyright": "Copyright 2016 Redgoose. All right reserved.",
-          "intro_title": "Newstest",
-          "title": "Simple Note"
-     },
-     "index": {
-          "count": {
-               "item": 20,
-               "pageScale": 5
-          },
-          "classNames": {
-               "list": "style-card"
-          },
-          "print_thumbnail" : true,
-          "print_paginate": true
-     },
-     "article": {
-          "type": "markdown",
-          "updateHit": true,
-          "updateLike": false,
-          "cookiePrefix": "goose-"
-     }
+	"srl": {
+		"app": 1
+	},
+	"meta": {
+		"lang": "ko",
+		"title": "Simple Note",
+		"author": "redgoose",
+		"keywords": "note documents",
+		"description": "Note style app from goose",
+		"headerKey": "goose",
+		"locale": "ko_KR"
+	},
+	"string": {
+		"copyright": "Copyright 2016 Redgoose. All right reserved.",
+		"intro_title": "Newstest",
+		"title": "Simple Note"
+	},
+	"index": {
+		"count": {
+			"item": 20,
+			"pageScale": 5
+		},
+		"classNames": {
+			"list": "style-card"
+		},
+		"print_thumbnail" : true,
+		"print_paginate": true
+	},
+	"article": {
+		"type": "markdown",
+		"updateHit": true,
+		"updateLike": false,
+		"cookiePrefix": "goose-"
+	},
+	"navigation": [
+		{
+			"name": "Notes",
+			"url": "#",
+			"children": [
+				{
+					"name": "Note-1",
+					"url": "/index/note-1/"
+				},
+				{
+					"name": "Note-2",
+					"url": "/index/note-2/"
+				}
+			]
+		},
+		{
+			"name": "About iMac",
+			"url": "/page/iMac/"
+		},
+		{
+			"name": "External-Link",
+			"url": "#",
+			"children": [
+				{
+					"name": "GitHub project",
+					"target": "_blank",
+					"external": true,
+					"url": "https://github.com/dev-goose/simple-note"
+				},
+				{
+					"name": "goose-dev article",
+					"target": "_blank",
+					"external": true,
+					"url": "http://src.goose-dev.com/article/7/"
+				},
+				{
+					"name": "redgoose.me",
+					"target": "_blank",
+					"external": true,
+					"url": "http://redgoose.me"
+				}
+			]
+		},
+		{
+			"name": "none link",
+			"url": "#"
+		}
+	]
 }
 ```
 
@@ -105,62 +152,8 @@ preference 설정에 대한 소개는 다음과 같습니다.
   * updateHit {boolean} 조회수 업데이트 기능
   * updateLike {boolean} 좋아요 업데이트 기능
   * cookiePrefix {string} cookie key name(prefix)
+* navigation {array} Navigation tree
 
-
-### JSON - Navigation
-
-앱 네비게이션에 대한 json 트리입니다. 이전섹션과 동일한 형식으로 등록합니다.
-
-```
-[
-     {
-          "name": "Notes",
-          "url": "#",
-          "children": [
-               {
-                    "name": "Note-1",
-                    "url": "/index/note-1/"
-               },
-               {
-                    "name": "Note-2",
-                    "url": "/index/note-2/"
-               }
-          ]
-     },
-     {
-          "name": "About iMac",
-          "url": "/page/iMac/"
-     },
-     {
-          "name": "External-Link",
-          "url": "#",
-          "children": [
-               {
-                    "name": "GitHub project",
-                    "target": "_blank",
-                    "external": true,
-                    "url": "https://github.com/dev-goose/simple-note"
-               },
-               {
-                    "name": "goose-dev article",
-                    "target": "_blank",
-                    "external": true,
-                    "url": "http://src.goose-dev.com/article/7/"
-               },
-               {
-                    "name": "redgoose.me",
-                    "target": "_blank",
-                    "external": true,
-                    "url": "http://redgoose.me"
-               }
-          ]
-     },
-     {
-          "name": "none link",
-          "url": "#"
-     }
-]
-```
 
 ### 사용자 head 사용하기
 

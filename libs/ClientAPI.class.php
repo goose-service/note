@@ -1,4 +1,5 @@
 <?php
+use core\Util, core\Goose, core\Module, core\Spawn, core\Paginate;
 if(!defined("__GOOSE__")){exit();}
 
 class ClientAPI {
@@ -162,7 +163,6 @@ class ClientAPI {
 
 		// get articles
 		// init paginate
-		require_once(__GOOSE_PWD__.'core/classes/Paginate.class.php');
 		$options['page'] = ($options['page'] > 1) ? $options['page'] : 1;
 		$count = $options['count'];
 		$scale = $options['pageScale'];
