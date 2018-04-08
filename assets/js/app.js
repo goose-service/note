@@ -60,35 +60,6 @@
 	 * Article view
 	 */
 
-	const $article = $('#article');
-
-	// on like
-	$article.find('[data-action=onLike]').on('click', function(){
-		const $this = $(this);
-		if (!$this.hasClass('active')) return false;
-		$.ajax({
-			url: $(this).attr('href'),
-			method: 'get',
-			dataType: 'json',
-			headers: { 'Accept' : 'application=' + pref.meta.headerKey + ';' }
-		}).done(function(response){
-			if (response.state === 'success')
-			{
-				const $like = $article.find('[data-like]');
-				$like.text(parseInt($like.text(), 10) + 1);
-				$this.removeClass('active');
-			}
-			else
-			{
-				console.log(response.state);
-				console.log(response);
-			}
-		}).fail(function(e){
-			console.error('server error');
-			console.error(e.responseText);
-		});
-
-		return false;
-	});
+	//const $article = $('#article');
 
 })(jQuery);

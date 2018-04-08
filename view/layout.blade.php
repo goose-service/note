@@ -26,16 +26,15 @@ if(!defined("__GOOSE__")){exit();}
 				<i class="lnr lnr-chevron-down"></i>
 			</button>
 			@if (count($pref['navigation']))
-			<div>
-				<ul class="dep-1">
-					@foreach($pref['navigation'] as $item)
+			<ul class="dep-1">
+				@foreach($pref['navigation'] as $item)
 					<?php
 					/** @var array $item */
 					$url = ($item['external']) ? $item['url'] : __ROOT__.$item['url'];
 					$url = ($item['url'] != '#') ? $url : 'javascript:;';
 					$active = (preg_match("|".preg_quote($item['url'])."|", $_SERVER['REQUEST_URI'], $arr)) ? ' class="active"' : '';
 					?>
-					<li{{$active}}>
+					<li{!! $active !!}>
 						<a href="{{$url}}"{{$item['external'] ? 'target="_blank"' : ''}}>{{$item['name']}}</a>
 						@if(count($item['children']))
 						<div>
@@ -47,7 +46,7 @@ if(!defined("__GOOSE__")){exit();}
 								$url = ($item2['url'] != '#') ? $url : 'javascript:;';
 								$active = (preg_match("|".preg_quote($item2['url'])."|", $_SERVER['REQUEST_URI'], $arr)) ? ' class="active"' : '';
 								?>
-								<li{{$active}}>
+								<li{!! $active !!}>
 									<a href="{{$url}}"{{$item2['external'] ? 'target="_blank"' : ''}}>{{$item2['name']}}</a>
 								</li>
 								@endforeach
@@ -55,9 +54,8 @@ if(!defined("__GOOSE__")){exit();}
 						</div>
 						@endif
 					</li>
-					@endforeach
-				</ul>
-			</div>
+				@endforeach
+			</ul>
 			@endif
 		</nav>
 	</header>

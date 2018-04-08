@@ -11,10 +11,12 @@
 	<header>
 		<h1>{{$data['article']['title']}}</h1>
 		<div class="metas">
+			@if($data['category']['name'])
 			<p>
 				<span>Category</span>
 				<em>{{$data['category']['name']}}</em>
 			</p>
+			@endif
 			<p>
 				<span>Date</span>
 				<em>{{$data['article']['regdate']}}</em>

@@ -26,7 +26,7 @@ if(!defined("__GOOSE__")){exit();}
 				<li>
 					<button type="button" title="toggle search"><i class="lnr lnr-magnifier"></i></button>
 					<div>
-						<form action="#" method="get" class="keyword-search">
+						<form action="{{__ROOT__}}" method="get" class="keyword-search">
 							<fieldset>
 								<legend class="blind">Keyword search form</legend>
 								<span><input type="text" name="keyword" value="{{$_GET['keyword']}}" maxlength="20" placeholder="Search Keyword"></span>
@@ -50,8 +50,8 @@ if(!defined("__GOOSE__")){exit();}
 	<div>
 		<ul class="category-index">
 			@foreach($data['category'] as $k=>$v)
-			<li{{($v['active']) ? ' class="active"' : ''}}>
-				<a href="{{__ROOT__}}/index/{{$nest_id}}{{($v['srl'] > 0) ? $v['srl'].'/' : ''}}" data-key="{{$v['srl']}}">
+			<li{!! ($v['active']) ? ' class="active"' : '' !!}>
+				<a href="{{__ROOT__}}/index/{{$nest_id}}/{{($v['srl'] > 0) ? $v['srl'].'/' : ''}}" data-key="{{$v['srl']}}">
 					<span>{{$v['name']}}</span>
 					<em>{{$v['count']}}</em>
 				</a>
