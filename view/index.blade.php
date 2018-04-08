@@ -23,9 +23,11 @@ if(!defined("__GOOSE__")){exit();}
 		</h1>
 		<nav>
 			<ul>
-				<li>
-					<button type="button" title="toggle search"><i class="lnr lnr-magnifier"></i></button>
-					<div>
+				<li class="search-target">
+					<button type="button" title="toggle search" class="search-control">
+						<i class="lnr lnr-magnifier"></i>
+					</button>
+					<div class="search-content">
 						<form action="{{__ROOT__}}" method="get" class="keyword-search">
 							<fieldset>
 								<legend class="blind">Keyword search form</legend>

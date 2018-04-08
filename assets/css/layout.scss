@@ -157,6 +157,7 @@ main {
 		.gnb {
 			$border-color: #ddd;
 			margin: 0;
+			display: block;
 			.toggle-button {
 				position: relative;
 				display: block;
@@ -191,10 +192,17 @@ main {
 				}
 			}
 			.dep-1 {
+				display: none;
 				border-bottom: 1px solid #afafaf;
+				&.active {
+					display: block;
+				}
 				> li {
 					display: block;
 					border-bottom: 1px dotted #afafaf;
+					&:last-child {
+						border-bottom: none;
+					}
 					> a {
 						display: block;
 						padding: 9px 15px;
@@ -322,6 +330,7 @@ main {
 						text-align: center;
 						i {
 							color: #222;
+							pointer-events: none;
 						}
 					}
 					> div {
@@ -417,7 +426,7 @@ main {
 		padding: 8px 5px;
 		list-style: none;
 		font-size: 0;
-		background: #eee;
+		background: #f4f4f4;
 		li {
 			display: inline-block;
 			a {
@@ -504,22 +513,27 @@ main {
 			}
 		}
 		.meta {
+			$side-margin: 4px;
+			$font-size: 11px;
 			margin: 3px 0 0 0;
 			font-size: 0; color: #888;
 			p {
 				display: inline;
 				margin: 0;
-				padding: 0 2px 0 0;
-				font-size: 11px;
-				line-height: 13px;
+				padding: 0 $side-margin 0 0;
 				font-family: $font-eng;
+				font-size: 0;
 				&:before {
 					content: '/';
-					padding: 0 2px 0 0;
+					padding: 0 $side-margin 0 0;
+					font-size: $font-size;
 				}
 				&:first-child:before {
 					content: '';
 					padding-right: 0;
+				}
+				> * {
+					font-size: $font-size;
 				}
 			}
 			em {

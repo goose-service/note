@@ -11,40 +11,38 @@
 	 * Article index
 	 */
 
-	// header bar event
-	const $articleIndexBarItems = $('.article-index > header > nav > ul > li');
-	$articleIndexBarItems.children('button').on('click', function(){
-		const $this = $(this);
+	// toggle search form
+	(function() {
+		const searchElementNames = {
+			button: 'search-control',
+			target: 'search-target',
+			content: 'search-content'
+		};
 
-		if ($this.next().length)
+		if (!document.querySelector('.' + searchElementNames.button)) return;
+
+		// toggle dropdown
+		document.querySelector('.' + searchElementNames.button).addEventListener('click', function(e) {
+			this.parentNode.classList.toggle('active');
+		});
+
+		// close dropdown
+		window.onclick = function(e)
 		{
-			const $parent = $this.parent();
-			if ($parent.hasClass('active'))
-			{
-				$parent.removeClass('active');
-			}
-			else
-			{
-				$articleIndexBarItems.removeClass('active');
-				$parent.addClass('active');
+			if ($(e.target).closest('.' + searchElementNames.content).length) return;
+			if (e.target.matches('.' + searchElementNames.button)) return;
 
-				// focus keyword form
-				const $keyword = $parent.find('input[name=keyword]');
-				if ($keyword.length)
+			const dropdowns = document.getElementsByClassName(searchElementNames.content);
+			for (let i = 0; i < dropdowns.length; i++)
+			{
+				let openDropdown = dropdowns[i];
+				if (openDropdown.parentNode.classList.contains('active'))
 				{
-					$keyword.focus();
+					openDropdown.parentNode.classList.remove('active');
 				}
 			}
-		}
-		else
-		{
-			if ($this.attr('data-href'))
-			{
-				location.href = $this.attr('data-href');
-			}
-		}
-	});
-
+		};
+	})();
 
 	// toggle gnb for mobile
 	$('.toggle-button').on('click', function(){
@@ -54,12 +52,5 @@
 		const iconClass = (!$(this).hasClass('active')) ? 'lnr lnr-chevron-down' : 'lnr lnr-chevron-up';
 		$(this).find('i').attr('class', iconClass);
 	});
-
-
-	/**
-	 * Article view
-	 */
-
-	//const $article = $('#article');
 
 })(jQuery);

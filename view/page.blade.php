@@ -9,9 +9,9 @@
 @section('contents')
 <div class="page-view">
 	<?php
-	if (file_exists('pages/'.$pageName.'.html'))
+	if (file_exists('pages--user/'.$pageName.'.php'))
 	{
-		$path = 'pages/'.$pageName.'.html';
+		$path = 'pages--user/'.$pageName.'.php';
 		require_once($path);
 	}
 	?>
