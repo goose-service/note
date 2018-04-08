@@ -15,9 +15,9 @@ __goose-dev article : http://src.goose-dev.com/article/7/__
 ------------------------
 
 
-### `index.user.php`
+### `index--user.php`
 
-다음과 같은 내용을 참고하여 `{GOOSE}/index.user.php` 파일을 만듭니다.
+다음과 같은 내용을 참고하여 `{GOOSE}/index--user.php` 파일을 만듭니다.
 
 ```
 <?php
@@ -74,7 +74,6 @@ $srl_json_pref = 1;
 	"article": {
 		"type": "markdown",
 		"updateHit": true,
-		"updateLike": false,
 		"cookiePrefix": "goose-"
 	},
 	"navigation": [
@@ -150,7 +149,6 @@ preference 설정에 대한 소개는 다음과 같습니다.
   * type {string} 글 내용 출력방식
     "markdown" : 마크다운 형식
   * updateHit {boolean} 조회수 업데이트 기능
-  * updateLike {boolean} 좋아요 업데이트 기능
   * cookiePrefix {string} cookie key name(prefix)
 * navigation {array} Navigation tree
 

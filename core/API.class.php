@@ -2,7 +2,8 @@
 use core\Util, core\Goose, core\Module, core\Spawn, core\Paginate;
 if(!defined("__GOOSE__")){exit();}
 
-class ClientAPI {
+
+class API {
 
 	public $goose, $ajax;
 
@@ -273,7 +274,7 @@ class ClientAPI {
 		{
 			case 'markdown':
 				// load parsedown
-				require_once(__GOOSE_PWD__.'vendor/Parsedown/Parsedown.class.php');
+				require_once(__GOOSE_PWD__.'vendor/parsedown/Parsedown.php');
 
 				// get instance parsedown
 				$Parsedown = new Parsedown();
@@ -380,6 +381,7 @@ class ClientAPI {
 			'message' => 'fail update complete',
 		];
 	}
+
 }
 
 

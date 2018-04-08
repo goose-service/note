@@ -1,69 +1,34 @@
-var log = function(o) { console.log(o); }
-
-// load modules
-var gulp = require('gulp');
-var concat = require('gulp-concat');
-var sourcemaps = require('gulp-sourcemaps');
-var uglify = require('gulp-uglify');
-var scss = require('gulp-sass');
-var rename = require('gulp-rename');
+const gulp = require('gulp');
+const concat = require('gulp-concat');
+const uglify = require('gulp-uglify');
+const scss = require('gulp-sass');
+const rename = require('gulp-rename');
 
 // set variables
-var maps = 'maps';
-var dir_src = './src';
-var dir_dist = './dist';
-
-// set vendor files
-var vendors = {
-	js : [
-		'./node_modules/jquery/dist/jquery.min.js'
-	],
-	fonts : dir_src + '/scss/fonts.scss'
-};
+const maps = 'maps';
+const dir_assets = 'assets';
 
 
-// build vendor files
-gulp.task('vendor', function(){
-	// javascript vendors
-	gulp.src(vendors.js)
-		.pipe(concat('vendor.pkgd.js', { newLine: '\n\n' }))
-		.pipe(gulp.dest(dir_dist + '/js'));
-
-	// fonts
-	gulp.src(vendors.fonts)
-		.pipe(scss({
-			outputStyle: 'compressed'
-		}).on('error', scss.logError))
-		.pipe(rename({ suffix: '.pkgd' }))
-		.pipe(gulp.dest(dir_dist + '/fonts'));
-});
-
-
-// build scss
-gulp.task('scss', function(){
-	gulp.src(dir_src + '/scss/layout.scss')
-		.pipe(sourcemaps.init())
+// build
+async function build_scss()
+{
+	await gulp.src(`${dir_assets}/css/app.scss`)
 		.pipe(scss({
 			//outputStyle : 'compact'
 			outputStyle: 'compressed'
 		}).on('error', scss.logError))
-		.pipe(rename({ suffix: '.pkgd' }))
-		.pipe(sourcemaps.write(maps))
-		.pipe(gulp.dest(dir_dist + '/css'));
-});
-gulp.task('scss:watch', function(){
-	gulp.watch(dir_src + '/scss/*.scss', ['scss']);
-});
+		.pipe(gulp.dest(`${dir_assets}/css`));
+}
 
-// build javascript
-gulp.task('javascript', function(){
-	gulp.src([ dir_src + '/js/*.js', dir_src + '/js/!(layout)*.js', dir_src + '/js/layout.js' ])
-		.pipe(sourcemaps.init({loadMaps: true}))
-		.pipe(uglify())
-		.pipe(concat('app.pkgd.js', { newLine: '\n\n' }))
-		.pipe(sourcemaps.write(maps))
-		.pipe(gulp.dest(dir_dist + '/js'));
+// watch
+async function watch()
+{
+	gulp.watch(`${dir_assets}/css/**/*.scss`, build_scss);
+}
+
+
+// tasks
+gulp.task('build', async function() {
+	await build_scss();
 });
-gulp.task('javascript:watch', function(){
-	gulp.watch(dir_src + '/js/*.js', ['javascript']);
-});
+gulp.task('watch', watch);
