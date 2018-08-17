@@ -6,48 +6,45 @@ if(!defined("__GOOSE__")){exit();}
 /** @var array $pref */
 /** @var string $prefString */
 ?>
-<html lang="{{$pref['meta']['lang']}}">
+<html lang="ko">
 <head>
 @include('head')
 @yield('style')
-@if (file_exists(__PWD__.'/view/head--user.blade.php'))
-@include('head--user')
-@endif
 </head>
 <body>
 <main>
 	<header class="header">
 		<h1>
-			<a href="{{__ROOT__}}/">{{$pref['string']['title']}}</a>
+			<a href="{{__ROOT__}}/">{{$pref->string->title}}</a>
 		</h1>
 		<nav class="gnb">
 			<button type="button" class="toggle-button">
 				<span>NAVIGATION</span>
 				<i class="lnr lnr-chevron-down"></i>
 			</button>
-			@if (count($pref['navigation']))
+			@if ($pref->navigation && count($pref->navigation))
 			<ul class="dep-1">
-				@foreach($pref['navigation'] as $item)
+				@foreach($pref->navigation as $item)
 					<?php
-					/** @var array $item */
-					$url = ($item['external']) ? $item['url'] : __ROOT__.$item['url'];
-					$url = ($item['url'] != '#') ? $url : 'javascript:;';
-					$active = (preg_match("|".preg_quote($item['url'])."|", $_SERVER['REQUEST_URI'], $arr)) ? ' class="active"' : '';
+					/** @var object $item */
+					$url = ($item->external) ? $item->url : __ROOT__.$item->url;
+					$url = ($item->url != '#') ? $url : 'javascript:;';
+					$active = (preg_match("|".preg_quote($item->url)."|", $_SERVER['REQUEST_URI'], $arr)) ? ' class="active"' : '';
 					?>
 					<li{!! $active !!}>
-						<a href="{{$url}}"{{$item['external'] ? 'target="_blank"' : ''}}>{{$item['name']}}</a>
-						@if(count($item['children']))
+						<a href="{{$url}}"{{$item->external ? 'target="_blank"' : ''}}>{{$item->name}}</a>
+						@if($item->children && count($item->children))
 						<div>
 							<ul class="dep-2">
-								@foreach($item['children'] as $item2)
+								@foreach($item->children as $item2)
 								<?php
-								/** @var array $item2 */
-								$url = ($item2['external']) ? $item2['url'] : __ROOT__.$item2['url'];
-								$url = ($item2['url'] != '#') ? $url : 'javascript:;';
-								$active = (preg_match("|".preg_quote($item2['url'])."|", $_SERVER['REQUEST_URI'], $arr)) ? ' class="active"' : '';
+								/** @var object $item2 */
+								$url = ($item2->external) ? $item2->url : __ROOT__.$item2->url;
+								$url = ($item2->url != '#') ? $url : 'javascript:;';
+								$active = (preg_match("|".preg_quote($item2->url)."|", $_SERVER['REQUEST_URI'], $arr)) ? ' class="active"' : '';
 								?>
 								<li{!! $active !!}>
-									<a href="{{$url}}"{{$item2['external'] ? 'target="_blank"' : ''}}>{{$item2['name']}}</a>
+									<a href="{{$url}}"{{$item2->external ? 'target="_blank"' : ''}}>{{$item2->name}}</a>
 								</li>
 								@endforeach
 							</ul>
@@ -65,7 +62,7 @@ if(!defined("__GOOSE__")){exit();}
 	</div>
 
 	<footer class="footer">
-		<p class="copyright">{{$pref['string']['copyright']}}</p>
+		<p class="copyright">{{$pref->string->copyright}}</p>
 	</footer>
 </main>
 <script>window.pref = JSON.parse(decodeURIComponent('{{$prefString}}'));</script>

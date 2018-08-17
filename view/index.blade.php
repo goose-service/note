@@ -18,7 +18,7 @@ if(!defined("__GOOSE__")){exit();}
 			@if($_GET['keyword'])
 			Search keyword : {{$_GET['keyword']}}
 			@else
-			{{ ($data['nest']['name']) ? $data['nest']['name'] : $pref['string']['intro_title'] }}
+			{{ ($data->nest->name) ? $data->nest->name : $pref->string->intro_title }}
 			@endif
 		</h1>
 		<nav>
@@ -48,14 +48,14 @@ if(!defined("__GOOSE__")){exit();}
 		</nav>
 	</header>
 
-	@if(count($data['category']))
+	@if($data->categories && count($data->categories))
 	<div>
 		<ul class="category-index">
-			@foreach($data['category'] as $k=>$v)
-			<li{!! ($v['active']) ? ' class="active"' : '' !!}>
-				<a href="{{__ROOT__}}/index/{{$nest_id}}/{{($v['srl'] > 0) ? $v['srl'].'/' : ''}}" data-key="{{$v['srl']}}">
-					<span>{{$v['name']}}</span>
-					<em>{{$v['count']}}</em>
+			@foreach($data->categories as $k=>$v)
+			<li{!! ($v->active) ? ' class="active"' : '' !!}>
+				<a href="{{__ROOT__}}/index/{{$nest_id}}/{{($v->srl > 0) ? $v->srl.'/' : ''}}" data-key="{{$v->srl}}">
+					<span>{{$v->name}}</span>
+					<em>{{$v->count_article}}</em>
 				</a>
 			</li>
 			@endforeach
@@ -63,37 +63,31 @@ if(!defined("__GOOSE__")){exit();}
 	</div>
 	@endif
 
-	@if(count($data['articles']))
-	<!--
-		style guide
-		"style-card" : card style
-		"style-thumbnail" : thumbnail style
-		"color-dark" : dark color
-	-->
-	<ul class="index {{$pref['index']['classNames']['list']}}">
-		@foreach($data['articles'] as $k=>$v)
+	@if($data->articles && count($data->articles))
+	<ul class="index {{$pref->index->classNames->list}}">
+		@foreach($data->articles as $k=>$v)
 		<li>
-			<a href="{{__ROOT__}}/article/{{$v['srl']}}/">
-				@if($pref['index']['print_thumbnail'])
-					@if($v['json']['thumbnail']['url'])
-					<figure style="background-image: url('{{__GOOSE_ROOT__}}/{{$v['json']['thumbnail']['url']}}')"></figure>
+			<a href="{{__ROOT__}}/article/{{$v->srl}}/">
+				@if($pref->index->print_thumbnail)
+					@if($v->json->thumbnail->path)
+					<figure style="background-image: url('{{__GOOSE_ROOT__}}/{{$v->json->thumbnail->path}}')"></figure>
 					@else
 					<figure class="not-image"></figure>
 					@endif
 				@endif
 				<div>
-					<strong>{{$v['title']}}</strong>
+					<strong>{{$v->title}}</strong>
 					<div class="meta">
-						<p><span>{{$v['regdate']}}</span></p>
-						@if($v['category_name'])
+						<p><span>{{$v->regdate}}</span></p>
+						@if($v->category_name)
 						<p>
 							<span>Cateogry</span>
-							<em>{{$v['category_name']}}</em>
+							<em>{{$v->category_name}}</em>
 						</p>
 						@endif
 						<p>
 							<span>Hit</span>
-							<em>{{$v['hit']}}</em>
+							<em>{{$v->hit}}</em>
 						</p>
 					</div>
 				</div>
@@ -108,15 +102,15 @@ if(!defined("__GOOSE__")){exit();}
 	</div>
 	@endif
 
-	@if($data['pageNavigation'])
+	@if($data->pageNavigation)
 	<?php
-	$nav = $data['pageNavigation'];
-	$url_prev = ($nav->prev) ? makeLinkUrl($_target, $_params, [ 'keyword' => $_GET['keyword'], 'page' => $nav->prev['id'] ]) : '';
-	$url_next = ($nav->next) ? makeLinkUrl($_target, $_params, [ 'keyword' => $_GET['keyword'], 'page' => $nav->next['id'] ]) : '';
+	$nav = $data->pageNavigation;
+	$url_prev = ($nav->prev) ? makeLinkUrl($_target, $_params, [ 'keyword' => $_GET['keyword'], 'page' => $nav->prev->id ]) : '';
+	$url_next = ($nav->next) ? makeLinkUrl($_target, $_params, [ 'keyword' => $_GET['keyword'], 'page' => $nav->next->id ]) : '';
 	?>
 	<nav class="paginate">
 		@if($nav->prev)
-		<a href="{{$url_prev}}" title="{{$nav->prev['name']}}" data-key="{{$nav->prev['id']}}" class="dir">
+		<a href="{{$url_prev}}" title="{{$nav->prev->name}}" data-key="{{$nav->prev->id}}" class="dir">
 			<i class="lnr lnr-chevron-left"></i>
 		</a>
 		@endif
@@ -132,7 +126,7 @@ if(!defined("__GOOSE__")){exit();}
 			@endif
 		@endforeach
 		@if($nav->next)
-		<a href="{{$url_next}}" title="{{$nav->next['name']}}" data-key="{{$nav->next['id']}}" class="dir">
+		<a href="{{$url_next}}" title="{{$nav->next->name}}" data-key="{{$nav->next->id}}" class="dir">
 			<i class="lnr lnr-chevron-right"></i>
 		</a>
 		@endif

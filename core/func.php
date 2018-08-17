@@ -122,3 +122,59 @@ function isCookieKey($keyName='', $day=1)
 		return false;
 	}
 }
+
+
+/**
+ * set cookie key
+ *
+ * @param string $keyName
+ * @param int $day
+ */
+function setCookieKey($keyName='', $day=1)
+{
+	setcookie(
+		$keyName,
+		1,
+		time() + 3600 * 24 * $day,
+		__COOKIE_ROOT__
+	);
+}
+
+
+/**
+ * call external api
+ *
+ * @param string $url
+ * @param object $params
+ * @param string $method
+ * @return object
+ */
+function externalApi($url, $params=null, $method='get')
+{
+	try
+	{
+		$params = $params ? '?'.http_build_query($params) : '';
+
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, __GOOSE_ROOT__.$url.$params);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_POST, ($method === 'post'));
+		curl_setopt($ch, CURLOPT_HTTPHEADER, ['Authorization: ' . __TOKEN_PUBLIC__]);
+		$response = curl_exec($ch);
+		$http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+		curl_close($ch);
+
+		if (!$response)
+		{
+			throw new Exception('no response');
+		}
+
+		$response = json_decode($response);
+		if (!$response->success) throw new Exception($response->message);
+		return $response->data;
+	}
+	catch(Exception $e)
+	{
+		return null;
+	}
+}

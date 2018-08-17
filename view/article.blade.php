@@ -9,27 +9,27 @@
 @section('contents')
 <article class="article-view" id="article">
 	<header>
-		<h1>{{$data['article']['title']}}</h1>
+		<h1>{{$data->article->title}}</h1>
 		<div class="metas">
-			@if($data['category']['name'])
+			@if($data->article->category_name)
 			<p>
 				<span>Category</span>
-				<em>{{$data['category']['name']}}</em>
+				<em>{{$data->article->category_name}}</em>
 			</p>
 			@endif
 			<p>
 				<span>Date</span>
-				<em>{{$data['article']['regdate']}}</em>
+				<em>{{$data->article->regdate}}</em>
 			</p>
 			<p>
 				<span>Hit</span>
-				<em>{{$data['article']['hit']}}</em>
+				<em>{{$data->article->hit}}</em>
 			</p>
 		</div>
 	</header>
 
 	<div class="body">
-		{!! $data['article']['content'] !!}
+		{!! $data->article->content !!}
 	</div>
 
 	<nav class="bottom">
