@@ -69,7 +69,7 @@ class API {
 				$result->nest = externalApi('/nests/id/'.$options->nest_id);
 				if (!isset($result->nest->srl))
 				{
-					throw new Exception('not found nest data');
+					throw new Exception('not found nest data', 500);
 				}
 
 				// get categories list
@@ -113,10 +113,10 @@ class API {
 			if ($nest_srl) $opts->nest = $nest_srl;
 			if ($options->category_srl) $opts->category = (int)$options->category_srl;
 			$opts->field = $options->field ? $options->field : 'srl,nest_srl,category_srl,title,hit,regdate,json';
-			if ($options->keyword)
+			if ($_GET['keyword'] && mb_strlen($_GET['keyword']) > 1)
 			{
-				$opts->title = $options->keyword;
-				$opts->content = $options->keyword;
+				$opts->title = $_GET['keyword'];
+				$opts->content = $_GET['keyword'];
 			}
 			$opts->size = $options->size;
 			$opts->page = (isset($options->page) && $options->page > 1) ? $options->page : 1;
@@ -130,7 +130,7 @@ class API {
 			// check article
 			if (!$result->articles)
 			{
-				throw new Exception('Not found article');
+				throw new Exception('Not found article', 404);
 			}
 
 			// set paginate instance
@@ -162,6 +162,7 @@ class API {
 		{
 			return (object)[
 				'state' => 'error',
+				'code' => $e->getCode(),
 				'message' => $e->getMessage(),
 			];
 		}
@@ -175,51 +176,56 @@ class API {
 	 */
 	public function view($options)
 	{
-		// check article_srl
-		if (!$options->article_srl)
+		try
+		{
+			// check article_srl
+			if (!$options->article_srl)
+			{
+				throw new Exception('Not found article_srl', 404);
+			}
+
+			// get article data
+			$article = externalApi('/articles/'.$options->article_srl, (object)[
+				'field' => $options->field ? $options->field : '',
+				'ext_field' => 'category_name',
+			]);
+			if (!$article)
+			{
+				throw new Exception('not found article data', 404);
+			}
+
+			$article->regdate = Util::convertDate($article->regdate);
+			$article->modate = Util::convertDate($article->modate);
+
+			// convert content
+			require_once(__PWD__.'vendor/parsedown/Parsedown.php');
+			$parseDown = new Parsedown();
+			$article->content = '<div class="markdown-body">'.$parseDown->text($article->content).'</div>';
+
+			// get nest data
+			$nest = externalApi('/nests/'.(int)$article->nest_srl, (object)[
+				'field' => 'srl,name,id,json'
+			]);
+
+			return (object)[
+				'state' => 'success',
+				'article' => $article,
+				'nest' => $nest,
+				'anotherArticle' => [
+					'prev' => null,
+					'next' => null,
+				],
+				'checkUpdateHit' => ($options->updateHit) ? ($this->updateHit((int)$options->article_srl)) : null,
+			];
+		}
+		catch(Exception $e)
 		{
 			return (object)[
 				'state' => 'error',
-				'message' => 'not found article_srl'
+				'code' => $e->getCode(),
+				'message' => $e->getMessage(),
 			];
 		}
-
-		// get article data
-		$article = externalApi('/articles/'.$options->article_srl, (object)[
-			'field' => $options->field ? $options->field : '',
-			'ext_field' => 'category_name',
-		]);
-		if (!$article)
-		{
-			return (object)[
-				'state' => 'error',
-				'message' => 'not found article data'
-			];
-		}
-
-		$article->regdate = Util::convertDate($article->regdate);
-		$article->modate = Util::convertDate($article->modate);
-
-		// convert content
-		require_once(__PWD__.'vendor/parsedown/Parsedown.php');
-		$parseDown = new Parsedown();
-		$article->content = '<div class="markdown-body">'.$parseDown->text($article->content).'</div>';
-
-		// get nest data
-		$nest = externalApi('/nests/'.(int)$article->nest_srl, (object)[
-			'field' => 'srl,name,id,json'
-		]);
-
-		return (object)[
-			'state' => 'success',
-			'article' => $article,
-			'nest' => $nest,
-			'anotherArticle' => [
-				'prev' => null,
-				'next' => null,
-			],
-			'checkUpdateHit' => ($options->updateHit) ? ($this->updateHit((int)$options->article_srl)) : null,
-		];
 	}
 
 	/**

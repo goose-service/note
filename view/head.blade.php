@@ -30,4 +30,3 @@ $description = ($_target == 'article' && isset($data->article->content)) ? rende
 <link rel="apple-touch-icon" href="{{__REDGOOSE_ROOT__}}/assets/icons/redgoose_app_256x256x32.png">
 
 <link rel="stylesheet" href="{{__ROOT__}}/assets/css/app.css"/>
-<link rel="stylesheet" href="{{__ROOT__}}/assets/css/layout--user.css">

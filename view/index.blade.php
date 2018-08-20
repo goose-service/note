@@ -31,7 +31,7 @@ if(!defined("__GOOSE__")){exit();}
 						<form action="{{__ROOT__}}" method="get" class="keyword-search">
 							<fieldset>
 								<legend class="blind">Keyword search form</legend>
-								<span><input type="text" name="keyword" value="{{$_GET['keyword']}}" maxlength="20" placeholder="Search Keyword"></span>
+								<span><input type="text" name="keyword" value="{{$_GET['keyword']}}" maxlength="20" placeholder="Search Keyword" minlength="2"/></span>
 								<button type="submit" class="reset"><i class="lnr lnr-chevron-right"></i></button>
 							</fieldset>
 						</form>
@@ -98,7 +98,7 @@ if(!defined("__GOOSE__")){exit();}
 	@else
 	<div class="not-item">
 		<i class="lnr lnr-inbox"></i>
-		<span>Not found article</span>
+		<span>{{$errorMessage ? $errorMessage : 'Service error'}}</span>
 	</div>
 	@endif
 

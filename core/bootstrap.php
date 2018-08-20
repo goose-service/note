@@ -7,7 +7,6 @@ if(!defined("__GOOSE__")){exit();}
 // is localhost
 define('__IS_LOCAL__', (preg_match("/(192.168)/", $_SERVER['REMOTE_ADDR']) || ($_SERVER['REMOTE_ADDR'] == "::1")) ? true : false);
 
-
 // load program files
 require_once(__PWD__.'/vendor/Router/AltoRouter.php');
 require_once(__PWD__.'/vendor/BladeOne/BladeOne.php');
@@ -56,7 +55,8 @@ if ($router->match())
 
 	switch ($_target) {
 		case 'index':
-			// set print
+			// set values
+			$errorMessage = null;
 			$printData = 'nest,category,article';
 			$printData .= ($pref->index->print_paginate) ? ',nav_paginate' : '';
 
@@ -86,8 +86,16 @@ if ($router->match())
 			}
 			if ($data->state !== 'success')
 			{
-				echo 'not found data';
-				exit;
+				switch ($data->code)
+				{
+					case 404:
+						$errorMessage = 'Not found article';
+						break;
+					case 500:
+					default:
+						$errorMessage = 'Service error';
+						break;
+				}
 			}
 
 			// render
@@ -98,11 +106,13 @@ if ($router->match())
 				'prefString' => $prefString,
 				'nest_id' => (isset($_params['nest'])) ? $_params['nest'] : null,
 				'data' => $data,
+				'errorMessage' => $errorMessage,
 			]);
 			break;
 
 		case 'article':
-			// set article_srl
+			// set values
+			$errorMessage = null;
 			$article_srl = (isset($_params['article'])) ? (int)$_params['article'] : null;
 
 			// get article
@@ -114,8 +124,16 @@ if ($router->match())
 			]);
 			if ($data->state !== 'success')
 			{
-				echo $data->message;
-				exit;
+				switch ($data->code)
+				{
+					case 404:
+						$errorMessage = 'Not found article';
+						break;
+					case 500:
+					default:
+						$errorMessage = 'Service error';
+						break;
+				}
 			}
 
 			// save referer
@@ -129,6 +147,7 @@ if ($router->match())
 				'pref' => $pref,
 				'prefString' => $prefString,
 				'data' => $data,
+				'errorMessage' => $errorMessage
 			]);
 			break;
 

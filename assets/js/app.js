@@ -24,6 +24,13 @@
 		// toggle dropdown
 		document.querySelector('.' + searchElementNames.button).addEventListener('click', function(e) {
 			this.parentNode.classList.toggle('active');
+			if (this.parentNode.classList.contains('active'))
+			{
+				if (this.parentNode.querySelector('input[type=text]'))
+				{
+					this.parentNode.querySelector('input[type=text]').focus();
+				}
+			}
 		});
 
 		// close dropdown

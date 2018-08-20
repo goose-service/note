@@ -59,7 +59,7 @@ main {
 	.gnb {
 		position: relative;
 		z-index: 2;
-		margin: 2px 0 0;
+		margin: 5px 0 0;
 		display: flex;
 		justify-content: center;
 		ul {
@@ -93,8 +93,8 @@ main {
 				transition: opacity 0.2s;
 				> a {
 					display: inline-block;
-					padding: 5px 15px 10px;
-					font-size: 13px;
+					padding: 5px 12px 10px;
+					font-size: 12px;
 					&:hover {
 						text-decoration: underline;
 					}
@@ -871,6 +871,26 @@ main {
 					border-top: none;
 				}
 			}
+		}
+	}
+}
+
+
+// not found article
+.not-found-article {
+	text-align: center;
+	background: #f6f6f6;
+	padding: 10vh 0;
+	h1 {
+		margin: 0;
+		font-size: 22px;
+	}
+	nav {
+		margin: 5px 0 0;
+		a {
+			font-size: 14px;
+			color: $color-key;
+			font-weight: 600;
 		}
 	}
 }
