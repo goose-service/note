@@ -22,7 +22,10 @@ $pref = externalApi('/json/'.__JSON_SRL_PREFERENCE__);
 $prefString = '';
 if (!$pref)
 {
-	echo 'not found pref data';
+	echo $blade->run('error', [
+		'solo' => true,
+		'message' => 'not found pref data'
+	]);
 	exit;
 }
 else
@@ -134,6 +137,11 @@ if ($router->match())
 						$errorMessage = 'Service error';
 						break;
 				}
+				echo $blade->run('error', [
+					'solo' => true,
+					'message' => $errorMessage
+				]);
+				exit;
 			}
 
 			// save referer
@@ -144,6 +152,8 @@ if ($router->match())
 
 			// render
 			echo $blade->run('article', [
+				'_params' => $_params,
+				'_target' => $_target,
 				'pref' => $pref,
 				'prefString' => $prefString,
 				'data' => $data,
@@ -152,7 +162,6 @@ if ($router->match())
 			break;
 
 		case 'page':
-			// render
 			$blade->render('page', [
 				'pref' => $pref,
 				'prefString' => $prefString,
@@ -164,6 +173,9 @@ if ($router->match())
 else
 {
 	// 404 error
-	echo '404';
+	echo $blade->run('error', [
+		'solo' => true,
+		'message' => 'Not found page',
+	]);
 	exit;
 }

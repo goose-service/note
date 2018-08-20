@@ -3,9 +3,9 @@
 /** @var array $pref */
 /** @var string $_target */
 $title = $pref->meta->title;
-$title .= ($_target == 'index' && isset($data->nest->name)) ? ' - '.$data->nest->name : '';
-$title .= ($_target == 'index' && isset($data->category_name)) ? ' - '.$data->category_name : '';
-$title .= ($_target == 'article' && isset($data->article->title)) ? ' - '.$data->article->title : '';
+$title .= ($_target == 'index' && isset($data->nest->name)) ? ' / '.$data->nest->name : '';
+$title .= ($_target == 'index' && isset($data->category_name)) ? ' / '.$data->category_name : '';
+$title .= ($_target == 'article' && isset($data->article->title)) ? ' / '.$data->article->title : '';
 $description = ($_target == 'article' && isset($data->article->content)) ? renderDescription($data->article->content) : $pref->meta->description;
 ?>
 

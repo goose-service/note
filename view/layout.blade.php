@@ -12,6 +12,7 @@ if(!defined("__GOOSE__")){exit();}
 @yield('style')
 </head>
 <body>
+@if(!$solo)
 <main>
 	<header class="header">
 		<h1>
@@ -65,9 +66,15 @@ if(!defined("__GOOSE__")){exit();}
 		<p class="copyright">{{$pref->string->copyright}}</p>
 	</footer>
 </main>
+@else
+	@yield('contents')
+@endif
+
+@if($prefString && !$solo)
 <script>window.pref = JSON.parse(decodeURIComponent('{{$prefString}}'));</script>
 <script src="{{__ROOT__}}/vendor/jquery/jquery-3.3.1.slim.min.js"></script>
 <script src="{{__ROOT__}}/assets/js/app.js"></script>
+@endif
 @yield('script')
 </body>
 </html>

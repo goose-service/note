@@ -896,6 +896,33 @@ main {
 }
 
 
+// error page
+.page-error {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	display: table;
+	width: 100%;
+	height: 100%;
+	&__wrap {
+		display: table-cell;
+		text-align: center;
+		vertical-align: middle;
+	}
+	h1 {
+		font-size: 42px;
+	}
+	nav {
+		a {
+			color: $color-key;
+			font-weight: bold;
+		}
+	}
+}
+
+
 /* Page View */
 .page-view {
 	.view-basic {
