@@ -1,0 +1,24 @@
+{
+  "name": "simple-note",
+  "version": "1.4.0",
+  "private": false,
+  "license": "MIT",
+  "scripts": {
+    "build": "gulp scss",
+    "watch": "gulp watch"
+  },
+  "author": "Redgoose",
+  "description": "Note style app from goose",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dev-goose/simple-note.git"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^4.0.0",
+    "gulp-uglify": "^3.0.0",
+    "jquery": "^3.3.1"
+  }
+}

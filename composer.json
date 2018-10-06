@@ -1,0 +1,10 @@
+{
+    "name": "redgoose/note.redgoose.me",
+    "authors": [
+        {
+            "name": "redgoose",
+            "email": "scripter@me.com"
+        }
+    ],
+    "require": {}
+}
