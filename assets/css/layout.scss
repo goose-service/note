@@ -1,0 +1,35 @@
+@import "./libs/valiables";
+@import "./libs/mixins";
+
+// header
+.header {
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	height: $size-header-height-mobile;
+	background: rgba(#000, .75);
+	&__body {
+		display: flex;
+		justify-content: center;
+	}
+	&__logo {
+		margin: 0;
+		a {
+			display: block;
+			padding: 8px;
+		}
+		img {
+			display: block;
+			width: 72px;
+		}
+	}
+	&__navigation {
+		position: absolute;
+	}
+}
+
+// footer
+.footer {
+	border: 1px solid #000;
+}
