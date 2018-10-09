@@ -97,7 +97,7 @@ class Util {
 		}
 
 		// render
-		$blade->render($_GET['mode'] === 'popup' ? 'error.popup' : 'error.main', (object)[
+		$blade->render('error', (object)[
 			'title' => getenv('TITLE'),
 			'message' => $message,
 		]);
@@ -220,4 +220,31 @@ class Util {
 		return $result;
 	}
 
+	/**
+	 * make navigation
+	 *
+	 * @param int $total
+	 * @param int $page
+	 * @param int $size
+	 * @param array $params
+	 * @return object
+	 */
+	static public function makeNavigation($total, $page=1, $size=10, $params=[])
+	{
+		if ($total && $total > 0)
+		{
+			$result = (object)[];
+			// set paginate for desktop
+			$paginate = new Paginate($total, $page, $params, $size, getenv('DEFAULT_NAVIGATION_SCALE_DESKTOP'));
+			$result->desktop = $paginate->createNavigationToObject();
+			$paginate = new Paginate($total, $page, $params, $size, getenv('DEFAULT_NAVIGATION_SCALE_MOBILE'));
+			$result->mobile = $paginate->createNavigationToObject();
+		}
+		else
+		{
+			$result = null;
+		}
+
+		return $result;
+	}
 }

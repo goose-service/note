@@ -183,14 +183,68 @@ require("../css/app.scss");
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Redgoose = function Redgoose() {
-  var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-  _classCallCheck(this, Redgoose);
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-  //
-  console.log('hello world');
-};
+var Redgoose =
+/*#__PURE__*/
+function () {
+  /**
+   * constructor
+   *
+   * @param {Object} options
+   */
+  function Redgoose() {
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+    _classCallCheck(this, Redgoose);
+
+    this.headerElements = {
+      navigation: document.getElementById('headerNavigation'),
+      search: document.getElementById('headerSearch'),
+      searchForm: document.getElementById('search_keyword')
+    }; // init events
+
+    this.initialHeaderEvents(); // search form event
+
+    console.log(this.headerElements.searchForm);
+    this.headerElements.searchForm.addEventListener('submit', this.onSubmitSearchKeyword);
+  }
+  /**
+   * initial header events
+   */
+
+
+  _createClass(Redgoose, [{
+    key: "initialHeaderEvents",
+    value: function initialHeaderEvents() {
+      var self = this;
+      var navigation = this.headerElements.navigation.children[0];
+      var search = this.headerElements.search.children[0];
+      navigation.addEventListener('click', function (e) {
+        self.headerElements.search.classList.remove('active');
+        e.currentTarget.parentNode.classList.toggle('active');
+      });
+      search.addEventListener('click', function (e) {
+        self.headerElements.navigation.classList.remove('active');
+        e.currentTarget.parentNode.classList.toggle('active'); // on focus input form
+
+        if (e.currentTarget.parentNode.classList.contains('active')) {
+          e.currentTarget.parentNode.querySelector('input[type=text]').focus();
+        }
+      });
+    }
+  }, {
+    key: "onSubmitSearchKeyword",
+    value: function onSubmitSearchKeyword(e) {
+      console.log(e); // TODO: 검색 이벤트를 왜 만들었는지 갑자기 생각 안나지만 생각나면 작업하기
+      //e.preventDefault();
+    }
+  }]);
+
+  return Redgoose;
+}();
 
 module.exports = Redgoose;
 },{"../css/app.scss":"../css/app.scss"}],"../../node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
