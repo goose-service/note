@@ -104,7 +104,18 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 
   // Override the current require with this new one
   return newRequire;
-})({"../../node_modules/parcel/src/builtins/bundle-url.js":[function(require,module,exports) {
+})({"ajax.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = _default;
+
+function _default() {}
+
+;
+},{}],"../../node_modules/parcel/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
@@ -179,7 +190,11 @@ module.hot.accept(reloadCSS);
 },{"_css_loader":"../../node_modules/parcel/src/builtins/css-loader.js"}],"app.js":[function(require,module,exports) {
 "use strict";
 
+var _ajax = _interopRequireDefault(require("./ajax"));
+
 require("../css/app.scss");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -204,9 +219,18 @@ function () {
       navigation: document.getElementById('headerNavigation'),
       search: document.getElementById('headerSearch'),
       searchForm: document.getElementById('search_keyword')
+    };
+    this.articleElements = {
+      main: document.getElementById('article'),
+      content: document.getElementById('article_content'),
+      buttonLike: document.getElementById('button_like')
     }; // init events
 
-    this.initialHeaderEvents();
+    this.initialHeaderEvents(); // init events in article
+
+    if (this.articleElements.main) {
+      this.initialArticle();
+    }
   }
   /**
    * initial header events
@@ -270,13 +294,31 @@ function () {
         }
       });
     }
+    /**
+     * initial article
+     */
+
+  }, {
+    key: "initialArticle",
+    value: function initialArticle() {
+      // images in content
+      this.articleElements.content.querySelectorAll('img').forEach(function (img, key) {
+        if (img.parentNode) {
+          img.parentNode.classList.add('image');
+        }
+      }); // button like event
+
+      this.articleElements.buttonLike.addEventListener('click', function () {
+        console.log('sdgko,sdg');
+      });
+    }
   }]);
 
   return Redgoose;
 }();
 
 module.exports = Redgoose;
-},{"../css/app.scss":"../css/app.scss"}],"../../node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./ajax":"ajax.js","../css/app.scss":"../css/app.scss"}],"../../node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -303,7 +345,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62728" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52293" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

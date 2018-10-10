@@ -63,9 +63,6 @@ if(!defined("__GOOSE__")){exit();}
 	@endif
 
 	@if($navigation && ($navigation->desktop || $navigation->mobile))
-	<?php
-	\Core\Util::console($navigation);
-	?>
 	<div class="index__paginate">
 		@if($navigation->desktop)
 		<nav class="index-paginate index-paginate--desktop">

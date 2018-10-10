@@ -1,4 +1,6 @@
+import ajax from './ajax';
 import '../css/app.scss';
+
 
 class Redgoose {
 
@@ -14,9 +16,20 @@ class Redgoose {
 			search: document.getElementById('headerSearch'),
 			searchForm: document.getElementById('search_keyword'),
 		};
+		this.articleElements = {
+			main: document.getElementById('article'),
+			content: document.getElementById('article_content'),
+			buttonLike: document.getElementById('button_like'),
+		};
 
 		// init events
 		this.initialHeaderEvents();
+
+		// init events in article
+		if (this.articleElements.main)
+		{
+			this.initialArticle();
+		}
 	}
 
 	/**
@@ -85,6 +98,25 @@ class Redgoose {
 					}
 				}
 			}
+		});
+	}
+
+	/**
+	 * initial article
+	 */
+	initialArticle()
+	{
+		// images in content
+		this.articleElements.content.querySelectorAll('img').forEach((img, key) => {
+			if (img.parentNode)
+			{
+				img.parentNode.classList.add('image')
+			}
+		});
+
+		// button like event
+		this.articleElements.buttonLike.addEventListener('click', () => {
+			console.log('sdgko,sdg');
 		});
 	}
 

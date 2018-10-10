@@ -44,6 +44,7 @@ try {
 
 		switch($_target)
 		{
+			// index - intro
 			case 'index':
 				// get articles
 				$res = Util::api('/articles', (object)[
@@ -78,6 +79,7 @@ try {
 				]);
 				break;
 
+			// index - select nest
 			case 'index/nest':
 				$res = Util::api('/external/note-redgoose-me-nest', (object)[
 					'nest_id' => isset($_params->nest) ? $_params->nest : null,
@@ -115,11 +117,45 @@ try {
 				]);
 				break;
 
+			// index - search keyword
 			case 'index/search':
-				// TODO
-				var_dump('TODO: search page', $_GET['q']);
+				$res = Util::api('/articles', (object)[
+					'field' => 'srl,nest_srl,category_srl,json,title,regdate',
+					'order' => 'regdate',
+					'sort' => 'desc',
+					'app' => getenv('DEFAULT_APP_SRL'),
+					'size' => getenv('DEFAULT_INDEX_SIZE'),
+					'page' => Util::getPage(),
+					'ext_field' => 'category_name,nest_name',
+					'keyword' => $_GET['q'],
+				]);
+				if (!($res && $res->success)) throw new Exception($res->message);
+
+				// set title
+				$title = getenv('TITLE');
+				if (isset($_GET['q'])) $title = $_GET['q'].' - '.$title;
+
+				// set navigation
+				$navigation = Util::makeNavigation(
+					$res->data->total,
+					Util::getPage(),
+					getenv('DEFAULT_INDEX_SIZE'),
+					[ 'q' => $_GET['q'] ]
+				);
+
+				// render page
+				$blade->render('index', (object)[
+					'title' => $title,
+					'pageTitle' => 'Search results: '.$_GET['q'],
+					'index' => Util::convertArticleData($res->data->index),
+					'page' => Util::getPage(),
+					'navigation' => $navigation,
+					'url' => isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : '',
+					'searchKeyword' => $_GET['q'],
+				]);
 				break;
 
+			// article
 			case 'article':
 				$res = Util::api('/articles/'.(int)$_params->srl, (object)[
 					'hit' => Util::checkCookie('redgoose-hit-'.$_params->srl) ? 0 : 1,
@@ -138,9 +174,24 @@ try {
 				$parsedown = new \Parsedown();
 				$res->data->content = $parsedown->text($res->data->content);
 
-				// TODO: render page
+				// set title
+				$title = getenv('TITLE');
+				$title = ($res->data->title === '.' ? 'Untitled work' : $res->data->title).' - '.$title;
+
+				// set image
+				$image = (isset($res->data->json->thumbnail->path)) ? __API__.'/'.$res->data->json->thumbnail->path : __API__.'/usr/icons/og-redgoose.jpg';
+
+				// render page
+				$blade->render('article', (object)[
+					'title' => $title,
+					'description' => Util::contentToShortText($res->data->content),
+					'image' => $image,
+					'data' => $res->data,
+					'onLike' => Util::checkCookie('redgoose-like-'.$_params->srl),
+				]);
 				break;
 
+			// page
 			case 'page':
 				$_page = $_params->name;
 				// check page file
@@ -161,7 +212,6 @@ catch (Exception $e)
 {
 	try
 	{
-		// TODO: 오류 페이지 작업하기
 		Util::error($e, $blade);
 	}
 	catch(Exception $e)

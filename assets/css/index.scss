@@ -63,7 +63,7 @@
 		margin: 0;
 		box-shadow: 0 3px 15px rgba(#000, .15);
 		&:nth-child(n+2) {
-			margin-top: 1px;
+			margin-top: .5px;
 		}
 		&__wrap {
 			display: flex;
@@ -92,7 +92,7 @@
 				display: block;
 				width: 100%;
 				height: 100%;
-				background: #fafafa;
+				background: #f4f4f4;
 			}
 		}
 		&__body {

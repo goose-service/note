@@ -85,13 +85,15 @@ class Util {
 			]);
 		}
 
-		switch ($error->getCode())
+		$code = $error->getCode();
+		switch ($code)
 		{
 			case 404:
 				$message = 'Not found page';
 				break;
 			case 500:
 			default:
+				$code = 500;
 				$message = 'Service error';
 				break;
 		}
@@ -99,6 +101,7 @@ class Util {
 		// render
 		$blade->render('error', (object)[
 			'title' => getenv('TITLE'),
+			'code' => $code,
 			'message' => $message,
 		]);
 		exit;
