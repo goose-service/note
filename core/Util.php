@@ -211,8 +211,8 @@ class Util {
 			$result[] = (object)[
 				'srl' => (int)$item->srl,
 				'title' => $item->title === '.' ? 'untitled article' : $item->title,
-				'image' => $item->json->thumbnail->path,
-				'category_name' => $item->category_name,
+				'image' => isset($item->json->thumbnail->path) ? $item->json->thumbnail->path : null,
+				'category_name' => isset($item->category_name) ? $item->category_name : null,
 				'regdate' => self::convertDate($item->regdate),
 			];
 		}

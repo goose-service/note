@@ -75,7 +75,7 @@ if(!defined("__GOOSE__")){exit();}
 				</a>
 			@endif
 			@foreach($navigation->desktop->body as $key=>$item)
-				@if($item->active)
+				@if(isset($item->active))
 					<strong class="index-paginate__unit active">
 						<span>{{$item->name}}</span>
 					</strong>
@@ -100,7 +100,7 @@ if(!defined("__GOOSE__")){exit();}
 				</a>
 			@endif
 			@foreach($navigation->mobile->body as $key=>$item)
-				@if($item->active)
+				@if(isset($item->active))
 				<strong class="index-paginate__unit active">
 					<span>{{$item->name}}</span>
 				</strong>

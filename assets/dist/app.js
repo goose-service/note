@@ -206,10 +206,7 @@ function () {
       searchForm: document.getElementById('search_keyword')
     }; // init events
 
-    this.initialHeaderEvents(); // search form event
-
-    console.log(this.headerElements.searchForm);
-    this.headerElements.searchForm.addEventListener('submit', this.onSubmitSearchKeyword);
+    this.initialHeaderEvents();
   }
   /**
    * initial header events
@@ -221,25 +218,57 @@ function () {
     value: function initialHeaderEvents() {
       var self = this;
       var navigation = this.headerElements.navigation.children[0];
-      var search = this.headerElements.search.children[0];
+      var search = this.headerElements.search.children[0]; // navigation dropdown event
+
       navigation.addEventListener('click', function (e) {
         self.headerElements.search.classList.remove('active');
         e.currentTarget.parentNode.classList.toggle('active');
-      });
+        e.currentTarget.parentNode.querySelector('.dropdown-content').classList.toggle('active');
+      }); // search dropdown event
+
       search.addEventListener('click', function (e) {
         self.headerElements.navigation.classList.remove('active');
-        e.currentTarget.parentNode.classList.toggle('active'); // on focus input form
+        e.currentTarget.parentNode.classList.toggle('active');
+        e.currentTarget.parentNode.querySelector('.dropdown-content').classList.toggle('active'); // on focus input form
 
         if (e.currentTarget.parentNode.classList.contains('active')) {
           e.currentTarget.parentNode.querySelector('input[type=text]').focus();
         }
+      }); // input keyword event from search input
+
+      var searchInput = this.headerElements.searchForm.q;
+      if (searchInput.value.length) searchInput.parentNode.classList.add('is-word');
+      searchInput.addEventListener('keyup', function (e) {
+        if (searchInput.value.length) {
+          searchInput.parentNode.classList.add('is-word');
+        } else {
+          searchInput.parentNode.classList.remove('is-word');
+        }
+      }); // reset event from search input
+
+      var searchReset = this.headerElements.searchForm.querySelector('button[type=reset]');
+      searchReset.addEventListener('click', function (e) {
+        e.preventDefault();
+        searchInput.value = '';
+        searchInput.parentNode.classList.remove('is-word');
+        searchInput.focus();
+      }); // dropdown content 닫기에 관련된 이벤트
+
+      window.addEventListener('click', function (e) {
+        if (!e.target.matches('.dropdown-button')) {
+          if (!!e.target.closest('.dropdown-content')) return;
+          var dropdowns = document.getElementsByClassName('dropdown-content');
+
+          for (var i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+
+            if (openDropdown.classList.contains('active')) {
+              openDropdown.parentNode.classList.remove('active');
+              openDropdown.classList.remove('active');
+            }
+          }
+        }
       });
-    }
-  }, {
-    key: "onSubmitSearchKeyword",
-    value: function onSubmitSearchKeyword(e) {
-      console.log(e); // TODO: 검색 이벤트를 왜 만들었는지 갑자기 생각 안나지만 생각나면 작업하기
-      //e.preventDefault();
     }
   }]);
 
@@ -274,7 +303,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57489" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62728" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

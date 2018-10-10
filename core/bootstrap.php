@@ -74,14 +74,14 @@ try {
 					'index' => Util::convertArticleData($res->data->index),
 					'page' => Util::getPage(),
 					'navigation' => $navigation,
-					'url' => $_SERVER['PATH_INFO'],
+					'url' => isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : '',
 				]);
 				break;
 
 			case 'index/nest':
 				$res = Util::api('/external/note-redgoose-me-nest', (object)[
-					'nest_id' => $_params->nest,
-					'category_srl' => $_params->category,
+					'nest_id' => isset($_params->nest) ? $_params->nest : null,
+					'category_srl' => isset($_params->category) ? $_params->category : null,
 					'ext_field' => 'item_all,count_article',
 					'page' => Util::getPage(),
 					'size' => getenv('DEFAULT_INDEX_SIZE'),
@@ -106,18 +106,18 @@ try {
 					'categories' => $res->data->categories,
 					'index' => Util::convertArticleData($res->data->articles->index),
 					'page' => Util::getPage(),
-					'nest_id' => $_params->nest,
-					'nest_srl' => $res->data->nest->srl,
-					'category_srl' => $_params->category,
+					'nest_id' => isset($_params->nest) ? $_params->nest : null,
+					'nest_srl' => isset($res->data->nest->srl) ? $res->data->nest->srl : null,
+					'category_srl' => isset($_params->category) ? $_params->category : null,
 					'category_name' => isset($res->data->category->name) ? $res->data->category->name : null,
 					'navigation' => $navigation,
-					'url' => $_SERVER['PATH_INFO'],
+					'url' => isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : '',
 				]);
 				break;
 
 			case 'index/search':
 				// TODO
-				var_dump('TODO: search page');
+				var_dump('TODO: search page', $_GET['q']);
 				break;
 
 			case 'article':

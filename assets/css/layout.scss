@@ -10,6 +10,9 @@
 	top: 0;
 	height: $size-header-height-mobile;
 	background: rgba(#000, .75);
+	@supports (backdrop-filter: blur(5px)) {
+		backdrop-filter: blur(5px);
+	}
 
 	&__body {
 		display: flex;
@@ -54,13 +57,14 @@
 				position: absolute;
 				left: 50%;
 				top: 50%;
+				pointer-events: none;
+				transition: transform .3s ease-out;
 				&.on {
 					margin: -6px 0 0 -9px;
-					opacity: 1;
 				}
 				&.off {
 					margin: -7px 0 0 -7px;
-					opacity: 0;
+					transform: scale(0);
 				}
 			}
 			&:active {
@@ -76,6 +80,14 @@
 		&.active {
 			> button {
 				background: rgba(#000, .2);
+				img {
+					&.on {
+						transform: scale(0);
+					}
+					&.off {
+						transform: scale(1);
+					}
+				}
 			}
 			> div {
 				opacity: 1;
@@ -103,13 +115,14 @@
 				position: absolute;
 				left: 50%;
 				top: 50%;
+				pointer-events: none;
+				transition: transform .3s ease-out;
 				&.on {
 					margin: -9px 0 0 -9px;
-					opacity: 1;
 				}
 				&.off {
 					margin: -7px 0 0 -7px;
-					opacity: 0;
+					transform: scale(0);
 				}
 			}
 			&:active {
@@ -125,6 +138,14 @@
 		&.active {
 			> button {
 				background: rgba(#000, .2);
+				img {
+					&.on {
+						transform: scale(0);
+					}
+					&.off {
+						transform: scale(1);
+					}
+				}
 			}
 			> div {
 				opacity: 1;
@@ -136,7 +157,7 @@
 	&-navigation {
 		ul {
 			margin: 0;
-			padding: 15px 0;
+			padding: 30px 0;
 			box-sizing: border-box;
 			list-style: none;
 			position: fixed;
@@ -146,6 +167,9 @@
 			align-items: center;
 			flex-wrap: wrap;
 			background: rgba(#000, .75);
+			@supports (backdrop-filter: blur(5px)) {
+				backdrop-filter: blur(5px);
+			}
 			&:before {
 				content: '';
 				position: absolute;
@@ -187,6 +211,9 @@
 			background: rgba(#000, .75);
 			display: flex;
 			align-items: center;
+			@supports (backdrop-filter: blur(5px)) {
+				backdrop-filter: blur(5px);
+			}
 			&:before {
 				content: '';
 				position: absolute;
@@ -213,18 +240,52 @@
 			position: absolute;
 			overflow: hidden;
 		}
-		input {
+		span {
+			position: relative;
 			display: block;
-			width: 100%;
-			height: 54px;
 			box-sizing: border-box;
-			border: none;
-			background: none;
-			outline: none;
-			color: #fff;
-			padding: 0 20px;
+			input {
+				display: block;
+				width: 100%;
+				height: 54px;
+				box-sizing: border-box;
+				border: none;
+				background: none;
+				outline: none;
+				color: #fff;
+				padding: 0 20px;
+			}
+			button {
+				position: absolute;
+				right: 0;
+				top: 0;
+				display: block;
+				width: 54px;
+				height: 100%;
+				background: none;
+				border: none;
+				font-size: 0;
+				outline: none;
+				transition: opacity .15s ease-out;
+				pointer-events: none;
+				opacity: 0;
+				svg {
+					color: #aaa;
+					width: 18px;
+					height: 18px;
+				}
+				&:active {
+					opacity: .5;
+				}
+			}
+			&.is-word {
+				button {
+					pointer-events: auto;
+					opacity: 1;
+				}
+			}
 		}
-		button {
+		button[type=submit] {
 			position: relative;
 			display: block;
 			width: 50px;
