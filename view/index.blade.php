@@ -44,7 +44,9 @@ if(!defined("__GOOSE__")){exit();}
 					@if($item->image)
 					<img src="{{__API__}}/{{$item->image}}" alt="{{$item->title}}">
 					@else
-					<span></span>
+					<span>
+						<img src="{{__ROOT__}}/assets/images/empty/{{rand(0,20)}}.svg" alt="">
+					</span>
 					@endif
 				</figure>
 				<div class="index-article__body">
