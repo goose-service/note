@@ -63,7 +63,10 @@
 		margin: 0;
 		box-shadow: 0 3px 15px rgba(#000, .15);
 		&:nth-child(n+2) {
-			margin-top: .5px;
+			margin-top: 1px;
+			@include retina() {
+				margin-top: .5px;
+			}
 		}
 		&__wrap {
 			display: flex;

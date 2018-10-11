@@ -21,6 +21,7 @@ catch(Exception $e)
 // set values
 define('__ROOT__', getenv('PATH_RELATIVE'));
 define('__API__', getenv('PATH_API'));
+define('__COOKIE_ROOT__', getenv('PATH_COOKIE'));
 
 // set default timezone
 if (getenv('TIMEZONE'))
@@ -170,6 +171,17 @@ try {
 					Util::setCookie('redgoose-hit-'.$_params->srl, '1', 7);
 				}
 
+				// set referer url
+				$refererUrl = __ROOT__.'/';
+				if (isset($_SERVER['HTTP_REFERER']))
+				{
+					preg_match('/'.$_SERVER['HTTP_HOST'].'/', $_SERVER['HTTP_REFERER'], $match);
+					if ($match && count($match))
+					{
+						$refererUrl = $_SERVER['HTTP_REFERER'];
+					}
+				}
+
 				// parse markdown
 				$parsedown = new \Parsedown();
 				$res->data->content = $parsedown->text($res->data->content);
@@ -188,6 +200,7 @@ try {
 					'image' => $image,
 					'data' => $res->data,
 					'onLike' => Util::checkCookie('redgoose-like-'.$_params->srl),
+					'refererUrl' => $refererUrl,
 				]);
 				break;
 

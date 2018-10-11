@@ -208,26 +208,18 @@
 	&__nav {
 		margin: 40px 0 0;
 		text-align: center;
-		.like {
-			display: block;
-			margin: 0 auto;
-			padding: 12px 20px 10px;
-			border: none;
-			cursor: pointer;
-			border-radius: 0;
-			background: none;
-			-webkit-tap-highlight-color: transparent;
-			user-select: none;
+		display: flex;
+		justify-content: center;
+		align-items: flex-start;
+		> * {
+			padding: 12px 0 10px;
+			width: 60px;
+			text-align: center;
+			font-size: 0;
 			svg {
+				box-sizing: border-box;
 				display: block;
 				margin: 0 auto;
-				width: 28px;
-				height: 28px;
-				transition: transform .3s cubic-bezier(.24, 1.35, .8, 1.22);
-				path {
-					fill: $color-key;
-					transition: fill .15s ease-out;
-				}
 			}
 			em {
 				display: block;
@@ -235,6 +227,27 @@
 				font-style: normal;
 				font-size: 10px;
 				color: #999;
+				line-height: 1;
+				font-family: $font-eng;
+			}
+		}
+		.like {
+			border: none;
+			cursor: pointer;
+			border-radius: 0;
+			background: none;
+			-webkit-tap-highlight-color: transparent;
+			user-select: none;
+			font-size: 0;
+			margin: 0;
+			svg {
+				width: 28px;
+				height: 28px;
+				transition: transform .3s cubic-bezier(.24, 1.35, .8, 1.22);
+				path {
+					fill: $color-key;
+					transition: fill .15s ease-out;
+				}
 			}
 			&:active {
 				outline: none;
@@ -262,6 +275,33 @@
 				svg {
 					width: 32px;
 					height: 32px;
+				}
+			}
+		}
+		.list {
+			text-decoration: none;
+			svg {
+				margin-top: 2px;
+				width: 24px;
+				height: 24px;
+				transition: transform .3s cubic-bezier(.24, 1.35, .8, 1.22);
+			}
+			em {
+				margin-top: 8px;
+			}
+			&:active {
+				svg {
+					transform: scale(1.4);
+				}
+			}
+			@include responsive(desktop) {
+				svg {
+					margin-top: 2px;
+					width: 30px;
+					height: 30px;
+				}
+				em {
+					margin-top: 6px;
 				}
 			}
 		}

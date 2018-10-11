@@ -1,4 +1,5 @@
 import ajax from './ajax';
+import * as cookie from './cookie';
 import '../css/app.scss';
 
 
@@ -11,6 +12,7 @@ class Redgoose {
 	 */
 	constructor(options={})
 	{
+		this.options = options;
 		this.headerElements = {
 			navigation: document.getElementById('headerNavigation'),
 			search: document.getElementById('headerSearch'),
@@ -22,14 +24,8 @@ class Redgoose {
 			buttonLike: document.getElementById('button_like'),
 		};
 
-		// init events
+		// init header events
 		this.initialHeaderEvents();
-
-		// init events in article
-		if (this.articleElements.main)
-		{
-			this.initialArticle();
-		}
 	}
 
 	/**
@@ -102,6 +98,19 @@ class Redgoose {
 	}
 
 	/**
+	 * merge options
+	 *
+	 * @param {Object} options
+	 */
+	mergeOptions(options)
+	{
+		this.options = {
+			...this.options,
+			...options,
+		};
+	}
+
+	/**
 	 * initial article
 	 */
 	initialArticle()
@@ -110,13 +119,37 @@ class Redgoose {
 		this.articleElements.content.querySelectorAll('img').forEach((img, key) => {
 			if (img.parentNode)
 			{
-				img.parentNode.classList.add('image')
+				img.parentNode.classList.add('image');
 			}
 		});
 
 		// button like event
-		this.articleElements.buttonLike.addEventListener('click', () => {
-			console.log('sdgko,sdg');
+		this.articleElements.buttonLike.addEventListener('click', (e) => {
+			const button = e.currentTarget;
+			let srl = parseInt(button.dataset.srl);
+			let headers = { Authorization: this.options.token };
+
+			// update button
+			button.setAttribute('disabled', true);
+			button.classList.add('on');
+			// update count
+			let em = button.querySelector('em');
+			let cnt = parseInt(em.textContent);
+			em.innerHTML = String(cnt + 1);
+
+			ajax(`${this.options.url_api}/articles/${srl}/update?type=star`, 'get', null, headers).then((res) => {
+				if (res.success)
+				{
+					cookie.set(`redgoose-like-${srl}`, '1', 10, this.options.url_cookie);
+				}
+				else
+				{
+					alert('Failed update like');
+					button.removeAttribute('disabled');
+					button.classList.remove('on');
+					em.innerHTML = String(cnt);
+				}
+			});
 		});
 	}
 
