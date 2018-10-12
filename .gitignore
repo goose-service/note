@@ -3,6 +3,7 @@ node_modules/
 vendor/
 cache/
 .AppleDouble/
+assets/dist/
 
 .DS_Store
 .env
