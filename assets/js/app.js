@@ -1,6 +1,8 @@
 import ajax from './ajax';
 import * as cookie from './cookie';
+import './prototypes';
 import '../css/app.scss';
+
 
 
 class Redgoose {
@@ -117,10 +119,9 @@ class Redgoose {
 	{
 		// images in content
 		this.articleElements.content.querySelectorAll('img').forEach((img, key) => {
-			if (img.parentNode)
-			{
-				img.parentNode.classList.add('image');
-			}
+			let span = document.createElement('span');
+			span.classList.add('image');
+			span.wrap(img);
 		});
 
 		// button like event

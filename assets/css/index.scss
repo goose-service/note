@@ -320,6 +320,9 @@
 		}
 	}
 	@include responsive(max) {
+		max-width: $size-container-base-index;
+		margin-left: auto;
+		margin-right: auto;
 		&-article {
 			width: 33.3333%;
 		}

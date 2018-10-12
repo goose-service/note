@@ -57,7 +57,7 @@ try {
 					'page' => Util::getPage(),
 					'ext_field' => 'category_name',
 				]);
-				if (!($res && $res->success)) throw new Exception($res->message);
+				if (!($res && $res->success)) throw new Exception($res->message, $res->code);
 
 				// set title
 				$title = getenv('TITLE');
@@ -83,18 +83,19 @@ try {
 			// index - select nest
 			case 'index/nest':
 				$res = Util::api('/external/note-redgoose-me-nest', (object)[
+					'app_srl' => getenv('DEFAULT_APP_SRL'),
 					'nest_id' => isset($_params->nest) ? $_params->nest : null,
 					'category_srl' => isset($_params->category) ? $_params->category : null,
 					'ext_field' => 'item_all,count_article',
 					'page' => Util::getPage(),
 					'size' => getenv('DEFAULT_INDEX_SIZE'),
 				]);
-				if (!($res && $res->success)) throw new Exception($res->message);
+				if (!($res && $res->success)) throw new Exception($res->message, $res->code);
 
 				// set title
 				$title = getenv('TITLE');
 				if (isset($res->data->nest->name)) $title = $res->data->nest->name.' - '.$title;
-				if ($res->data->category) $title = $res->data->category->name.' - '.$title;
+				if (isset($res->data->category->name)) $title = $res->data->category->name.' - '.$title;
 
 				$navigation = Util::makeNavigation(
 					$res->data->articles->total,
@@ -130,7 +131,7 @@ try {
 					'ext_field' => 'category_name,nest_name',
 					'keyword' => $_GET['q'],
 				]);
-				if (!($res && $res->success)) throw new Exception($res->message);
+				if (!($res && $res->success)) throw new Exception($res->message, $res->code);
 
 				// set title
 				$title = getenv('TITLE');
