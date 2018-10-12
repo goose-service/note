@@ -61,12 +61,20 @@ if(!defined("__GOOSE__")){exit();}
 		@endforeach
 	</div>
 	@else
-	<div>.empty</div>
+	<article class="index__empty">
+		<figure>
+			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+				<path d="M0 0h24v24H0z" fill="none"/>
+				<path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8 0-1.85.63-3.55 1.69-4.9L16.9 18.31C15.55 19.37 13.85 20 12 20zm6.31-3.1L7.1 5.69C8.45 4.63 10.15 4 12 4c4.42 0 8 3.58 8 8 0 1.85-.63 3.55-1.69 4.9z" fill="currentColor"/>
+			</svg>
+		</figure>
+		<h1>no item</h1>
+	</article>
 	@endif
 
-	@if($navigation && ($navigation->desktop || $navigation->mobile))
+	@if($navigation && ($navigation->desktop || $navigation->mobile) && $index && count($index))
 	<div class="index__paginate">
-		@if($navigation->desktop)
+		@if($navigation->desktop && isset($navigation->desktop->body))
 		<nav class="index-paginate index-paginate--desktop">
 			@if($navigation->desktop->prev)
 				<a href="{{$url}}?{{$navigation->desktop->prev->url}}" class="index-paginate__unit">
@@ -91,7 +99,7 @@ if(!defined("__GOOSE__")){exit();}
 			@endif
 		</nav>
 		@endif
-		@if($navigation->mobile)
+		@if($navigation->mobile && isset($navigation->mobile->body))
 		<nav class="index-paginate index-paginate--mobile">
 			@if($navigation->mobile->prev)
 				<a href="{{$url}}?{{$navigation->mobile->prev->url}}" class="index-paginate__unit">

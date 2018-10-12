@@ -14,8 +14,10 @@ if(!defined("__GOOSE__")){exit();}
 
 @section('contents')
 <article class="error">
-	<h1>TODO: error page</h1>
-	<p>{{$code}}</p>
-	<p>{{$message}}</p>
+	<figure class="error__image">
+		<img src="{{__ROOT__}}/assets/images/img-symbol-line.png" alt="redgoose">
+	</figure>
+	<p class="error__code">{{$code}}</p>
+	<h1 class="error__message">{{$message}}</h1>
 </article>
 @endsection

@@ -22,19 +22,19 @@ if(!defined("__GOOSE__")){exit();}
 				</button>
 				<div class="header-navigation dropdown-content">
 					<ul>
-						<li>
+						<li{!! $nest_id === 'development' ? ' class="on"' : '' !!}>
 							<a href="{{__ROOT__}}/index/development">Development</a>
 						</li>
-						<li>
+						<li{!! $nest_id === 'tipLibrary' ? ' class="on"' : '' !!}>
 							<a href="{{__ROOT__}}/index/tipLibrary">Tips</a>
 						</li>
-						<li>
+						<li{!! $nest_id === 'diray' ? ' class="on"' : '' !!}>
 							<a href="{{__ROOT__}}/index/diray">Diray</a>
 						</li>
-						<li>
+						<li{!! $nest_id === 'review' ? ' class="on"' : '' !!}>
 							<a href="{{__ROOT__}}/index/review">Review</a>
 						</li>
-						<li>
+						<li{!! $nest_id === 'graphics' ? ' class="on"' : '' !!}>
 							<a href="{{__ROOT__}}/index/graphics">Graphics</a>
 						</li>
 						<li>

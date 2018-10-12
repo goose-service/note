@@ -4,6 +4,7 @@
 .article {
 	margin: 8px 0 0;
 	padding: 0 1rem;
+	box-sizing: border-box;
 
 	&__header {
 		h1 {
@@ -296,14 +297,41 @@
 			}
 			@include responsive(desktop) {
 				svg {
-					margin-top: 2px;
-					width: 30px;
-					height: 30px;
+					margin-top: 3px;
+					width: 28px;
+					height: 28px;
 				}
 				em {
-					margin-top: 6px;
+					margin-top: 7px;
 				}
 			}
+		}
+	}
+
+	@include responsive(tablet) {
+		padding: 0 $size-container-padding;
+		> * {
+			max-width: $size-container-base;
+			margin-left: auto;
+			margin-right: auto;
+		}
+		&__header {
+			h1 {
+				font-size: 28px;
+				line-height: 1.15;
+			}
+			p {
+				margin-top: 2px;
+				span {
+					font-size: 13px;
+				}
+			}
+		}
+		&__content {
+			margin-top: 30px;
+		}
+		&__nav {
+			margin-top: 50px;
 		}
 	}
 }

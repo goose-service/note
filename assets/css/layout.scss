@@ -184,6 +184,11 @@
 		li {
 			position: relative;
 			width: 50%;
+			&.on {
+				a {
+					text-decoration: underline;
+				}
+			}
 		}
 		a {
 			display: block;
@@ -300,6 +305,84 @@
 			}
 		}
 	}
+
+	@include responsive(tablet) {
+		height: $size-header-height;
+		display: flex;
+		&__body {}
+		&__logo {
+			position: relative;
+			width: 130px;
+			box-sizing: border-box;
+			a {
+				position: absolute;
+				left: 25px;
+				top: 0;
+				padding: 5px;
+			}
+			img {
+				width: 82px;
+			}
+		}
+		&__navigation {
+			position: static;
+			width: auto;
+			height: auto;
+			margin: 0;
+			> button {
+				display: none;
+			}
+			> div {
+				opacity: 1;
+				pointer-events: auto;
+				transition: none;
+				position: static;
+			}
+		}
+		&__search {
+			width: $size-header-height;
+			height: $size-header-height;
+			> button {
+				cursor: pointer;
+			}
+		}
+
+		&-navigation {
+			ul {
+				position: static;
+				background: none;
+				padding: 0;
+				flex-wrap: initial;
+				&:before {
+					display: none;
+				}
+			}
+			li {
+				position: static;
+				width: auto;
+			}
+			a {
+				display: flex;
+				align-items: center;
+				margin: 0;
+				padding: 0 12px;
+				height: $size-header-height;
+				transition: background .2s ease-out;
+				&:hover {
+					background: rgba(#000, .2);
+				}
+				&:active {
+					text-decoration: none;
+				}
+			}
+		}
+		&-search {
+			form {
+				left: auto;
+				width: 340px;
+			}
+		}
+	}
 }
 
 // footer
@@ -312,9 +395,54 @@
 		color: #666;
 		font-family: $font-eng;
 	}
+
+	@include responsive(tablet) {
+		padding: 80px 0 24px;
+	}
 }
 
 // container
 .container {
 	padding: $size-header-height-mobile + 35px 0 0;
+
+	@include responsive(tablet) {
+		padding: $size-header-height + 60px 0 0;
+	}
+}
+
+// error
+.error {
+	padding: 0;
+	text-align: center;
+
+	&__image {
+		margin: 0;
+		img {
+			display: block;
+			width: 60vw;
+			min-width: 240px;
+			margin: 0 auto;
+		}
+	}
+	&__code {
+		margin: 10px 0 0;
+		font-size: 14px;
+		font-family: $font-console;
+		line-height: 1;
+	}
+	&__message {
+		margin: 5px 0 0;
+		font-size: 24px;
+		font-family: $font-eng;
+		line-height: 1.25;
+	}
+
+	@include responsive(tablet) {
+		&__image {
+			img {
+				width: 40vw;
+				max-width: 400px;
+			}
+		}
+	}
 }
