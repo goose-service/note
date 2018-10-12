@@ -1,181 +1,235 @@
 <?php
-if(!defined("__GOOSE__")){exit();}
+namespace Core;
+use Dotenv\Dotenv, Exception;
 
-@error_reporting(E_ALL ^ E_NOTICE);
-@ini_set("display_errors", (is_bool(DEBUG) && DEBUG) ? 1 : 0);
+if (!defined('__GOOSE__')) exit();
 
-// is localhost
-define('__IS_LOCAL__', (preg_match("/(192.168)/", $_SERVER['REMOTE_ADDR']) || ($_SERVER['REMOTE_ADDR'] == "::1")) ? true : false);
+// load autoload
+require __PATH__.'/./vendor/autoload.php';
 
-// load program files
-require_once(__PWD__.'/vendor/Router/AltoRouter.php');
-require_once(__PWD__.'/vendor/BladeOne/BladeOne.php');
-require_once(__PWD__.'/core/Paginate.class.php');
-require_once(__PWD__.'/core/Util.class.php');
-require_once('func.php');
-
-Use eftec\bladeone;
-
-
-// set preferences
-$pref = externalApi('/json/'.__JSON_SRL_PREFERENCE__);
-$prefString = '';
-if (!$pref)
+// set dotenv
+try
 {
-	echo $blade->run('error', [
-		'solo' => true,
-		'message' => 'not found pref data'
-	]);
-	exit;
+	$dotenv = new Dotenv(__PATH__);
+	$dotenv->load();
 }
-else
+catch(Exception $e)
 {
-	$pref = $pref->json;
-	$prefString = urlencode(json_encode($pref));
+	throw new Exception('.env error');
 }
 
+// set values
+define('__ROOT__', getenv('PATH_RELATIVE'));
+define('__API__', getenv('PATH_API'));
+define('__COOKIE_ROOT__', getenv('PATH_COOKIE'));
+
+// set default timezone
+if (getenv('TIMEZONE'))
+{
+	date_default_timezone_set(getenv('TIMEZONE'));
+}
 
 // set blade
-$blade = new bladeone\BladeOne(__PWD__.'view', __PWD__.'cache');
+$blade = new Blade(__PATH__.'/view', __PATH__.'/cache');
 
+// set router
+try {
+	$router = new Router();
 
-// router
-$router = new AltoRouter();
-$router->setBasePath(__ROOT__);
-require_once('map.php');
+	// play route
+	if ($router->match)
+	{
+		$_target = $router->match['target'];
+		$_params = (object)$router->match['params'];
+		$_method = $_SERVER['REQUEST_METHOD'];
 
-if ($router->match())
-{
-	$match = $router->match();
-	$_target = $match['target'];
-	$_params = $match['params'];
-	$_name = $match['name'];
-	$_method = $_SERVER['REQUEST_METHOD'];
+		switch($_target)
+		{
+			// index - intro
+			case 'index':
+				// get articles
+				$res = Util::api('/articles', (object)[
+					'field' => 'srl,category_srl,json,title,regdate',
+					'order' => 'regdate',
+					'sort' => 'desc',
+					'app' => getenv('DEFAULT_APP_SRL'),
+					'size' => getenv('DEFAULT_INDEX_SIZE'),
+					'page' => Util::getPage(),
+					'ext_field' => 'category_name',
+				]);
+				if (!($res && $res->success)) throw new Exception($res->message, $res->code);
 
-	// set api
-	require_once('API.class.php');
-	$api = new API();
+				// set title
+				$title = getenv('TITLE');
 
-	switch ($_target) {
-		case 'index':
-			// set values
-			$errorMessage = null;
-			$printData = 'nest,category,article';
-			$printData .= ($pref->index->print_paginate) ? ',nav_paginate' : '';
+				// set navigation
+				$navigation = Util::makeNavigation(
+					$res->data->total,
+					Util::getPage(),
+					getenv('DEFAULT_INDEX_SIZE')
+				);
 
-			// get data
-			$data = $api->index((object)[
-				'app_srl' => $pref->srl->app,
-				'nest_id' => (isset($_params['nest'])) ? $_params['nest'] : null,
-				'category_srl' => (isset($_params['category'])) ? (int)$_params['category'] : null,
-				'page' => (isset($_GET['page']) && (int)$_GET['page'] > 1) ? (int)$_GET['page'] : 1,
-				'print_data' => $printData,
-				'root' => __ROOT__,
-				'size' => $pref->index->count->item,
-				'pageScale' => $pref->index->count->pageScale,
-			]);
+				// render page
+				$blade->render('index', (object)[
+					'title' => $title,
+					'pageTitle' => 'Newstest articles',
+					'index' => Util::convertArticleData($res->data->index),
+					'page' => Util::getPage(),
+					'navigation' => $navigation,
+					'url' => isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : '',
+				]);
+				break;
 
-			// get category name
-			if ($data->categories)
-			{
-				foreach($data->categories as $k=>$v)
+			// index - select nest
+			case 'index/nest':
+				$res = Util::api('/external/note-redgoose-me-nest', (object)[
+					'app_srl' => getenv('DEFAULT_APP_SRL'),
+					'nest_id' => isset($_params->nest) ? $_params->nest : null,
+					'category_srl' => isset($_params->category) ? $_params->category : null,
+					'ext_field' => 'item_all,count_article',
+					'page' => Util::getPage(),
+					'size' => getenv('DEFAULT_INDEX_SIZE'),
+				]);
+				if (!($res && $res->success)) throw new Exception($res->message, $res->code);
+
+				// set title
+				$title = getenv('TITLE');
+				if (isset($res->data->nest->name)) $title = $res->data->nest->name.' - '.$title;
+				if (isset($res->data->category->name)) $title = $res->data->category->name.' - '.$title;
+
+				$navigation = Util::makeNavigation(
+					$res->data->articles->total,
+					Util::getPage(),
+					getenv('DEFAULT_INDEX_SIZE')
+				);
+
+				// render page
+				$blade->render('index', (object)[
+					'title' => $title,
+					'pageTitle' => $res->data->nest->name,
+					'categories' => $res->data->categories,
+					'index' => Util::convertArticleData($res->data->articles->index),
+					'page' => Util::getPage(),
+					'nest_id' => isset($_params->nest) ? $_params->nest : null,
+					'nest_srl' => isset($res->data->nest->srl) ? $res->data->nest->srl : null,
+					'category_srl' => isset($_params->category) ? $_params->category : null,
+					'category_name' => isset($res->data->category->name) ? $res->data->category->name : null,
+					'navigation' => $navigation,
+					'url' => isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : '',
+				]);
+				break;
+
+			// index - search keyword
+			case 'index/search':
+				$res = Util::api('/articles', (object)[
+					'field' => 'srl,nest_srl,category_srl,json,title,regdate',
+					'order' => 'regdate',
+					'sort' => 'desc',
+					'app' => getenv('DEFAULT_APP_SRL'),
+					'size' => getenv('DEFAULT_INDEX_SIZE'),
+					'page' => Util::getPage(),
+					'ext_field' => 'category_name,nest_name',
+					'keyword' => $_GET['q'],
+				]);
+				if (!($res && $res->success)) throw new Exception($res->message, $res->code);
+
+				// set title
+				$title = getenv('TITLE');
+				if (isset($_GET['q'])) $title = $_GET['q'].' - '.$title;
+
+				// set navigation
+				$navigation = Util::makeNavigation(
+					$res->data->total,
+					Util::getPage(),
+					getenv('DEFAULT_INDEX_SIZE'),
+					[ 'q' => $_GET['q'] ]
+				);
+
+				// render page
+				$blade->render('index', (object)[
+					'title' => $title,
+					'pageTitle' => 'Search results: '.$_GET['q'],
+					'index' => Util::convertArticleData($res->data->index),
+					'page' => Util::getPage(),
+					'navigation' => $navigation,
+					'url' => isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : '',
+					'searchKeyword' => $_GET['q'],
+				]);
+				break;
+
+			// article
+			case 'article':
+				$res = Util::api('/articles/'.(int)$_params->srl, (object)[
+					'hit' => Util::checkCookie('redgoose-hit-'.$_params->srl) ? 0 : 1,
+					'ext_field' => 'category_name,nest_name'
+				]);
+				if (!($res && $res->success)) throw new Exception($res->message, $res->code);
+				$res->data->regdate = Util::convertDate($res->data->regdate);
+
+				// add key in cookie
+				if (!Util::checkCookie('redgoose-hit-'.$_params->srl))
 				{
-					if ($v->active && ($v->srl > 0))
+					Util::setCookie('redgoose-hit-'.$_params->srl, '1', 7);
+				}
+
+				// set referer url
+				$refererUrl = __ROOT__.'/';
+				if (isset($_SERVER['HTTP_REFERER']))
+				{
+					preg_match('/'.$_SERVER['HTTP_HOST'].'/', $_SERVER['HTTP_REFERER'], $match);
+					if ($match && count($match))
 					{
-						$data->category_name = $v->name;
-						break;
+						$refererUrl = $_SERVER['HTTP_REFERER'];
 					}
 				}
-			}
-			if ($data->state !== 'success')
-			{
-				switch ($data->code)
-				{
-					case 404:
-						$errorMessage = 'Not found article';
-						break;
-					case 500:
-					default:
-						$errorMessage = 'Service error';
-						break;
-				}
-			}
 
-			// render
-			echo $blade->run('index', [
-				'_params' => $_params,
-				'_target' => $_target,
-				'pref' => $pref,
-				'prefString' => $prefString,
-				'nest_id' => (isset($_params['nest'])) ? $_params['nest'] : null,
-				'data' => $data,
-				'errorMessage' => $errorMessage,
-			]);
-			break;
+				// parse markdown
+				$parsedown = new \Parsedown();
+				$res->data->content = $parsedown->text($res->data->content);
 
-		case 'article':
-			// set values
-			$errorMessage = null;
-			$article_srl = (isset($_params['article'])) ? (int)$_params['article'] : null;
+				// set title
+				$title = getenv('TITLE');
+				$title = ($res->data->title === '.' ? 'Untitled work' : $res->data->title).' - '.$title;
 
-			// get article
-			$data = $api->view((object)[
-				'app_srl' => $pref->srl->app,
-				'article_srl' => $article_srl,
-				'updateHit' => !isCookieKey( 'redgoose-hit-'.$_article ),
-				'print_data' => ($_GET['get']) ? $_GET['get'] : 'all',
-			]);
-			if ($data->state !== 'success')
-			{
-				switch ($data->code)
-				{
-					case 404:
-						$errorMessage = 'Not found article';
-						break;
-					case 500:
-					default:
-						$errorMessage = 'Service error';
-						break;
-				}
-				echo $blade->run('error', [
-					'solo' => true,
-					'message' => $errorMessage
+				// set image
+				$image = (isset($res->data->json->thumbnail->path)) ? __API__.'/'.$res->data->json->thumbnail->path : __API__.'/usr/icons/og-redgoose.jpg';
+
+				// render page
+				$blade->render('article', (object)[
+					'title' => $title,
+					'description' => Util::contentToShortText($res->data->content),
+					'image' => $image,
+					'data' => $res->data,
+					'onLike' => Util::checkCookie('redgoose-like-'.$_params->srl),
+					'refererUrl' => $refererUrl,
 				]);
-				exit;
-			}
+				break;
 
-			// save referer
-			if (strpos($_SERVER['HTTP_REFERER'], '/article/') === false)
-			{
-				$_SESSION['referer'] = $_SERVER['HTTP_REFERER'];
-			}
-
-			// render
-			echo $blade->run('article', [
-				'_params' => $_params,
-				'_target' => $_target,
-				'pref' => $pref,
-				'prefString' => $prefString,
-				'data' => $data,
-				'errorMessage' => $errorMessage
-			]);
-			break;
-
-		case 'page':
-			$blade->render('page', [
-				'pref' => $pref,
-				'prefString' => $prefString,
-				'pageName' => $_params['page'],
-			]);
-			break;
+			// page
+			case 'page':
+				$_page = $_params->name;
+				// check page file
+				if (!file_exists(__PATH__.'/view/pages/'.$_page.'.blade.php'))
+				{
+					throw new Exception('Not found page', 404);
+				}
+				$blade->render('pages.'.$_page);
+				break;
+		}
+	}
+	else
+	{
+		throw new Exception('Not found page', 404);
 	}
 }
-else
+catch (Exception $e)
 {
-	// 404 error
-	echo $blade->run('error', [
-		'solo' => true,
-		'message' => 'Not found page',
-	]);
-	exit;
+	try
+	{
+		Util::error($e, $blade);
+	}
+	catch(Exception $e)
+	{
+		echo "Failed Error page";
+	}
 }

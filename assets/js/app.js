@@ -1,63 +1,160 @@
-(function($) {
+import ajax from './ajax';
+import * as cookie from './cookie';
+import './prototypes';
+import '../css/app.scss';
 
-	// set gnb
-	var $gnb = $('.header .gnb');
 
-	// active dep-1 item
-	$gnb.find('.dep-2 .active').parent().closest('li').addClass('active');
 
+class Redgoose {
 
 	/**
-	 * Article index
+	 * constructor
+	 *
+	 * @param {Object} options
 	 */
-
-	// toggle search form
-	(function() {
-		const searchElementNames = {
-			button: 'search-control',
-			target: 'search-target',
-			content: 'search-content'
+	constructor(options={})
+	{
+		this.options = options;
+		this.headerElements = {
+			navigation: document.getElementById('headerNavigation'),
+			search: document.getElementById('headerSearch'),
+			searchForm: document.getElementById('search_keyword'),
+		};
+		this.articleElements = {
+			main: document.getElementById('article'),
+			content: document.getElementById('article_content'),
+			buttonLike: document.getElementById('button_like'),
 		};
 
-		if (!document.querySelector('.' + searchElementNames.button)) return;
+		// init header events
+		this.initialHeaderEvents();
+	}
 
-		// toggle dropdown
-		document.querySelector('.' + searchElementNames.button).addEventListener('click', function(e) {
-			this.parentNode.classList.toggle('active');
-			if (this.parentNode.classList.contains('active'))
+	/**
+	 * initial header events
+	 */
+	initialHeaderEvents()
+	{
+		const self = this;
+		const navigation = this.headerElements.navigation.children[0];
+		const search = this.headerElements.search.children[0];
+
+		// navigation dropdown event
+		navigation.addEventListener('click', function(e) {
+			self.headerElements.search.classList.remove('active');
+			e.currentTarget.parentNode.classList.toggle('active');
+			e.currentTarget.parentNode.querySelector('.dropdown-content').classList.toggle('active');
+		});
+		// search dropdown event
+		search.addEventListener('click', function(e) {
+			self.headerElements.navigation.classList.remove('active');
+			e.currentTarget.parentNode.classList.toggle('active');
+			e.currentTarget.parentNode.querySelector('.dropdown-content').classList.toggle('active');
+			// on focus input form
+			if (e.currentTarget.parentNode.classList.contains('active'))
 			{
-				if (this.parentNode.querySelector('input[type=text]'))
-				{
-					this.parentNode.querySelector('input[type=text]').focus();
-				}
+				e.currentTarget.parentNode.querySelector('input[type=text]').focus();
 			}
 		});
 
-		// close dropdown
-		window.onclick = function(e)
-		{
-			if ($(e.target).closest('.' + searchElementNames.content).length) return;
-			if (e.target.matches('.' + searchElementNames.button)) return;
-
-			const dropdowns = document.getElementsByClassName(searchElementNames.content);
-			for (let i = 0; i < dropdowns.length; i++)
+		// input keyword event from search input
+		const searchInput = this.headerElements.searchForm.q;
+		if (searchInput.value.length) searchInput.parentNode.classList.add('is-word');
+		searchInput.addEventListener('keyup', function(e) {
+			if (searchInput.value.length)
 			{
-				let openDropdown = dropdowns[i];
-				if (openDropdown.parentNode.classList.contains('active'))
+				searchInput.parentNode.classList.add('is-word');
+			}
+			else
+			{
+				searchInput.parentNode.classList.remove('is-word');
+			}
+		});
+		// reset event from search input
+		const searchReset = this.headerElements.searchForm.querySelector('button[type=reset]');
+		searchReset.addEventListener('click', function(e) {
+			e.preventDefault();
+			searchInput.value = '';
+			searchInput.parentNode.classList.remove('is-word');
+			searchInput.focus();
+		});
+
+		// dropdown content 닫기에 관련된 이벤트
+		window.addEventListener('click', function(e) {
+			if (!e.target.matches('.dropdown-button'))
+			{
+				if (!!e.target.closest('.dropdown-content')) return;
+
+				const dropdowns = document.getElementsByClassName('dropdown-content');
+				for (let i = 0; i< dropdowns.length; i++)
 				{
-					openDropdown.parentNode.classList.remove('active');
+					let openDropdown = dropdowns[i];
+					if (openDropdown.classList.contains('active'))
+					{
+						openDropdown.parentNode.classList.remove('active');
+						openDropdown.classList.remove('active');
+					}
 				}
 			}
+		});
+	}
+
+	/**
+	 * merge options
+	 *
+	 * @param {Object} options
+	 */
+	mergeOptions(options)
+	{
+		this.options = {
+			...this.options,
+			...options,
 		};
-	})();
+	}
 
-	// toggle gnb for mobile
-	$('.toggle-button').on('click', function(){
-		const $target = $(this).next();
-		$(this).toggleClass('active');
-		$target.toggleClass('active');
-		const iconClass = (!$(this).hasClass('active')) ? 'lnr lnr-chevron-down' : 'lnr lnr-chevron-up';
-		$(this).find('i').attr('class', iconClass);
-	});
+	/**
+	 * initial article
+	 */
+	initialArticle()
+	{
+		// images in content
+		this.articleElements.content.querySelectorAll('img').forEach((img, key) => {
+			let span = document.createElement('span');
+			span.classList.add('image');
+			span.wrap(img);
+		});
 
-})(jQuery);
+		// button like event
+		this.articleElements.buttonLike.addEventListener('click', (e) => {
+			const button = e.currentTarget;
+			let srl = parseInt(button.dataset.srl);
+			let headers = { Authorization: this.options.token };
+
+			// update button
+			button.setAttribute('disabled', true);
+			button.classList.add('on');
+			// update count
+			let em = button.querySelector('em');
+			let cnt = parseInt(em.textContent);
+			em.innerHTML = String(cnt + 1);
+
+			ajax(`${this.options.url_api}/articles/${srl}/update?type=star`, 'get', null, headers).then((res) => {
+				if (res.success)
+				{
+					cookie.set(`redgoose-like-${srl}`, '1', 10, this.options.url_cookie);
+				}
+				else
+				{
+					alert('Failed update like');
+					button.removeAttribute('disabled');
+					button.classList.remove('on');
+					em.innerHTML = String(cnt);
+				}
+			});
+		});
+	}
+
+}
+
+
+module.exports = Redgoose;

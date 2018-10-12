@@ -1,7 +1,10 @@
-.DS_Store
 .idea/
 node_modules/
+vendor/
 cache/
-*--user/
+.AppleDouble/
+assets/dist/
 
-*--user.*
+.DS_Store
+.env
+yarn-error.log

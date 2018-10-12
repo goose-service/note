@@ -1,136 +1,130 @@
 <?php
 if(!defined("__GOOSE__")){exit();}
 
-/** @var int $_nest */
-/** @var int $_category */
-/** @var object $data */
-/** @var string $nest_id */
-/** @var string $_target */
-/** @var array $_params */
+/** @var array $index */
+/** @var int $nextPage */
 ?>
 
 @extends('layout')
 
+@section('meta')
+<title>{{ $title }}</title>
+<meta name="description" content="{{ getenv('DESCRIPTION') }}"/>
+<meta property="og:title" content="{{ $title }}"/>
+<meta property="og:description" content="{{ getenv('DESCRIPTION') }}">
+<meta property="og:image" content="{{ __API__ }}/usr/icons/og-redgoose.jpg">
+@endsection
+
 @section('contents')
-<article class="article-index">
-	<header>
-		<h1>
-			@if($_GET['keyword'])
-			Search keyword : {{$_GET['keyword']}}
-			@else
-			{{ ($data->nest->name) ? $data->nest->name : $pref->string->intro_title }}
-			@endif
-		</h1>
+<article class="index">
+	<header class="index__header">
+		<h1>{{$pageTitle}}</h1>
+		@if(isset($categories) && count($categories) > 0)
 		<nav>
 			<ul>
-				<li class="search-target">
-					<button type="button" title="toggle search" class="search-control">
-						<i class="lnr lnr-magnifier"></i>
-					</button>
-					<div class="search-content">
-						<form action="{{__ROOT__}}" method="get" class="keyword-search">
-							<fieldset>
-								<legend class="blind">Keyword search form</legend>
-								<span><input type="text" name="keyword" value="{{$_GET['keyword']}}" maxlength="20" placeholder="Search Keyword" minlength="2"/></span>
-								<button type="submit" class="reset"><i class="lnr lnr-chevron-right"></i></button>
-							</fieldset>
-						</form>
-					</div>
-				</li>
-				@if($_GET['keyword'])
-				<li>
-					<a href="{{ ($nest_id) ? __ROOT__.'/index/'.$nest_id.'/' : __ROOT__.'/' }}" title="clear search keyword">
-						<i class="lnr lnr-cross"></i>
+				@foreach($categories as $k=>$item)
+				<li{!!($category_srl === $item->srl || (!$category_srl && !$item->srl)) ? ' class="on"' : ''!!}>
+					<a href="{{__ROOT__}}/index/{{$nest_id}}{{$item->srl ? '/'.$item->srl : ''}}">
+						<span>{{$item->name}}</span>
+						<em>{{$item->count_article ? $item->count_article : 0}}</em>
 					</a>
 				</li>
-				@endif
+				@endforeach
 			</ul>
 		</nav>
+		@endif
 	</header>
 
-	@if($data->categories && count($data->categories))
-	<div>
-		<ul class="category-index">
-			@foreach($data->categories as $k=>$v)
-			<li{!! ($v->active) ? ' class="active"' : '' !!}>
-				<a href="{{__ROOT__}}/index/{{$nest_id}}/{{($v->srl > 0) ? $v->srl.'/' : ''}}" data-key="{{$v->srl}}">
-					<span>{{$v->name}}</span>
-					<em>{{$v->count_article}}</em>
-				</a>
-			</li>
-			@endforeach
-		</ul>
-	</div>
-	@endif
-
-	@if($data->articles && count($data->articles))
-	<ul class="index {{$pref->index->classNames->list}}">
-		@foreach($data->articles as $k=>$v)
-		<li>
-			<a href="{{__ROOT__}}/article/{{$v->srl}}/">
-				@if($pref->index->print_thumbnail)
-					@if($v->json->thumbnail->path)
-					<figure style="background-image: url('{{__GOOSE_ROOT__}}/{{$v->json->thumbnail->path}}')"></figure>
+	@if($index && count($index))
+	<div class="index__articles">
+		@foreach($index as $k=>$item)
+		<div class="index-article">
+			<a href="{{__ROOT__}}/article/{{$item->srl}}" class="index-article__wrap">
+				<figure class="index-article__image">
+					@if($item->image)
+					<img src="{{__API__}}/{{$item->image}}" alt="{{$item->title}}">
 					@else
-					<figure class="not-image"></figure>
+					<span>
+						<img src="{{__ROOT__}}/assets/images/empty/{{rand(0,20)}}.svg" alt="">
+					</span>
 					@endif
-				@endif
-				<div>
-					<strong>{{$v->title}}</strong>
-					<div class="meta">
-						<p><span>{{$v->regdate}}</span></p>
-						@if($v->category_name)
-						<p>
-							<span>Cateogry</span>
-							<em>{{$v->category_name}}</em>
-						</p>
-						@endif
-						<p>
-							<span>Hit</span>
-							<em>{{$v->hit}}</em>
-						</p>
-					</div>
+				</figure>
+				<div class="index-article__body">
+					<strong>{{$item->title}}</strong>
+					<p>
+						<span>{{$item->regdate}}</span>
+						<span>{{$item->category_name}}</span>
+					</p>
 				</div>
 			</a>
-		</li>
+		</div>
 		@endforeach
-	</ul>
-	@else
-	<div class="not-item">
-		<i class="lnr lnr-inbox"></i>
-		<span>{{$errorMessage ? $errorMessage : 'Service error'}}</span>
 	</div>
+	@else
+	<article class="index__empty">
+		<figure>
+			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+				<path d="M0 0h24v24H0z" fill="none"/>
+				<path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8 0-1.85.63-3.55 1.69-4.9L16.9 18.31C15.55 19.37 13.85 20 12 20zm6.31-3.1L7.1 5.69C8.45 4.63 10.15 4 12 4c4.42 0 8 3.58 8 8 0 1.85-.63 3.55-1.69 4.9z" fill="currentColor"/>
+			</svg>
+		</figure>
+		<h1>no item</h1>
+	</article>
 	@endif
 
-	@if($data->pageNavigation)
-	<?php
-	$nav = $data->pageNavigation;
-	$url_prev = ($nav->prev) ? makeLinkUrl($_target, $_params, [ 'keyword' => $_GET['keyword'], 'page' => $nav->prev->id ]) : '';
-	$url_next = ($nav->next) ? makeLinkUrl($_target, $_params, [ 'keyword' => $_GET['keyword'], 'page' => $nav->next->id ]) : '';
-	?>
-	<nav class="paginate">
-		@if($nav->prev)
-		<a href="{{$url_prev}}" title="{{$nav->prev->name}}" data-key="{{$nav->prev->id}}" class="dir">
-			<i class="lnr lnr-chevron-left"></i>
-		</a>
-		@endif
-		@foreach($nav->body as $k=>$o)
-			<?php
-			/** @var array $o */
-			$url = ($o['active'] == false) ? makeLinkUrl($_target, $_params, [ 'keyword' => $_GET['keyword'], 'page' => (($o['id'] != 1) ? $o['id'] : null) ]) : '';
-			?>
-			@if($o['active'] == true)
-			<strong>{{$o['name']}}</strong>
-			@else
-			<a href="{{$url}}" data-key="{{$o['id']}}">{{$o['name']}}</a>
+	@if($navigation && ($navigation->desktop || $navigation->mobile) && $index && count($index))
+	<div class="index__paginate">
+		@if($navigation->desktop && isset($navigation->desktop->body))
+		<nav class="index-paginate index-paginate--desktop">
+			@if($navigation->desktop->prev)
+				<a href="{{$url}}?{{$navigation->desktop->prev->url}}" class="index-paginate__unit">
+					<img src="{{__ROOT__}}/assets/images/ico-arrow-left.svg" alt="prev">
+				</a>
 			@endif
-		@endforeach
-		@if($nav->next)
-		<a href="{{$url_next}}" title="{{$nav->next->name}}" data-key="{{$nav->next->id}}" class="dir">
-			<i class="lnr lnr-chevron-right"></i>
-		</a>
+			@foreach($navigation->desktop->body as $key=>$item)
+				@if(isset($item->active))
+					<strong class="index-paginate__unit active">
+						<span>{{$item->name}}</span>
+					</strong>
+				@else
+					<a href="{{$url ? $url : '/'}}{{$item->url ? '?'.$item->url : ''}}" class="index-paginate__unit">
+						<span>{{$item->name}}</span>
+					</a>
+				@endif
+			@endforeach
+			@if($navigation->desktop->next)
+				<a href="{{$url}}?{{$navigation->desktop->next->url}}" class="index-paginate__unit">
+					<img src="{{__ROOT__}}/assets/images/ico-arrow-right.svg" alt="next">
+				</a>
+			@endif
+		</nav>
 		@endif
-	</nav>
+		@if($navigation->mobile && isset($navigation->mobile->body))
+		<nav class="index-paginate index-paginate--mobile">
+			@if($navigation->mobile->prev)
+				<a href="{{$url}}?{{$navigation->mobile->prev->url}}" class="index-paginate__unit">
+					<img src="{{__ROOT__}}/assets/images/ico-arrow-left.svg" alt="prev">
+				</a>
+			@endif
+			@foreach($navigation->mobile->body as $key=>$item)
+				@if(isset($item->active))
+				<strong class="index-paginate__unit active">
+					<span>{{$item->name}}</span>
+				</strong>
+				@else
+				<a href="{{$url ? $url : '/'}}{{$item->url ? '?'.$item->url : ''}}" class="index-paginate__unit">
+					<span>{{$item->name}}</span>
+				</a>
+				@endif
+			@endforeach
+			@if($navigation->mobile->next)
+				<a href="{{$url}}?{{$navigation->mobile->next->url}}" class="index-paginate__unit">
+					<img src="{{__ROOT__}}/assets/images/ico-arrow-right.svg" alt="next">
+				</a>
+			@endif
+		</nav>
+		@endif
+	</div>
 	@endif
 </article>
 @endsection
