@@ -23,3 +23,11 @@ action.sh watch
 # js & css build
 action.sh build
 ```
+
+## production
+
+배포하기전에 실행해야할 명령들
+
+```bash
+action.sh build
+```

@@ -17,7 +17,7 @@ case "$1" in
 		# make cache directory
 		if [ ! -d cache ]; then
 			mkdir cache
-			chmod 775 cache
+			chmod 777 cache
 		fi
 		# copy .env
 		if [ ! -f .env ]; then
