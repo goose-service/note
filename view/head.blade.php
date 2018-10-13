@@ -1,11 +1,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<meta name="author" content="redgoose">
-<meta name="keywords" content="">
+<meta name="author" content="redgoose-note">
+<meta name="keywords" content="redgoose,redgoose-note,development,graphics,review">
 <link rel="canonical" href="https://{{ $_SERVER['HTTP_HOST'] }}{{ $_SERVER['REQUEST_URI'] }}">
 
-<meta property="og:site_name" content="redgoose"/>
+<meta property="og:site_name" content="redgoose-note"/>
 <meta property="og:url" content="https://{{ $_SERVER['HTTP_HOST'] }}{{ $_SERVER['REQUEST_URI'] }}"/>
 <meta property="og:locale" content="ko_KR"/>
 <meta property="og:type" content="website"/>
