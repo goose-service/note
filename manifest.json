@@ -3,17 +3,17 @@
   "name": "redgoose note",
   "icons": [
     {
-      "src": "https://goose.redgoose.me/usr/icons/redgoose_48x48x32.png",
+      "src": "https://goose.redgoose.me/usr/icons/gradient/redgoose-48x48.png",
       "type": "image/png",
       "sizes": "48x48"
     },
     {
-      "src": "https://goose.redgoose.me/usr/icons/redgoose_96x96x32.png",
+      "src": "https://goose.redgoose.me/usr/icons/gradient/redgoose-96x96.png",
       "type": "image/png",
       "sizes": "96x96"
     },
     {
-      "src": "https://goose.redgoose.me/usr/icons/redgoose_256x256x32.png",
+      "src": "https://goose.redgoose.me/usr/icons/gradient/redgoose-192x192.png",
       "type": "image/png",
       "sizes": "192x192"
     }
