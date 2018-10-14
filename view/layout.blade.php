@@ -79,7 +79,7 @@ if(!defined("__GOOSE__")){exit();}
 
 	<footer class="footer">
 		<p class="footer__copyright">
-			Copyright {{date('Y')}} Redgoose. All right reserved.
+			Copyright {{date('Y')}} redgoose. All right reserved.
 		</p>
 	</footer>
 </main>
