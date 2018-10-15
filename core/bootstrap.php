@@ -189,7 +189,7 @@ try {
 
 				// set title
 				$title = getenv('TITLE');
-				$title = ($res->data->title === '.' ? 'Untitled work' : $res->data->title).' - '.$title;
+				$title = ($res->data->title === '.' ? 'Untitled work' : $res->data->title).' on '.$title;
 
 				// set image
 				$image = (isset($res->data->json->thumbnail->path)) ? __API__.'/'.$res->data->json->thumbnail->path : __API__.'/usr/icons/og-redgoose.jpg';
