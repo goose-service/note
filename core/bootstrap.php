@@ -129,7 +129,7 @@ try {
 					'size' => getenv('DEFAULT_INDEX_SIZE'),
 					'page' => Util::getPage(),
 					'ext_field' => 'category_name,nest_name',
-					'keyword' => $_GET['q'],
+					'q' => $_GET['q'],
 				]);
 				if (!($res && $res->success)) throw new Exception($res->message, $res->code);
 
