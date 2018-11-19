@@ -131,7 +131,12 @@ try {
 					'ext_field' => 'category_name,nest_name',
 					'q' => $_GET['q'],
 				]);
-				if (!($res && $res->success)) throw new Exception($res->message, $res->code);
+				if (!($res && $res->success))
+				{
+					$res->data = (object)[
+						index => [],
+					];
+				}
 
 				// set title
 				$title = getenv('TITLE');
