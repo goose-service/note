@@ -22,7 +22,7 @@ if(!defined("__GOOSE__")){exit();}
 @section('contents')
 <article class="article" id="article">
 	<header class="article__header">
-		<h1>{{$data->title}}</h1>
+		<h2>{{$data->title}}</h2>
 		<p>
 			<span>Nest: {{$data->nest_name}}</span>
 			<span>Category: {{$data->category_name}}</span>

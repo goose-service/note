@@ -1,6 +1,17 @@
 @import "./libs/valiables";
 @import "./libs/mixins";
 
+// heading title
+.heading-title {
+	font-size: 0;
+	width: 0;
+	height: 0;
+	overflow: hidden;
+	margin: 0;
+	position: absolute;
+	visibility: hidden;
+}
+
 // header
 .header {
 	position: fixed;
@@ -9,7 +20,7 @@
 	right: 0;
 	top: 0;
 	height: $size-header-height-mobile;
-	background: rgba(#000, .75);
+	background: rgba(#000, .7);
 	@supports (backdrop-filter: blur(5px)) {
 		backdrop-filter: blur(5px);
 	}
@@ -34,7 +45,7 @@
 		}
 		img {
 			display: block;
-			width: 72px;
+			width: 68px;
 		}
 	}
 	&__navigation {
@@ -317,16 +328,16 @@
 		&__body {}
 		&__logo {
 			position: relative;
-			width: 130px;
+			width: 110px;
 			box-sizing: border-box;
 			a {
 				position: absolute;
 				left: 25px;
-				top: 0;
+				top: 6px;
 				padding: 5px;
 			}
 			img {
-				width: 82px;
+				width: 64px;
 			}
 		}
 		&__navigation {
@@ -370,8 +381,9 @@
 				display: flex;
 				align-items: center;
 				margin: 0;
-				padding: 0 12px;
+				padding: 0 15px;
 				height: $size-header-height;
+				font-size: 14px;
 				transition: background .2s ease-out;
 				&:hover {
 					background: rgba(#000, .2);
@@ -408,10 +420,10 @@
 
 // container
 .container {
-	padding: $size-header-height-mobile + 35px 0 0;
+	padding: $size-header-height-mobile + 32px 0 0;
 
 	@include responsive(tablet) {
-		padding: $size-header-height + 60px 0 0;
+		padding: $size-header-height + 40px 0 0;
 	}
 }
 

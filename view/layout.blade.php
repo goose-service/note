@@ -7,14 +7,15 @@ if(!defined("__GOOSE__")){exit();}
 @include('head')
 </head>
 <body ontouchstart="">
+<h1 class="heading-title">{{$title}}</h1>
 <main>
 	<header class="header">
 		<div class="header__body">
-			<h1 class="header__logo">
+			<div class="header__logo">
 				<a href="{{__ROOT__}}/" title="{{getenv('TITLE')}}">
 					<img src="{{__ROOT__}}/assets/images/ico-logo.svg" alt="redgoose">
 				</a>
-			</h1>
+			</div>
 			<nav class="header__navigation" id="headerNavigation">
 				<button type="button" title="toggle navigation" class="dropdown-button">
 					<img src="{{__ROOT__}}/assets/images/ico-menu.svg" class="on" alt="menu">

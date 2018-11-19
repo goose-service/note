@@ -18,6 +18,6 @@ if(!defined("__GOOSE__")){exit();}
 		<img src="{{__ROOT__}}/assets/images/img-symbol-line.png" alt="redgoose">
 	</figure>
 	<p class="error__code">{{$code}}</p>
-	<h1 class="error__message">{{$message}}</h1>
+	<h2 class="error__message">{{$message}}</h2>
 </article>
 @endsection

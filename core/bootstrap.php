@@ -153,7 +153,7 @@ try {
 				// render page
 				$blade->render('index', (object)[
 					'title' => $title,
-					'pageTitle' => 'Search results: '.$_GET['q'],
+					'pageTitle' => 'Search keyword: '.$_GET['q'],
 					'index' => Util::convertArticleData($res->data->index),
 					'page' => Util::getPage(),
 					'navigation' => $navigation,
