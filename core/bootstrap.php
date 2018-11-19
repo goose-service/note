@@ -76,7 +76,7 @@ try {
 					'index' => Util::convertArticleData($res->data->index),
 					'page' => Util::getPage(),
 					'navigation' => $navigation,
-					'url' => isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : '',
+					'url' => Util::getUrlPath(),
 				]);
 				break;
 
@@ -115,7 +115,7 @@ try {
 					'category_srl' => isset($_params->category) ? $_params->category : null,
 					'category_name' => isset($res->data->category->name) ? $res->data->category->name : null,
 					'navigation' => $navigation,
-					'url' => isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : '',
+					'url' => Util::getUrlPath(),
 				]);
 				break;
 
@@ -152,7 +152,7 @@ try {
 					'index' => Util::convertArticleData($res->data->index),
 					'page' => Util::getPage(),
 					'navigation' => $navigation,
-					'url' => isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : '',
+					'url' => Util::getUrlPath(),
 					'searchKeyword' => $_GET['q'],
 				]);
 				break;

@@ -152,6 +152,11 @@
 				pointer-events: auto;
 			}
 		}
+		&.active-bg {
+			> button {
+				background: rgba(#000, .2);
+			}
+		}
 	}
 
 	&-navigation {

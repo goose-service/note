@@ -250,4 +250,19 @@ class Util {
 
 		return $result;
 	}
+
+	/**
+	 * get url path
+	 *
+	 */
+	static public function getUrlPath()
+	{
+		$str = '';
+		if ($_SERVER['REQUEST_URI'])
+		{
+			$str = $_SERVER['REQUEST_URI'];
+			$str = preg_replace('/\?.*/', '', $str);
+		}
+		return $str;
+	}
 }

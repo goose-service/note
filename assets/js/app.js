@@ -59,15 +59,21 @@ class Redgoose {
 
 		// input keyword event from search input
 		const searchInput = this.headerElements.searchForm.q;
-		if (searchInput.value.length) searchInput.parentNode.classList.add('is-word');
+		if (searchInput.value.length)
+		{
+			searchInput.parentNode.classList.add('is-word');
+			search.parentNode.classList.add('active-bg');
+		}
 		searchInput.addEventListener('keyup', function(e) {
 			if (searchInput.value.length)
 			{
 				searchInput.parentNode.classList.add('is-word');
+				search.parentNode.classList.add('active-bg');
 			}
 			else
 			{
 				searchInput.parentNode.classList.remove('is-word');
+				search.parentNode.classList.remove('active-bg');
 			}
 		});
 		// reset event from search input
@@ -76,6 +82,7 @@ class Redgoose {
 			e.preventDefault();
 			searchInput.value = '';
 			searchInput.parentNode.classList.remove('is-word');
+			search.parentNode.classList.remove('active-bg');
 			searchInput.focus();
 		});
 
