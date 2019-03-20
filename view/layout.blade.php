@@ -26,8 +26,8 @@ if(!defined("__GOOSE__")){exit();}
 						<li{!! isset($nest_id) && $nest_id === 'development' ? ' class="on"' : '' !!}>
 							<a href="{{__ROOT__}}/index/development">Development</a>
 						</li>
-						<li{!! isset($nest_id) && $nest_id === 'tipLibrary' ? ' class="on"' : '' !!}>
-							<a href="{{__ROOT__}}/index/tipLibrary">Tips</a>
+						<li{!! isset($nest_id) && $nest_id === 'tips' ? ' class="on"' : '' !!}>
+							<a href="{{__ROOT__}}/index/tips">Tips</a>
 						</li>
 						<li{!! isset($nest_id) && $nest_id === 'diray' ? ' class="on"' : '' !!}>
 							<a href="{{__ROOT__}}/index/diray">Diray</a>

@@ -72,7 +72,7 @@ try {
 				// render page
 				$blade->render('index', (object)[
 					'title' => $title,
-					'pageTitle' => 'Newstest articles',
+					'pageTitle' => 'Newest articles',
 					'index' => Util::convertArticleData($res->data->index),
 					'page' => Util::getPage(),
 					'navigation' => $navigation,
