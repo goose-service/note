@@ -118,22 +118,6 @@ class Util {
 	}
 
 	/**
-	 * convert date
-	 *
-	 * @param string $date
-	 * @return string
-	 */
-	static public function convertDate($date="00000000000000")
-	{
-		$result = '';
-		$o = substr($date, 0, 8);
-		$result .= substr($o, 0, 4)."-";
-		$result .= substr($o, 4, 2)."-";
-		$result .= substr($o, 6, 8);
-		return $result;
-	}
-
-	/**
 	 * content to short text
 	 *
 	 * @param string $con
@@ -216,7 +200,7 @@ class Util {
 				'title' => $item->title === '.' ? 'untitled article' : $item->title,
 				'image' => isset($item->json->thumbnail->path) ? $item->json->thumbnail->path : null,
 				'category_name' => isset($item->category_name) ? $item->category_name : null,
-				'regdate' => self::convertDate($item->regdate),
+				'regdate' => $item->order,
 			];
 		}
 

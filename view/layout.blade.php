@@ -23,20 +23,17 @@ if(!defined("__GOOSE__")){exit();}
 				</button>
 				<div class="header-navigation dropdown-content">
 					<ul>
+						<li{!! isset($nest_id) && $nest_id === 'blog' ? ' class="on"' : '' !!}>
+							<a href="{{__ROOT__}}/index/blog">Blog</a>
+						</li>
 						<li{!! isset($nest_id) && $nest_id === 'development' ? ' class="on"' : '' !!}>
 							<a href="{{__ROOT__}}/index/development">Development</a>
 						</li>
-						<li{!! isset($nest_id) && $nest_id === 'tips' ? ' class="on"' : '' !!}>
-							<a href="{{__ROOT__}}/index/tips">Tips</a>
-						</li>
-						<li{!! isset($nest_id) && $nest_id === 'diray' ? ' class="on"' : '' !!}>
-							<a href="{{__ROOT__}}/index/diray">Diray</a>
-						</li>
-						<li{!! isset($nest_id) && $nest_id === 'review' ? ' class="on"' : '' !!}>
-							<a href="{{__ROOT__}}/index/review">Review</a>
-						</li>
 						<li{!! isset($nest_id) && $nest_id === 'graphics' ? ' class="on"' : '' !!}>
 							<a href="{{__ROOT__}}/index/graphics">Graphics</a>
+						</li>
+						<li{!! isset($nest_id) && $nest_id === 'note-etc' ? ' class="on"' : '' !!}>
+							<a href="{{__ROOT__}}/index/note-etc">ETC</a>
 						</li>
 						<li>
 							<a href="https://redgoose.me" target="_blank">redgoose</a>

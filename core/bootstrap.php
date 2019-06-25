@@ -49,9 +49,8 @@ try {
 			case 'index':
 				// get articles
 				$res = Util::api('/articles', (object)[
-					'field' => 'srl,category_srl,json,title,regdate',
-					'order' => 'regdate',
-					'sort' => 'desc',
+					'field' => 'srl,category_srl,json,title,regdate,order',
+					'order' => '`order` desc, `srl` desc',
 					'app' => getenv('DEFAULT_APP_SRL'),
 					'size' => getenv('DEFAULT_INDEX_SIZE'),
 					'page' => Util::getPage(),
@@ -169,7 +168,6 @@ try {
 					'ext_field' => 'category_name,nest_name'
 				]);
 				if (!($res && $res->success)) throw new Exception($res->message, $res->code);
-				$res->data->regdate = Util::convertDate($res->data->regdate);
 
 				// add key in cookie
 				if (!Util::checkCookie('redgoose-hit-'.$_params->srl))

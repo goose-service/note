@@ -26,7 +26,7 @@ if(!defined("__GOOSE__")){exit();}
 		<p>
 			<span>Nest: {{$data->nest_name}}</span>
 			<span>Category: {{$data->category_name}}</span>
-			<span>{{$data->regdate}}</span>
+			<span>{{$data->order}}</span>
 		</p>
 	</header>
 	<div class="article__content" id="article_content">
