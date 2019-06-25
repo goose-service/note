@@ -3,10 +3,7 @@ import * as cookie from './cookie';
 import './prototypes';
 import '../css/app.scss';
 
-
-
 class Redgoose {
-
 	/**
 	 * constructor
 	 *
@@ -124,13 +121,6 @@ class Redgoose {
 	 */
 	initialArticle()
 	{
-		// images in content
-		this.articleElements.content.querySelectorAll('img').forEach((img, key) => {
-			let span = document.createElement('span');
-			span.classList.add('image');
-			span.wrap(img);
-		});
-
 		// button like event
 		this.articleElements.buttonLike.addEventListener('click', (e) => {
 			const button = e.currentTarget;
@@ -160,8 +150,6 @@ class Redgoose {
 			});
 		});
 	}
-
 }
-
 
 module.exports = Redgoose;
