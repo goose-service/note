@@ -315,12 +315,7 @@
 	@include responsive(desktop) {
 		&__content {
 			img {
-				max-width: 100vw;
-			}
-			@include retina() {
-				img {
-					zoom: .75;
-				}
+				max-width: 90vw;
 			}
 		}
 	}
