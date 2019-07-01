@@ -10,9 +10,9 @@
 		text-align: center;
 		h2 {
 			margin: 0;
-			font-size: 2rem;
-			line-height: 1.25;
-			font-weight: 800;
+			font-size: 1.75rem;
+			line-height: 1.15;
+			font-weight: 700;
 		}
 		p {
 			margin: 2px 0 0;
@@ -116,13 +116,10 @@
 			word-break: break-all;
 		}
 		code {
-			margin: 0 2px;
-			white-space: nowrap;
-			padding: 3px 5px;
+			word-break: break-word;
 			border-radius: 2px;
-			background: mix(#e8e9eb, #fff, 75%);
-			font-size: .75rem;
-			color: #e96900;
+			font-size: 87.5%;
+			color: #007bff;
 		}
 		pre {
 			margin: 1rem 0;
@@ -293,7 +290,7 @@
 		padding: 0 $size-container-padding;
 		&__header {
 			h2 {
-				font-size: 2.5rem;
+				font-size: 2.25rem;
 				line-height: 1.25;
 				letter-spacing: -1px;
 			}
@@ -302,7 +299,7 @@
 			}
 		}
 		&__content {
-			margin: 40px auto 0;
+			margin: 50px auto 0;
 			max-width: 768px;
 			img {
 				max-width: 100vw;
