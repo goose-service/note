@@ -10,7 +10,7 @@ require __PATH__.'/./vendor/autoload.php';
 // set dotenv
 try
 {
-  $dotenv = new Dotenv(__PATH__);
+  $dotenv = Dotenv::createImmutable(__PATH__);
   $dotenv->load();
 }
 catch(Exception $e)
@@ -121,8 +121,8 @@ try {
       // index - search keyword
       case 'index/search':
         $res = Util::api('/articles', (object)[
-          'field' => 'srl,nest_srl,category_srl,json,title,regdate',
-          'order' => 'regdate',
+          'field' => 'srl,nest_srl,category_srl,json,title,`order`',
+          'order' => '`order`',
           'sort' => 'desc',
           'app' => getenv('DEFAULT_APP_SRL'),
           'size' => getenv('DEFAULT_INDEX_SIZE'),

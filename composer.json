@@ -7,10 +7,10 @@
 		}
 	],
 	"require": {
-		"vlucas/phpdotenv": "^2.5",
-		"altorouter/altorouter": "^1.2",
-		"eftec/bladeone": "^3.12",
-		"erusev/parsedown": "^1.7"
+		"vlucas/phpdotenv": "^4.0.0",
+		"altorouter/altorouter": "^2.0.1",
+		"eftec/bladeone": "^3.31",
+		"erusev/parsedown": "^1.7.3"
 	},
 	"autoload": {
 		"psr-4": {
