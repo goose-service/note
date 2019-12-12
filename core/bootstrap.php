@@ -1,6 +1,6 @@
 <?php
 namespace Core;
-use Dotenv\Dotenv, Exception;
+use Dotenv\Dotenv, redgoose\RestAPI, redgoose\Console, Exception;
 
 if (!defined('__GOOSE__')) exit();
 
@@ -43,12 +43,21 @@ try {
     $_params = (object)$router->match['params'];
     $_method = $_SERVER['REQUEST_METHOD'];
 
+    // init rest api
+    $api = new RestAPI((object)[
+      'url' => getenv('PATH_API'),
+      'outputType' => 'json',
+      'headers' => ['Authorization: ' . getenv('TOKEN_PUBLIC')],
+      'timeout' => 30,
+      'debug' => false,
+    ]);
+
     switch($_target)
     {
       // index - intro
       case 'index':
         // get articles
-        $res = Util::api('/articles', (object)[
+        $res = $api->call('get', '/articles', (object)[
           'field' => 'srl,category_srl,json,title,regdate,order',
           'order' => '`order` desc, `srl` desc',
           'app' => getenv('DEFAULT_APP_SRL'),
@@ -56,6 +65,8 @@ try {
           'page' => Util::getPage(),
           'ext_field' => 'category_name',
         ]);
+        if (!isset($res->response)) throw new Exception($res->message, $res->code);
+        $res = $res->response;
         if (!($res && $res->success)) throw new Exception($res->message, $res->code);
 
         // set title
@@ -74,14 +85,14 @@ try {
           'pageTitle' => 'Newest articles',
           'index' => Util::convertArticleData($res->data->index),
           'page' => Util::getPage(),
-          'navigation' => $navigation,
+          'paginate' => $navigation,
           'url' => Util::getUrlPath(),
         ]);
         break;
 
       // index - select nest
       case 'index/nest':
-        $res = Util::api('/external/note-redgoose-me-nest', (object)[
+        $res = $api->call('get', '/external/note-redgoose-me-nest', (object)[
           'app_srl' => getenv('DEFAULT_APP_SRL'),
           'nest_id' => isset($_params->nest) ? $_params->nest : null,
           'category_srl' => isset($_params->category) ? $_params->category : null,
@@ -89,6 +100,8 @@ try {
           'page' => Util::getPage(),
           'size' => getenv('DEFAULT_INDEX_SIZE'),
         ]);
+        if (!isset($res->response)) throw new Exception($res->message, $res->code);
+        $res = $res->response;
         if (!($res && $res->success)) throw new Exception($res->message, $res->code);
 
         // set title
@@ -113,14 +126,14 @@ try {
           'nest_srl' => isset($res->data->nest->srl) ? $res->data->nest->srl : null,
           'category_srl' => isset($_params->category) ? $_params->category : null,
           'category_name' => isset($res->data->category->name) ? $res->data->category->name : null,
-          'navigation' => $navigation,
+          'paginate' => $navigation,
           'url' => Util::getUrlPath(),
         ]);
         break;
 
       // index - search keyword
       case 'index/search':
-        $res = Util::api('/articles', (object)[
+        $res = $api->call('get', '/articles', (object)[
           'field' => 'srl,nest_srl,category_srl,json,title,`order`',
           'order' => '`order`',
           'sort' => 'desc',
@@ -130,6 +143,8 @@ try {
           'ext_field' => 'category_name,nest_name',
           'q' => $_GET['q'],
         ]);
+        if (!isset($res->response)) throw new Exception($res->message, $res->code);
+        $res = $res->response;
         if (!($res && $res->success))
         {
           $res->data = (object)[
@@ -155,7 +170,7 @@ try {
           'pageTitle' => 'Search keyword: '.$_GET['q'],
           'index' => Util::convertArticleData($res->data->index),
           'page' => Util::getPage(),
-          'navigation' => $navigation,
+          'paginate' => $navigation,
           'url' => Util::getUrlPath(),
           'searchKeyword' => $_GET['q'],
         ]);
@@ -163,11 +178,13 @@ try {
 
       // article
       case 'article':
-        $res = Util::api('/articles/'.(int)$_params->srl, (object)[
+        $res = $api->call('get', '/articles/'.(int)$_params->srl, (object)[
           'app' => getenv('DEFAULT_APP_SRL'),
           'hit' => Util::checkCookie('redgoose-hit-'.$_params->srl) ? 0 : 1,
           'ext_field' => 'category_name,nest_name'
         ]);
+        if (!isset($res->response)) throw new Exception($res->message, $res->code);
+        $res = $res->response;
         if (!($res && $res->success)) throw new Exception($res->message, $res->code);
 
         // add key in cookie

@@ -21,6 +21,7 @@
 	top: 0;
 	height: $size-header-height-mobile;
 	background: rgba(#000, .7);
+	user-select: none;
 	@supports (backdrop-filter: blur(5px)) {
 		backdrop-filter: blur(5px);
 	}
@@ -322,7 +323,6 @@
 	@include responsive(tablet) {
 		height: $size-header-height;
 		display: flex;
-		&__body {}
 		&__logo {
 			position: relative;
 			width: 110px;
@@ -330,7 +330,7 @@
 			a {
 				position: absolute;
 				left: 25px;
-				top: 6px;
+				top: 4px;
 				padding: 5px;
 			}
 			img {
@@ -380,7 +380,7 @@
 				margin: 0;
 				padding: 0 15px;
 				height: $size-header-height;
-				font-size: 14px;
+				font-size: 13px;
 				transition: background .2s ease-out;
 				&:hover {
 					background: rgba(#000, .2);
@@ -402,6 +402,8 @@
 // footer
 .footer {
 	padding: 50px 0 20px;
+	user-select: none;
+
 	&__copyright {
 		text-align: center;
 		margin: 0;

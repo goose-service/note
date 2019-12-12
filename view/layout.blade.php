@@ -22,16 +22,16 @@
         <div class="header-navigation dropdown-content">
           <ul>
             <li{!! isset($nest_id) && $nest_id === 'blog' ? ' class="on"' : '' !!}>
-              <a href="{{__ROOT__}}/index/blog">Blog</a>
+              <a href="{{__ROOT__}}/index/blog/">Blog</a>
             </li>
             <li{!! isset($nest_id) && $nest_id === 'development' ? ' class="on"' : '' !!}>
-              <a href="{{__ROOT__}}/index/development">Development</a>
+              <a href="{{__ROOT__}}/index/development/">Development</a>
             </li>
             <li{!! isset($nest_id) && $nest_id === 'graphics' ? ' class="on"' : '' !!}>
-              <a href="{{__ROOT__}}/index/graphics">Graphics</a>
+              <a href="{{__ROOT__}}/index/graphics/">Graphics</a>
             </li>
             <li{!! isset($nest_id) && $nest_id === 'note-etc' ? ' class="on"' : '' !!}>
-              <a href="{{__ROOT__}}/index/note-etc">ETC</a>
+              <a href="{{__ROOT__}}/index/note-etc/">ETC</a>
             </li>
             <li>
               <a href="https://redgoose.me" target="_blank">redgoose</a>

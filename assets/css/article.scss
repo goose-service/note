@@ -3,7 +3,7 @@
 
 .article {
 	margin: 0;
-	padding: 0 1rem;
+	padding: 10px 1rem 0;
 	box-sizing: border-box;
 
 	&__header {
@@ -11,8 +11,9 @@
 		h2 {
 			margin: 0;
 			font-size: 1.75rem;
-			line-height: 1.15;
-			font-weight: 700;
+			line-height: 1.1;
+			font-weight: 800;
+			letter-spacing: -1px;
 		}
 		p {
 			margin: 2px 0 0;
@@ -36,11 +37,11 @@
 			line-height: 1.25;
 			font-weight: 600;
 		}
-		h1, h2, h3 { margin: 2.5rem 0 1.5rem; }
-		h4, h5, h6 { margin: 1.75rem 0 1rem; }
-		h1 { font-size: 2rem; }
-		h2 { font-size: 1.75rem; }
-		h3 { font-size: 1.5rem; }
+		h1, h2, h3 { margin: 2.5rem 0 1.5rem; letter-spacing: -1px; }
+		h4, h5, h6 { margin: 1.75rem 0 1rem; letter-spacing: -.5px; }
+		h1 { font-size: 2rem; font-weight: 800; }
+		h2 { font-size: 1.75rem; font-weight: 800; }
+		h3 { font-size: 1.5rem; font-weight: 700; }
 		h4 { font-size: 1.25rem; }
 		h5 { font-size: 1rem; }
 		h6 { font-size: .9375rem; }
@@ -72,16 +73,16 @@
 		blockquote {
 			position: relative;
 			margin: 1rem 0;
-			padding: 1rem 1rem 1rem calc(1rem + 4px);
-			background: mix(#e8e9eb, #fff, 75%);
+			padding: 1rem 1rem 1rem calc(1rem + 3px);
+			background: mix(#e8e9eb, #fff, 60%);
 			&:after {
 				content: '';
 				position: absolute;
 				left: 0;
 				top: 0;
 				bottom: 0;
-				width: 4px;
-				background: #1e65d7;
+				width: 3px;
+				background: $color-code;
 			}
 			* {
 				&:first-child {
@@ -118,7 +119,8 @@
 		code {
 			word-break: break-word;
 			font-size: 87.5%;
-			color: #007bff;
+			color: $color-code;
+			letter-spacing: -.5px;
 		}
 		pre {
 			margin: 1rem 0;
@@ -189,15 +191,32 @@
 		display: flex;
 		justify-content: center;
 		align-items: flex-start;
-		> * {
-			padding: 12px 0 10px;
+		user-select: none;
+		.wrap {
+			position: relative;
+			box-sizing: border-box;
 			width: 60px;
-			text-align: center;
 			font-size: 0;
+		}
+		.like {
+			border: none;
+			cursor: pointer;
+			border-radius: 0;
+			background: none;
+			-webkit-tap-highlight-color: transparent;
+			font-size: 0;
+			margin: 0;
+			outline: none;
 			svg {
-				box-sizing: border-box;
 				display: block;
-				margin: 0 auto;
+				box-sizing: border-box;
+				width: 28px;
+				height: 28px;
+				transition: transform 300ms cubic-bezier(.24, 1.35, .8, 1.22);
+				path {
+					fill: $color-key;
+					transition: fill .15s ease-out;
+				}
 			}
 			em {
 				display: block;
@@ -207,30 +226,15 @@
 				color: #999;
 				line-height: 1;
 				font-family: $font-eng;
-			}
-		}
-		.like {
-			border: none;
-			cursor: pointer;
-			border-radius: 0;
-			background: none;
-			-webkit-tap-highlight-color: transparent;
-			user-select: none;
-			font-size: 0;
-			margin: 0;
-			svg {
-				width: 28px;
-				height: 28px;
-				transition: transform .3s cubic-bezier(.24, 1.35, .8, 1.22);
-				path {
-					fill: $color-key;
-					transition: fill .15s ease-out;
-				}
+				transition: opacity 300ms ease-out;
 			}
 			&:active {
 				outline: none;
 				svg {
-					transform: scale(1.4);
+					transform: scale(1.4) translateY(2px);
+				}
+				em {
+					opacity: 0;
 				}
 			}
 			&.on {
@@ -249,38 +253,31 @@
 					}
 				}
 			}
-			@include responsive(desktop) {
-				svg {
-					width: 32px;
-					height: 32px;
-				}
-			}
 		}
 		.list {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			position: absolute;
+			left: -34px;
+			top: 0;
 			text-decoration: none;
+			box-sizing: border-box;
+			width: 32px;
+			height: 32px;
 			svg {
-				margin-top: 2px;
-				width: 24px;
-				height: 24px;
+				display: block;
+				box-sizing: border-box;
+				width: 20px;
+				height: 20px;
 				transition: transform .3s cubic-bezier(.24, 1.35, .8, 1.22);
 			}
 			em {
-				margin-top: 8px;
 				font-size: 0;
 			}
 			&:active {
 				svg {
 					transform: scale(1.4);
-				}
-			}
-			@include responsive(desktop) {
-				svg {
-					margin-top: 3px;
-					width: 28px;
-					height: 28px;
-				}
-				em {
-					margin-top: 7px;
 				}
 			}
 		}
@@ -290,9 +287,9 @@
 		padding: 0 $size-container-padding;
 		&__header {
 			h2 {
-				font-size: 2.25rem;
-				line-height: 1.25;
-				letter-spacing: -1px;
+				font-size: 2rem;
+				line-height: 1.1;
+				letter-spacing: -1.5px;
 			}
 			p {
 				margin-top: 3px;
@@ -312,7 +309,23 @@
 	@include responsive(desktop) {
 		&__content {
 			img {
-				max-width: 90vw;
+				max-width: 1280px;
+			}
+		}
+		&__nav {
+			.like {
+				svg {
+					width: 32px;
+					height: 32px;
+				}
+			}
+			.list {
+				top: 2px;
+				left: -42px;
+				svg {
+					width: 24px;
+					height: 24px;
+				}
 			}
 		}
 	}

@@ -28,6 +28,12 @@ samp {
 	font-family: $font-console;
 }
 
+::selection {
+	background: $color-key;
+	color: #fff;
+}
+
+// load contents
 @import "./layout";
 @import "./index";
 @import "./article";

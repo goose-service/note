@@ -1,6 +1,6 @@
 <?php
 namespace Core;
-use Exception;
+use Exception, redgoose\Paginate, redgoose\Console;
 
 /**
  * Util
@@ -50,24 +50,6 @@ class Util {
   }
 
   /**
-   * print console.log in javascript
-   *
-   * @param string|object|array|boolean $src
-   */
-  static public function console($src=null)
-  {
-    try
-    {
-      $source = json_encode($src);
-    }
-    catch(Exception $e)
-    {
-      $source = 'Parsing error';
-    }
-    echo "<script>console.log(".$source.");</script>";
-  }
-
-  /**
    * error
    *
    * @param Exception $error
@@ -79,7 +61,7 @@ class Util {
     // debug
     if (getenv('USE_DEBUG') === '1')
     {
-      self::console((object)[
+      Console::log((object)[
         'message' => $error->getMessage(),
         'code' => $error->getCode(),
       ]);
@@ -218,20 +200,20 @@ class Util {
    */
   static public function makeNavigation($total, $page=1, $size=10, $params=[])
   {
-    if ($total && $total > 0)
-    {
-      $result = (object)[];
-      // set paginate for desktop
-      $paginate = new Paginate($total, $page, $params, $size, getenv('DEFAULT_NAVIGATION_SCALE_DESKTOP'));
-      $result->desktop = $paginate->createNavigationToObject();
-      $paginate = new Paginate($total, $page, $params, $size, getenv('DEFAULT_NAVIGATION_SCALE_MOBILE'));
-      $result->mobile = $paginate->createNavigationToObject();
-    }
-    else
-    {
-      $result = null;
-    }
-
+    $result = (object)[
+      'total' => $total,
+      'page' => $page,
+    ];
+    $paginate = new Paginate((object)[
+      'total' => $total,
+      'page' => $page,
+      'size' => $size,
+      'params' => $params,
+      'scale' => getenv('DEFAULT_NAVIGATION_SCALE_MOBILE'),
+    ]);
+    $result->mobile = $paginate->createElements(['paginate', 'paginate--mobile'], './');
+    $paginate->update((object)[ 'scale' => getenv('DEFAULT_NAVIGATION_SCALE_DESKTOP') ]);
+    $result->desktop = $paginate->createElements(['paginate', 'paginate--desktop'], './');
     return $result;
   }
 
