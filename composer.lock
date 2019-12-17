@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
     "content-hash": "3b7dfacdfbcbb8f95e28fa455c9a8a87",
@@ -168,16 +168,16 @@
         },
         {
             "name": "phpoption/phpoption",
-            "version": "1.6.0",
+            "version": "1.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/schmittjoh/php-option.git",
-                "reference": "f4e7a6a1382183412246f0d361078c29fb85089e"
+                "reference": "a8593bf5176bf3d3f2966942c530be19b44ec87c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/schmittjoh/php-option/zipball/f4e7a6a1382183412246f0d361078c29fb85089e",
-                "reference": "f4e7a6a1382183412246f0d361078c29fb85089e",
+                "url": "https://api.github.com/repos/schmittjoh/php-option/zipball/a8593bf5176bf3d3f2966942c530be19b44ec87c",
+                "reference": "a8593bf5176bf3d3f2966942c530be19b44ec87c",
                 "shasum": ""
             },
             "require": {
@@ -218,7 +218,7 @@
                 "php",
                 "type"
             ],
-            "time": "2019-11-30T20:20:49+00:00"
+            "time": "2019-12-11T13:45:14+00:00"
         },
         {
             "name": "redgoose/console",
@@ -394,16 +394,16 @@
         },
         {
             "name": "vlucas/phpdotenv",
-            "version": "v4.0.0",
+            "version": "v4.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vlucas/phpdotenv.git",
-                "reference": "3aa2821b7f117e235af45ef057e41112a25bf9b1"
+                "reference": "55dc9010920405c6fcf440667ab70a6a6f9a2ac7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/3aa2821b7f117e235af45ef057e41112a25bf9b1",
-                "reference": "3aa2821b7f117e235af45ef057e41112a25bf9b1",
+                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/55dc9010920405c6fcf440667ab70a6a6f9a2ac7",
+                "reference": "55dc9010920405c6fcf440667ab70a6a6f9a2ac7",
                 "shasum": ""
             },
             "require": {
@@ -447,7 +447,7 @@
                 "env",
                 "environment"
             ],
-            "time": "2019-11-30T20:25:09+00:00"
+            "time": "2019-12-08T15:09:05+00:00"
         }
     ],
     "packages-dev": [],
