@@ -57,7 +57,7 @@ try {
       // index - intro
       case 'index':
         // get articles
-        $res = $api->call('get', '/articles', (object)[
+        $res = $api->call('get', '/articles/', (object)[
           'field' => 'srl,category_srl,json,title,regdate,order',
           'order' => '`order` desc, `srl` desc',
           'app' => getenv('DEFAULT_APP_SRL'),
@@ -92,7 +92,7 @@ try {
 
       // index - select nest
       case 'index/nest':
-        $res = $api->call('get', '/external/note-redgoose-me-nest', (object)[
+        $res = $api->call('get', '/external/note-redgoose-me-nest/', (object)[
           'app_srl' => getenv('DEFAULT_APP_SRL'),
           'nest_id' => isset($_params->nest) ? $_params->nest : null,
           'category_srl' => isset($_params->category) ? $_params->category : null,
@@ -133,7 +133,7 @@ try {
 
       // index - search keyword
       case 'index/search':
-        $res = $api->call('get', '/articles', (object)[
+        $res = $api->call('get', '/articles/', (object)[
           'field' => 'srl,nest_srl,category_srl,json,title,`order`',
           'order' => '`order`',
           'sort' => 'desc',
@@ -178,7 +178,7 @@ try {
 
       // article
       case 'article':
-        $res = $api->call('get', '/articles/'.(int)$_params->srl, (object)[
+        $res = $api->call('get', '/articles/'.(int)$_params->srl.'/', (object)[
           'app' => getenv('DEFAULT_APP_SRL'),
           'hit' => Util::checkCookie('redgoose-hit-'.$_params->srl) ? 0 : 1,
           'ext_field' => 'category_name,nest_name'
