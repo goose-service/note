@@ -14,17 +14,18 @@
 
 // header
 .header {
+	$icon-color: #fff;
+	$icon-back-active-color: rgba(0,0,0,.2);
+
 	position: fixed;
 	z-index: 10;
 	left: 0;
 	right: 0;
 	top: 0;
 	height: $size-header-height-mobile;
-	background: rgba(#000, .7);
+	background: rgba(#000, .4);
 	user-select: none;
-	@supports (backdrop-filter: blur(5px)) {
-		backdrop-filter: blur(5px);
-	}
+	@include background-blur(5px);
 
 	&__body {
 		display: flex;
@@ -65,39 +66,41 @@
 			background: rgba(#000, 0);
 			transition: background .2s ease-out;
 			font-size: 0;
-			img {
+			cursor: pointer;
+			svg {
+				display: block;
 				position: absolute;
 				left: 50%;
 				top: 50%;
+				color: $icon-color;
 				pointer-events: none;
 				transition: transform .3s ease-out;
-				&.on {
-					margin: -6px 0 0 -9px;
+				transform-origin: 50% 50%;
+				&:nth-child(1) {
+					transform: translate(-50%, -50%);
 				}
-				&.off {
-					margin: -7px 0 0 -7px;
-					transform: scale(0);
+				&:nth-child(2) {
+					transform: translate(-50%, -50%) scale(0);
 				}
 			}
 			&:active {
-				background: rgba(#000, .2);
+				background: $icon-back-active-color;
 			}
 		}
 		> div {
 			position: relative;
 			opacity: 0;
 			pointer-events: none;
-			transition: opacity .2s ease-out;
 		}
 		&.active {
 			> button {
-				background: rgba(#000, .2);
-				img {
-					&.on {
-						transform: scale(0);
+				background: $icon-back-active-color;
+				svg {
+					&:nth-child(1) {
+						transform: translate(-50%, -50%) scale(0);
 					}
-					&.off {
-						transform: scale(1);
+					&:nth-child(2) {
+						transform: translate(-50%, -50%) scale(1);
 					}
 				}
 			}
@@ -123,50 +126,47 @@
 			background: rgba(#000, 0);
 			transition: background .2s ease-out;
 			font-size: 0;
-			img {
+			cursor: pointer;
+			svg {
+				display: block;
 				position: absolute;
 				left: 50%;
 				top: 50%;
+				color: $icon-color;
 				pointer-events: none;
 				transition: transform .3s ease-out;
-				&.on {
-					margin: -9px 0 0 -9px;
+				transform-origin: 50% 50%;
+				&:nth-child(1) {
+					transform: translate(-50%, -50%);
 				}
-				&.off {
-					margin: -7px 0 0 -7px;
-					transform: scale(0);
+				&:nth-child(2) {
+					transform: translate(-50%, -50%) scale(0);
 				}
 			}
 			&:active {
-				background: rgba(#000, .2);
+				background: $icon-back-active-color;
 			}
 		}
 		> div {
 			position: relative;
 			opacity: 0;
 			pointer-events: none;
-			transition: opacity .2s ease-out;
 		}
 		&.active {
 			> button {
-				background: rgba(#000, .2);
-				img {
-					&.on {
-						transform: scale(0);
+				background: $icon-back-active-color;
+				svg {
+					&:nth-child(1) {
+						transform: translate(-50%, -50%) scale(0);
 					}
-					&.off {
-						transform: scale(1);
+					&:nth-child(2) {
+						transform: translate(-50%, -50%) scale(1);
 					}
 				}
 			}
 			> div {
 				opacity: 1;
 				pointer-events: auto;
-			}
-		}
-		&.active-bg {
-			> button {
-				background: rgba(#000, .2);
 			}
 		}
 	}
@@ -183,26 +183,11 @@
 			display: flex;
 			align-items: center;
 			flex-wrap: wrap;
-			background: rgba(#000, .75);
-			&:before {
-				content: '';
-				position: absolute;
-				left: 0;
-				right: 0;
-				top: 0;
-				bottom: 0;
-				display: block;
-				background: rgba(#000, .2);
-			}
+			background: rgba(#666, .95);
 		}
 		li {
 			position: relative;
 			width: 50%;
-			&.on {
-				a {
-					text-decoration: underline;
-				}
-			}
 		}
 		a {
 			display: block;
@@ -219,6 +204,13 @@
 				text-decoration: underline;
 			}
 		}
+		li.on {
+			a {
+				text-decoration: underline;
+				cursor: default;
+				background: rgba($color-key, .75);
+			}
+		}
 	}
 	&-search {
 		form {
@@ -227,22 +219,9 @@
 			left: 0;
 			right: 0;
 			padding: 0;
-			background: rgba(#000, .75);
+			background: rgba(#666, .95);
 			display: flex;
 			align-items: center;
-			@supports (backdrop-filter: blur(5px)) {
-				backdrop-filter: blur(5px);
-			}
-			&:before {
-				content: '';
-				position: absolute;
-				left: 0;
-				right: 0;
-				top: 0;
-				bottom: 0;
-				display: block;
-				background: rgba(#000, .2);
-			}
 		}
 		fieldset {
 			position: relative;
@@ -273,10 +252,13 @@
 				outline: none;
 				color: #fff;
 				padding: 0 20px;
+				&::placeholder {
+					color: rgba(#fff, .5);
+				}
 			}
 			button {
 				position: absolute;
-				right: 0;
+				right: -10px;
 				top: 0;
 				display: block;
 				width: 54px;
@@ -289,7 +271,7 @@
 				pointer-events: none;
 				opacity: 0;
 				svg {
-					color: #aaa;
+					color: #ccc;
 					width: 18px;
 					height: 18px;
 				}
@@ -298,9 +280,13 @@
 				}
 			}
 			&.is-word {
+				input {
+					padding-right: 48px;
+				}
 				button {
 					pointer-events: auto;
 					opacity: 1;
+					cursor: pointer;
 				}
 			}
 		}
@@ -314,8 +300,12 @@
 			font-size: 0;
 			box-sizing: border-box;
 			outline: none;
+			cursor: pointer;
 			&:active {
 				background: rgba(#000, .2);
+			}
+			svg {
+				color: #fff;
 			}
 		}
 	}
@@ -341,14 +331,13 @@
 			position: static;
 			width: auto;
 			height: auto;
-			margin: 0;
+			margin: 0 0 0 15px;
 			> button {
 				display: none;
 			}
 			> div {
 				opacity: 1;
 				pointer-events: auto;
-				transition: none;
 				position: static;
 			}
 		}
@@ -383,10 +372,12 @@
 				font-size: 13px;
 				transition: background .2s ease-out;
 				&:hover {
-					background: rgba(#000, .2);
+					background: rgba(#000, .1);
 				}
-				&:active {
-					text-decoration: none;
+			}
+			li.on {
+				a {
+					//background: rgba(#000, .1);
 				}
 			}
 		}
@@ -397,13 +388,61 @@
 			}
 		}
 	}
+	@include dark-mode() {
+		&__navigation {
+			> button {
+				img {
+					opacity: .75;
+				}
+			}
+		}
+		&__search {
+			> button {
+				img {
+					opacity: .75;
+				}
+			}
+		}
+		&-navigation {
+			ul {
+				background: rgba(#000, .9);
+			}
+			a {
+				color: $color-dark-text-base;
+				&.active {
+
+				}
+			}
+		}
+		&-search {
+			form {
+				background: rgba(#000, .9);
+			}
+			span {
+				input {
+					color: $color-dark-text-base;
+				}
+			}
+		}
+		@include responsive(tablet) {
+			&-navigation {
+				ul {
+					background: none;
+				}
+				li {
+					&.on a {
+						background: rgba($color-key, .75);
+					}
+				}
+			}
+		}
+	}
 }
 
 // footer
 .footer {
 	padding: 50px 0 20px;
 	user-select: none;
-
 	&__copyright {
 		text-align: center;
 		margin: 0;
@@ -415,12 +454,16 @@
 	@include responsive(tablet) {
 		padding: 80px 0 24px;
 	}
+	@include dark-mode() {
+		&__copyright {
+			color: #666;
+		}
+	}
 }
 
 // container
 .container {
 	padding: $size-header-height-mobile + 32px 0 0;
-
 	@include responsive(tablet) {
 		padding: $size-header-height + 40px 0 0;
 	}

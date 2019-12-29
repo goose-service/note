@@ -3,27 +3,83 @@
 // responsive
 @mixin responsive($range)
 {
-	@if $range == mini
-	{
-		@media (min-width: #{$size-screen-mini}) { @content; }
-	}
-	@else if $range == tablet
-	{
-		@media (min-width: #{$size-screen-tablet}) { @content; }
-	}
-	// 768 ~ 1000
-	@else if $range == desktop
-	{
-		@media (min-width: #{$size-screen-desktop}) { @content; }
-	}
-	@else if $range == max
-	{
-		@media (min-width: #{$size-screen-max}) { @content; }
-	}
+  @if $range == mini
+  {
+    @media (min-width: #{$size-screen-mini}) { @content; }
+  }
+  @else if $range == tablet
+  {
+    @media (min-width: #{$size-screen-tablet}) { @content; }
+  }
+    // 768 ~ 1000
+  @else if $range == desktop
+  {
+    @media (min-width: #{$size-screen-desktop}) { @content; }
+  }
+  @else if $range == max
+  {
+    @media (min-width: #{$size-screen-max}) { @content; }
+  }
 }
 
 // retina display
 @mixin retina()
 {
-	@media (-webkit-min-device-pixel-ratio: 2) { @content; }
+  @media (-webkit-min-device-pixel-ratio: 2) { @content; }
+}
+
+// dark mode
+@mixin dark-mode() {
+  @media (prefers-color-scheme: dark) { @content; }
+}
+
+// scroll area
+@mixin scroll-area($axis:'', $value:auto, $custom-style:false)
+{
+  @if ($axis)
+  {
+    overflow-#{$axis}: $value;
+  }
+  @else
+  {
+    overflow: $value;
+  }
+  -webkit-overflow-scrolling: touch;
+  @if ($custom-style == true)
+  {
+    $scrollbar-size: 10px;
+    &::-webkit-scrollbar {
+      width: $scrollbar-size;
+      height: $scrollbar-size;
+    }
+    &::-webkit-scrollbar-track {
+      background: #fff;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: rgba(#000, .2);
+      border-radius: 3px;
+    }
+    &::-webkit-scrollbar-thumb:hover {
+      background: rgba(#000, .3);
+    }
+    @include dark-mode() {
+      &::-webkit-scrollbar-track {
+        background: #1b1b1b;
+      }
+      &::-webkit-scrollbar-thumb {
+        background: rgba(#fff, .4);
+      }
+      &::-webkit-scrollbar-thumb:hover {
+        background: rgba(#fff, .6);
+      }
+    }
+  }
+}
+
+// background blur
+@mixin background-blur($value:5px)
+{
+  @supports (backdrop-filter: blur($value)) {
+    backdrop-filter: blur($value);
+  }
 }

@@ -72,7 +72,7 @@ if(!defined("__GOOSE__")){exit();}
   </article>
   @endif
 
-  @if ($paginate->total > 0)
+  @if (isset($paginate->total) && $paginate->total > 0)
   <div class="index__paginate">
     {!! $paginate->mobile !!}
     {!! $paginate->desktop !!}

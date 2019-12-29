@@ -34,11 +34,10 @@ if(!defined("__GOOSE__")){exit();}
 	</div>
 	<nav class="article__nav">
 		<div class="wrap">
-			<a href="{{$refererUrl}}" class="list">
-				<svg xmlns="http://www.w3.org/2000/svg" width="8" height="12" viewBox="0 0 8 12">
+			<a href="{{$refererUrl}}" class="back">
+				<svg xmlns="http://www.w3.org/2000/svg" width="8" height="12" viewBox="0 0 8 12" fill="currentColor">
 					<g fill="none" fill-rule="evenodd">
-						<path fill="#000" d="M7.41 1.41L6 0 0 6l6 6 1.41-1.41L2.83 6z"/>
-						<path d="M-8-6h24v24H-8z"/>
+						<path fill="currentColor" d="M7.41 1.41L6 0 0 6l6 6 1.41-1.41L2.83 6z"/>
 					</g>
 				</svg>
 				<em>back</em>

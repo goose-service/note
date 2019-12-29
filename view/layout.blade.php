@@ -16,8 +16,16 @@
       </div>
       <nav class="header__navigation" id="headerNavigation">
         <button type="button" title="toggle navigation" class="dropdown-button">
-          <img src="{{__ROOT__}}/assets/images/ico-menu.svg" class="on" alt="menu">
-          <img src="{{__ROOT__}}/assets/images/ico-close.svg" class="off" alt="close menu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="12" viewBox="0 0 18 12" fill="currentColor">
+            <g fill="none" fill-rule="evenodd">
+              <path fill="currentColor" fill-rule="nonzero" d="M0 12h18v-2H0v2zm0-5h18V5H0v2zm0-7v2h18V0H0z"/>
+            </g>
+          </svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
+            <g fill="none" fill-rule="evenodd">
+              <path fill="currentColor" d="M14 1.41L12.59 0 7 5.59 1.41 0 0 1.41 5.59 7 0 12.59 1.41 14 7 8.41 12.59 14 14 12.59 8.41 7z"/>
+            </g>
+          </svg>
         </button>
         <div class="header-navigation dropdown-content">
           <ul>
@@ -42,8 +50,16 @@
     </div>
     <div class="header__search" id="headerSearch">
       <button type="button" title="toggle search form" class="dropdown-button">
-        <img src="{{__ROOT__}}/assets/images/ico-search.svg" class="on" alt="search">
-        <img src="{{__ROOT__}}/assets/images/ico-close.svg" class="off" alt="close menu">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="currentColor">
+          <g fill="none" fill-rule="evenodd">
+            <path fill="currentColor" fill-rule="nonzero" d="M12.5 11h-.79l-.28-.27A6.471 6.471 0 0 0 13 6.5 6.5 6.5 0 1 0 6.5 13c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L17.49 16l-4.99-5zm-6 0C4.01 11 2 8.99 2 6.5S4.01 2 6.5 2 11 4.01 11 6.5 8.99 11 6.5 11z"/>
+          </g>
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
+          <g fill="none" fill-rule="evenodd">
+            <path fill="currentColor" d="M14 1.41L12.59 0 7 5.59 1.41 0 0 1.41 5.59 7 0 12.59 1.41 14 7 8.41 12.59 14 14 12.59 8.41 7z"/>
+          </g>
+        </svg>
       </button>
       <div class="header-search dropdown-content">
         <form action="{{__ROOT__}}/search" method="get" id="search_keyword">
@@ -61,7 +77,11 @@
           </fieldset>
           <nav>
             <button type="submit">
-              <img src="{{__ROOT__}}/assets/images/ico-search.svg" alt="search">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="currentColor">
+                <g fill="none" fill-rule="evenodd">
+                  <path fill="currentColor" fill-rule="nonzero" d="M12.5 11h-.79l-.28-.27A6.471 6.471 0 0 0 13 6.5 6.5 6.5 0 1 0 6.5 13c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L17.49 16l-4.99-5zm-6 0C4.01 11 2 8.99 2 6.5S4.01 2 6.5 2 11 4.01 11 6.5 8.99 11 6.5 11z"/>
+                </g>
+              </svg>
             </button>
           </nav>
         </form>

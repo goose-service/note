@@ -157,12 +157,15 @@ try {
         if (isset($_GET['q'])) $title = $_GET['q'].' - '.$title;
 
         // set navigation
-        $navigation = Util::makeNavigation(
-          $res->data->total,
-          Util::getPage(),
-          getenv('DEFAULT_INDEX_SIZE'),
-          [ 'q' => $_GET['q'] ]
-        );
+        if (isset($res->data->total))
+        {
+          $navigation = Util::makeNavigation(
+            $res->data->total,
+            Util::getPage(),
+            getenv('DEFAULT_INDEX_SIZE'),
+            [ 'q' => $_GET['q'] ]
+          );
+        }
 
         // render page
         $blade->render('index', (object)[
@@ -170,7 +173,7 @@ try {
           'pageTitle' => 'Search keyword: '.$_GET['q'],
           'index' => Util::convertArticleData($res->data->index),
           'page' => Util::getPage(),
-          'paginate' => $navigation,
+          'paginate' => isset($navigation) ? $navigation : null,
           'url' => Util::getUrlPath(),
           'searchKeyword' => $_GET['q'],
         ]);
