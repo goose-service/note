@@ -268,34 +268,6 @@
 				}
 			}
 		}
-		.back {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			position: absolute;
-			left: -34px;
-			top: 0;
-			text-decoration: none;
-			box-sizing: border-box;
-			width: 32px;
-			height: 32px;
-			svg {
-				display: block;
-				box-sizing: border-box;
-				width: 20px;
-				height: 20px;
-				color: #222;
-				transition: transform .3s cubic-bezier(.24, 1.35, .8, 1.22);
-			}
-			em {
-				font-size: 0;
-			}
-			&:active {
-				svg {
-					transform: scale(1.4);
-				}
-			}
-		}
 	}
 
 	@include responsive(tablet) {
@@ -307,7 +279,7 @@
 				letter-spacing: -1.5px;
 			}
 			p {
-				margin-top: 3px;
+				margin-top: 5px;
 			}
 		}
 		&__content {
@@ -334,14 +306,6 @@
 					height: 32px;
 				}
 			}
-			.list {
-				top: 2px;
-				left: -42px;
-				svg {
-					width: 24px;
-					height: 24px;
-				}
-			}
 		}
 		@include retina() {
 			&__content {
@@ -358,7 +322,7 @@
 			}
 			p {
 				span {
-					color: #777;
+					color: #999;
 				}
 			}
 		}
@@ -386,12 +350,10 @@
 				blockquote {
 					background: #1a1a1b;
 				}
-			}
-		}
-		&__nav {
-			.back {
-				svg {
-					color: $color-dark-text-base;
+				hr {
+					&:after {
+						color: $color-dark-text-base;
+					}
 				}
 			}
 		}
