@@ -135,7 +135,7 @@ class Redgoose {
 			let cnt = parseInt(em.textContent);
 			em.innerHTML = String(cnt + 1);
 
-			ajax(`${this.options.url_api}/articles/${srl}/update?type=star`, 'get', null, headers).then((res) => {
+			ajax(`${this.options.url_api}/articles/${srl}/update/?type=star`, 'get', null, headers).then((res) => {
 				if (res.success)
 				{
 					cookie.set(`redgoose-like-${srl}`, '1', 10, this.options.url_cookie);
