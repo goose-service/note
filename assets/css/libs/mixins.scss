@@ -83,3 +83,16 @@
     backdrop-filter: blur($value);
   }
 }
+
+// button touch options
+@mixin button-touch-options($opacity:false) {
+  outline: none;
+  user-select: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  @if ($opacity) {
+    &:active {
+      opacity: .6;
+    }
+  }
+}
