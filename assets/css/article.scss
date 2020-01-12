@@ -140,16 +140,6 @@
       margin-top: 50px;
     }
   }
-  @include responsive(desktop) {
-    &__nav {
-      .like {
-        svg {
-          width: 32px;
-          height: 32px;
-        }
-      }
-    }
-  }
   @include dark-mode() {
     &__header {
       h2 {
