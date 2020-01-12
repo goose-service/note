@@ -6,4 +6,5 @@ cache/
 
 .DS_Store
 .env
+yarn.lock
 yarn-error.log
