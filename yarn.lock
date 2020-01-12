@@ -4553,7 +4553,7 @@ readdirp@~3.3.0:
 
 "redgoose-content-body@https://github.com/redgoose-dev/redgoose-content-body.git":
   version "1.0.0"
-  resolved "https://github.com/redgoose-dev/redgoose-content-body.git#a8f004e2d15bd8a4e5d521eb922e958bd5093bb0"
+  resolved "https://github.com/redgoose-dev/redgoose-content-body.git#eaabb1cf2b7f3d0dd4c6c67fb96c016de941a677"
 
 regenerate-unicode-properties@^8.1.0:
   version "8.1.0"
