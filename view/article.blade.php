@@ -29,14 +29,23 @@ if(!defined("__GOOSE__")){exit();}
 			<span>{{$data->order}}</span>
 		</p>
 	</header>
-	<div class="article__content" id="article_content">
+	<div class="article__content redgoose-body" id="article_content">
 		{!! $data->content !!}
 	</div>
 	<nav class="article__nav">
 		<div class="wrap">
 			<button type="button" id="button_like" data-srl="{{$data->srl}}"{!! $onLike ? ' class="like on" disabled' : 'class="like"' !!}>
-				<svg xmlns="http://www.w3.org/2000/svg" viewBox="129.184 102.606 25.632 23.517">
-					<path d="M13,24.123l-1.858-1.692C4.542,16.446.184,12.5.184,7.655A6.981,6.981,0,0,1,7.233.606,7.673,7.673,0,0,1,13,3.285,7.676,7.676,0,0,1,18.767.606a6.981,6.981,0,0,1,7.049,7.049c0,4.844-4.358,8.791-10.958,14.789Z" transform="translate(129 102)"></path>
+				<svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 38 38">
+					<defs>
+						<linearGradient id="a" x1="20%" y1="0%" y2="100%">
+							<stop offset="0%" stop-color="currentColor" class="step-1"/>
+							<stop offset="50%" stop-color="currentColor" class="step-2"/>
+							<stop offset="100%" stop-color="currentColor" class="step-3"/>
+						</linearGradient>
+					</defs>
+					<g fill="none" fill-rule="evenodd">
+						<path fill="url(#a)" fill-rule="nonzero" d="M18.5 33l-2.247-2.086C8.27 23.534 3 18.666 3 12.692 3 7.825 6.751 4 11.525 4c2.697 0 5.286 1.28 6.975 3.303C20.19 5.28 22.778 4 25.475 4 30.249 4 34 7.825 34 12.692c0 5.974-5.27 10.842-13.253 18.238L18.5 33z"/>
+					</g>
 				</svg>
 				<em>{{$data->star}}</em>
 			</button>
