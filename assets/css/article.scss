@@ -92,8 +92,12 @@
       &:disabled {
         cursor: default;
         svg {
-          .step-1,
-          .step-2,
+          .step-1 {
+            color: #ddd;
+          }
+          .step-2 {
+            color: #bbb;
+          }
           .step-3 {
             color: #aaa;
           }
@@ -115,6 +119,14 @@
         }
         em {
           opacity: 0;
+        }
+      }
+      &:disabled {
+        &:active {
+          background: none;
+          em {
+            opacity: 1;
+          }
         }
       }
     }
@@ -152,9 +164,22 @@
       }
     }
     &__nav {
-      .link {
+      .like {
         em {
           color: mix(#000, $color-dark-text-base, 50%);
+        }
+        &:disabled {
+          svg {
+            .step-1 {
+              color: #666;
+            }
+            .step-2 {
+              color: #444;
+            }
+            .step-3 {
+              color: #333;
+            }
+          }
         }
         &:active,
         &:focus {

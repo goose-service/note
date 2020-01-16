@@ -86,9 +86,11 @@
     user-select: none;
     .paginate {
       $self: '.paginate';
+      $size: 48px;
       align-items: center;
       justify-content: center;
-      > * {
+      > strong,
+      > a {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -96,8 +98,8 @@
         font-size: 13px;
         line-height: 1.25;
         color: $color-text-base;
-        width: 40px;
-        height: 40px;
+        width: $size;
+        height: $size;
         -webkit-tap-highlight-color: transparent;
         svg {
           display: block;
@@ -108,8 +110,9 @@
       > a {
         text-decoration: none;
         transition: background 150ms ease-out;
+        &:hover,
         &:active {
-          background: mix(#000, $color-bg, 5%);
+          background: mix(#000, $color-bg, 10%);
         }
       }
       > strong {
@@ -117,7 +120,6 @@
       }
       &--desktop {
         display: none;
-        padding: 30px 0 0;
       }
       &--mobile {
         display: flex;
@@ -182,15 +184,18 @@
     }
     &__paginate {
       .paginate {
-        > * {
-          width: 34px;
-          height: 34px;
+        $size: 38px;
+        > strong,
+        > a {
+          width: $size;
+          height: $size;
         }
         &--mobile {
           display: none;
         }
         &--desktop {
           display: flex;
+          padding: 30px 0 0;
         }
       }
     }
@@ -218,13 +223,18 @@
     }
     &__paginate {
       .paginate {
-        > * {
+        > strong,
+        > a {
           color: $color-dark-text-base;
         }
         > a {
+          &:hover,
           &:active {
-            background: mix(#000, $color-dark-bg, 50%);
+            background: mix(#000, $color-dark-bg, 20%);
           }
+        }
+        > strong {
+          color: $color-key;
         }
       }
     }
@@ -379,7 +389,7 @@
   @include dark-mode() {
     &__wrap {
       background: #2e2e2e;
-      box-shadow: 0 3px 20px rgba(#000, .25);
+      box-shadow: 0 3px 20px rgba(#000, .15);
       &:active {
         background: #222;
       }
