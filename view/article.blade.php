@@ -29,7 +29,7 @@ if(!defined("__GOOSE__")){exit();}
 			<span>{{$data->order}}</span>
 		</p>
 	</header>
-	<div class="article__content redgoose-body" id="article_content">
+	<div class="article__content redgoose-body redgoose-body--dark" id="article_content">
 		{!! $data->content !!}
 	</div>
 	<nav class="article__nav">
