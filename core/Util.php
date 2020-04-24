@@ -145,7 +145,7 @@ class Util {
    */
   static public function checkCookie($key='')
   {
-    return isset($_COOKIE[$key]) ? true : false;
+    return isset($_COOKIE[$key]);
   }
 
   /**

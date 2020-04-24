@@ -14,10 +14,10 @@ if(!defined("__GOOSE__")){exit();}
 
 @section('contents')
 <article class="error">
-	<figure class="error__image">
-		<img src="{{__ROOT__}}/assets/images/img-symbol-line.png" alt="redgoose">
-	</figure>
-	<p class="error__code">{{$code}}</p>
-	<h2 class="error__message">{{$message}}</h2>
+  <figure class="error__image">
+    <img src="{{__ROOT__}}/assets/images/img-symbol-line.png" alt="redgoose">
+  </figure>
+  <p class="error__code">{{$code}}</p>
+  <h2 class="error__message">{{$message}}</h2>
 </article>
 @endsection

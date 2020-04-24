@@ -181,6 +181,9 @@ try {
 
       // article
       case 'article':
+        $parsedown = new \Parsedown();
+
+        // get article
         $res = $api->call('get', '/articles/'.(int)$_params->srl.'/', (object)[
           'app' => getenv('DEFAULT_APP_SRL'),
           'hit' => Util::checkCookie('redgoose-hit-'.$_params->srl) ? 0 : 1,
@@ -189,6 +192,7 @@ try {
         if (!isset($res->response)) throw new Exception($res->message, $res->code);
         $res = $res->response;
         if (!($res && $res->success)) throw new Exception($res->message, $res->code);
+        $article = $res->data;
 
         // add key in cookie
         if (!Util::checkCookie('redgoose-hit-'.$_params->srl))
@@ -196,23 +200,36 @@ try {
           Util::setCookie('redgoose-hit-'.$_params->srl, '1', 7);
         }
 
-        // parse markdown
-        $parsedown = new \Parsedown();
-        $res->data->content = $parsedown->text($res->data->content);
+        // parse markdown article
+        $article->content = $parsedown->text($article->content);
+
+        // get comments
+        $comments = null;
+        $res = $api->call('get', '/comments/?article='.(int)$_params->srl);
+        if (isset($res->response) && $res->response->success && isset($res->response->data->index))
+        {
+          $comments = $res->response->data->index;
+          foreach ($comments as $key=>$item)
+          {
+            $comments[$key]->content = $parsedown->text($item->content);
+            $comments[$key]->regdate = explode(' ', $item->regdate)[0];
+          }
+        }
 
         // set title
         $title = getenv('TITLE');
-        $title = ($res->data->title === '.' ? 'Untitled work' : $res->data->title).' on '.$title;
+        $title = ($article->title === '.' ? 'Untitled work' : $article->title).' on '.$title;
 
         // set image
-        $image = (isset($res->data->json->thumbnail->path)) ? __API__.'/'.$res->data->json->thumbnail->path : __API__.'/usr/icons/og-redgoose.jpg';
+        $image = (isset($article->json->thumbnail->path)) ? __API__.'/'.$article->json->thumbnail->path : __API__.'/usr/icons/og-redgoose.jpg';
 
         // render page
         $blade->render('article', (object)[
           'title' => $title,
-          'description' => Util::contentToShortText($res->data->content),
+          'description' => Util::contentToShortText($article->content),
           'image' => $image,
-          'data' => $res->data,
+          'data' => $article,
+          'comments' => $comments,
           'onLike' => Util::checkCookie('redgoose-like-'.$_params->srl),
         ]);
         break;
