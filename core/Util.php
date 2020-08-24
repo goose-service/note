@@ -25,13 +25,13 @@ class Util {
       $params = $params ? '?'.http_build_query($params) : '';
 
       // set prefix url
-      $prefix = ($useExternalApi) ? '' : getenv('PATH_API');
+      $prefix = ($useExternalApi) ? '' : $_ENV['PATH_API'];
 
       $ch = curl_init();
       curl_setopt($ch, CURLOPT_URL, $prefix.$url.$params);
       curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
       curl_setopt($ch, CURLOPT_POST, ($method === 'post'));
-      curl_setopt($ch, CURLOPT_HTTPHEADER, ['Authorization: ' . getenv('TOKEN_PUBLIC')]);
+      curl_setopt($ch, CURLOPT_HTTPHEADER, ['Authorization: ' . $_ENV['TOKEN_PUBLIC']]);
       $response = curl_exec($ch);
       $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
       curl_close($ch);
@@ -59,7 +59,7 @@ class Util {
   static public function error($error, $blade)
   {
     // debug
-    if (getenv('USE_DEBUG') === '1')
+    if ($_ENV['USE_DEBUG'] === '1')
     {
       Console::log((object)[
         'message' => $error->getMessage(),
@@ -82,7 +82,7 @@ class Util {
 
     // render
     $blade->render('error', (object)[
-      'title' => getenv('TITLE'),
+      'title' => $_ENV['TITLE'],
       'code' => $code,
       'message' => $message,
     ]);
@@ -161,7 +161,7 @@ class Util {
       $key,
       $value,
       time() + 3600 * 24 * $day,
-      getenv('PATH_COOKIE')
+      $_ENV['PATH_COOKIE']
     );
   }
 
@@ -209,10 +209,12 @@ class Util {
       'page' => $page,
       'size' => $size,
       'params' => $params,
-      'scale' => getenv('DEFAULT_NAVIGATION_SCALE_MOBILE'),
+      'scale' => $_ENV['DEFAULT_NAVIGATION_SCALE_MOBILE'],
     ]);
     $result->mobile = $paginate->createElements(['paginate', 'paginate--mobile'], './');
-    $paginate->update((object)[ 'scale' => getenv('DEFAULT_NAVIGATION_SCALE_DESKTOP') ]);
+    $paginate->update((object)[
+      'scale' => $_ENV['DEFAULT_NAVIGATION_SCALE_DESKTOP'],
+    ]);
     $result->desktop = $paginate->createElements(['paginate', 'paginate--desktop'], './');
     return $result;
   }
@@ -231,4 +233,9 @@ class Util {
     }
     return $str;
   }
+
+  static public function urlHttp() {
+    return isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http';
+  }
+
 }

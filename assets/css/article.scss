@@ -1,10 +1,13 @@
-@import "./libs/valiables";
 @import "./libs/mixins";
 @import "~redgoose-content-body";
 
 .article {
+  --size-article-side-padding: 24px;
+  --color-article-like-step-1: #EB6635;
+  --color-article-like-step-2: #B31E36;
+  --color-article-like-step-3: #3422FF;
   margin: 0;
-  padding: 20px 1rem 0;
+  padding: 20px var(--size-article-side-padding) 0;
   box-sizing: border-box;
 
   &__header {
@@ -21,7 +24,7 @@
       span {
         display: inline-block;
         font-size: 11px;
-        color: #585858;
+        color: var(--color-text-blur);
         &:nth-child(n+2):before {
           content: ', ';
         }
@@ -69,39 +72,31 @@
         height: 38px;
         transition: transform 300ms cubic-bezier(.24, 1.35, .8, 1.22);
         .step-1 {
-          color: #EB6635;
+          color: var(--color-article-like-step-1);
         }
         .step-2 {
-          color: #B31E36;
+          color: var(--color-article-like-step-2);
         }
         .step-3 {
-          color: #3422FF;
+          color: var(--color-article-like-step-3);
         }
       }
       em {
         display: block;
         margin: 0 0 0;
         font-style: normal;
-        font-family: $font-eng;
+        font-family: var(--font-eng);
         font-size: 11px;
         font-weight: 400;
-        color: #aaa;
+        color: var(--color-text-blur);
         transition: opacity 150ms ease-out;
       }
       &.on,
       &:disabled {
         cursor: default;
-        svg {
-          .step-1 {
-            color: #ddd;
-          }
-          .step-2 {
-            color: #bbb;
-          }
-          .step-3 {
-            color: #aaa;
-          }
-        }
+        --color-article-like-step-1: #ddd;
+        --color-article-like-step-2: #bbb;
+        --color-article-like-step-3: #aaa;
         &:focus {
           outline: none;
         }
@@ -133,7 +128,8 @@
   }
 
   @include responsive(tablet) {
-    padding: 15px $size-container-padding 0;
+    --size-article-side-padding: 62px;
+    padding-top: 15px;
     &__header {
       h2 {
         font-size: 2rem;
@@ -153,33 +149,20 @@
     }
   }
   @include dark-mode() {
+    --color-article-like-step-1: #8ef01f;
+    --color-article-like-step-2: var(--color-key);
+    --color-article-like-step-3: #033615;
     &__header {
       h2 {
         color: #fff;
       }
-      p {
-        span {
-          color: #999;
-        }
-      }
     }
     &__nav {
       .like {
-        em {
-          color: mix(#000, $color-dark-text-base, 50%);
-        }
         &:disabled {
-          svg {
-            .step-1 {
-              color: #666;
-            }
-            .step-2 {
-              color: #444;
-            }
-            .step-3 {
-              color: #333;
-            }
-          }
+          --color-article-like-step-1: #666;
+          --color-article-like-step-2: #444;
+          --color-article-like-step-3: #333;
         }
         &:active,
         &:focus {
@@ -232,16 +215,13 @@
   }
   &__date {
     display: block;
-    font-family: $font-eng;
+    font-family: var(--font-eng);
     margin: 24px 0 0;
     font-size: 12px;
-    color: #888;
+    color: var(--color-text-blur);
     font-style: normal;
   }
   @include dark-mode() {
     background: #2c2c2c;
-    &__date {
-      color: #888;
-    }
   }
 }

@@ -8,17 +8,17 @@
   "scripts": {
     "start": "./action.sh start",
     "setup": "./action.sh setup",
-    "watch": "./action.sh watch",
-    "build": "./action.sh build"
+    "watch": "parcel watch assets/js/app.js --global Redgoose --no-autoinstall --out-dir assets/dist --cache-dir cache/parcel --public-url ./",
+    "build": "parcel build assets/js/app.js --global Redgoose --no-source-maps --out-dir assets/dist --cache-dir cache/parcel"
   },
   "devDependencies": {
-    "autoprefixer": "^9.7.6",
+    "autoprefixer": "^9.8.6",
     "cssnano": "^4.1.10",
     "global": "^4.4.0",
     "parcel": "^1.12.4",
-    "postcss-modules": "^2.0.0",
+    "postcss-modules": "^3.2.1",
     "postcss-preset-env": "^6.7.0",
-    "sass": "^1.26.3"
+    "sass": "^1.26.10"
   },
   "dependencies": {
     "redgoose-content-body": "https://github.com/redgoose-dev/redgoose-content-body.git"

@@ -25,30 +25,8 @@ case "$1" in
     fi
     ;;
 
-  watch)
-    parcel \
-      watch \
-      assets/js/app.js \
-      --global Redgoose \
-      --no-autoinstall \
-      --out-dir assets/dist \
-      --cache-dir cache/parcel \
-      --public-url ./
-    ;;
-
-  build)
-    rm -rf assets/dist
-    parcel \
-      build \
-      assets/js/app.js \
-      --global Redgoose \
-      --no-source-maps \
-      --out-dir assets/dist \
-      --cache-dir cache/parcel
-    ;;
-
   *)
-    echo "Usage: ./action.sh {start|setup|watch|build}" >&2
+    echo "Usage: ./action.sh {start|setup}" >&2
     exit 3
     ;;
 esac

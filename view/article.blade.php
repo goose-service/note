@@ -14,10 +14,10 @@ if(!defined("__GOOSE__")){exit();}
 
 @section('meta')
 <title>{{ $title }}</title>
-<meta name="description" content="{{ getenv('DESCRIPTION') }}"/>
-<meta property="og:title" content="{{ $title }}"/>
-<meta property="og:description" content="{{ $description }}">
-<meta property="og:image" content="{{ $image }}">
+<meta name="description" content="{{$_ENV['DESCRIPTION']}}"/>
+<meta property="og:title" content="{{$title}}"/>
+<meta property="og:description" content="{{$description}}">
+<meta property="og:image" content="{{$image}}">
 @endsection
 
 @section('contents')
@@ -70,7 +70,6 @@ if(!defined("__GOOSE__")){exit();}
 
 @section('script')
 <script>
-window.redgoose.mergeOptions({ token: '{{getenv('TOKEN_PUBLIC')}}' });
-window.redgoose.initialArticle();
+window.app.initialArticle();
 </script>
 @endsection

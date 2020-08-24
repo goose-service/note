@@ -3,16 +3,17 @@ if(!defined("__GOOSE__")){exit();}
 
 /** @var array $index */
 /** @var int $nextPage */
+/** @var object $category_srl */
 ?>
 
 @extends('layout')
 
 @section('meta')
 <title>{{ $title }}</title>
-<meta name="description" content="{{ getenv('DESCRIPTION') }}"/>
-<meta property="og:title" content="{{ $title }}"/>
-<meta property="og:description" content="{{ getenv('DESCRIPTION') }}">
-<meta property="og:image" content="{{ __API__ }}/usr/icons/og-redgoose.jpg">
+<meta name="description" content="{{$_ENV['DESCRIPTION']}}"/>
+<meta property="og:title" content="{{$title}}"/>
+<meta property="og:description" content="{{$_ENV['DESCRIPTION']}}">
+<meta property="og:image" content="{{__API__}}/usr/icons/og-redgoose.jpg">
 @endsection
 
 @section('contents')
@@ -20,10 +21,15 @@ if(!defined("__GOOSE__")){exit();}
   <header class="index__header">
     <h2>{{$pageTitle}}</h2>
     @if(isset($categories) && count($categories) > 0)
-    <nav>
-      <ul>
+    <nav class="categories">
+      <ul class="categories__index">
         @foreach($categories as $k=>$item)
-        <li{!!($category_srl === $item->srl || (!$category_srl && !$item->srl)) ? ' class="on"' : ''!!}>
+        <?php
+        /** @var object $item */
+        $className = ['categories__item'];
+        if (!!($category_srl === $item->srl || (!$category_srl && !$item->srl))) $className[] = 'on';
+        ?>
+        <li class="{{join(' ', $className)}}">
           <a href="{{__ROOT__}}/index/{{$nest_id}}/{{$item->srl ? $item->srl.'/' : ''}}">
             <span>{{$item->name}}</span>
             <em>{{$item->count_article ? $item->count_article : 0}}</em>
@@ -36,9 +42,9 @@ if(!defined("__GOOSE__")){exit();}
   </header>
 
   @if($index && count($index))
-  <div class="index__articles">
+  <ul class="index__articles">
     @foreach($index as $k=>$item)
-    <div class="index-article">
+    <li class="index-article">
       <a href="{{__ROOT__}}/article/{{$item->srl}}/" class="index-article__wrap">
         <figure class="index-article__image">
           @if($item->image)
@@ -57,9 +63,9 @@ if(!defined("__GOOSE__")){exit();}
           </p>
         </div>
       </a>
-    </div>
+    </li>
     @endforeach
-  </div>
+  </ul>
   @else
   <article class="index__empty">
     <figure>
