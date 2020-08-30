@@ -19,14 +19,14 @@ catch(Exception $e)
 }
 
 // set values
-define('__ROOT__', $_ENV['PATH_RELATIVE']);
-define('__API__', $_ENV['PATH_API']);
-define('__COOKIE_ROOT__', $_ENV['PATH_COOKIE']);
+define('__ROOT__', $_ENV['APP_PATH_RELATIVE']);
+define('__API__', $_ENV['APP_PATH_API']);
+define('__COOKIE_ROOT__', $_ENV['APP_PATH_COOKIE']);
 
 // set default timezone
-if ($_ENV['TIMEZONE'])
+if ($_ENV['APP_TIMEZONE'])
 {
-  date_default_timezone_set($_ENV['TIMEZONE']);
+  date_default_timezone_set($_ENV['APP_TIMEZONE']);
 }
 
 // set blade
@@ -45,9 +45,9 @@ try {
 
     // init rest api
     $api = new RestAPI((object)[
-      'url' => $_ENV['PATH_API'],
+      'url' => $_ENV['APP_PATH_API'],
       'outputType' => 'json',
-      'headers' => ['Authorization: '.$_ENV['TOKEN_PUBLIC']],
+      'headers' => ['Authorization: '.$_ENV['APP_TOKEN_PUBLIC']],
       'timeout' => 30,
       'debug' => false,
     ]);
@@ -60,8 +60,8 @@ try {
         $res = $api->call('get', '/articles/', (object)[
           'field' => 'srl,category_srl,json,title,regdate,order',
           'order' => '`order` desc, `srl` desc',
-          'app' => $_ENV['DEFAULT_APP_SRL'],
-          'size' => $_ENV['DEFAULT_INDEX_SIZE'],
+          'app' => $_ENV['APP_DEFAULT_APP_SRL'],
+          'size' => $_ENV['APP_DEFAULT_INDEX_SIZE'],
           'page' => Util::getPage(),
           'ext_field' => 'category_name',
         ]);
@@ -70,13 +70,13 @@ try {
         if (!($res && $res->success)) throw new Exception($res->message, $res->code);
 
         // set title
-        $title = $_ENV['TITLE'];
+        $title = $_ENV['APP_TITLE'];
 
         // set navigation
         $navigation = Util::makeNavigation(
           $res->data->total,
           Util::getPage(),
-          $_ENV['DEFAULT_INDEX_SIZE']
+          $_ENV['APP_DEFAULT_INDEX_SIZE']
         );
 
         // render page
@@ -93,26 +93,26 @@ try {
       // index - select nest
       case 'index/nest':
         $res = $api->call('get', '/external/note-redgoose-me-nest/', (object)[
-          'app_srl' => $_ENV['DEFAULT_APP_SRL'],
+          'app_srl' => $_ENV['APP_DEFAULT_APP_SRL'],
           'nest_id' => isset($_params->nest) ? $_params->nest : null,
           'category_srl' => isset($_params->category) ? $_params->category : null,
           'ext_field' => 'item_all,count_article',
           'page' => Util::getPage(),
-          'size' => $_ENV['DEFAULT_INDEX_SIZE'],
+          'size' => $_ENV['APP_DEFAULT_INDEX_SIZE'],
         ]);
         if (!isset($res->response)) throw new Exception($res->message, $res->code);
         $res = $res->response;
         if (!($res && $res->success)) throw new Exception($res->message, $res->code);
 
         // set title
-        $title = $_ENV['TITLE'];
+        $title = $_ENV['APP_TITLE'];
         if (isset($res->data->nest->name)) $title = $res->data->nest->name.' - '.$title;
         if (isset($res->data->category->name)) $title = $res->data->category->name.' - '.$title;
 
         $navigation = Util::makeNavigation(
           $res->data->articles->total,
           Util::getPage(),
-          $_ENV['DEFAULT_INDEX_SIZE']
+          $_ENV['APP_DEFAULT_INDEX_SIZE']
         );
 
         // render page
@@ -137,8 +137,8 @@ try {
           'field' => 'srl,nest_srl,category_srl,json,title,`order`',
           'order' => '`order`',
           'sort' => 'desc',
-          'app' => $_ENV['DEFAULT_APP_SRL'],
-          'size' => $_ENV['DEFAULT_INDEX_SIZE'],
+          'app' => $_ENV['APP_DEFAULT_APP_SRL'],
+          'size' => $_ENV['APP_DEFAULT_INDEX_SIZE'],
           'page' => Util::getPage(),
           'ext_field' => 'category_name,nest_name',
           'q' => $_GET['q'],
@@ -153,7 +153,7 @@ try {
         }
 
         // set title
-        $title = $_ENV['TITLE'];
+        $title = $_ENV['APP_TITLE'];
         if (isset($_GET['q'])) $title = $_GET['q'].' - '.$title;
 
         // set navigation
@@ -162,7 +162,7 @@ try {
           $navigation = Util::makeNavigation(
             $res->data->total,
             Util::getPage(),
-            $_ENV['DEFAULT_INDEX_SIZE'],
+            $_ENV['APP_DEFAULT_INDEX_SIZE'],
             [ 'q' => $_GET['q'] ]
           );
         }
@@ -185,7 +185,7 @@ try {
 
         // get article
         $res = $api->call('get', '/articles/'.(int)$_params->srl.'/', (object)[
-          'app' => $_ENV['DEFAULT_APP_SRL'],
+          'app' => $_ENV['APP_DEFAULT_APP_SRL'],
           'hit' => Util::checkCookie('redgoose-hit-'.$_params->srl) ? 0 : 1,
           'ext_field' => 'category_name,nest_name'
         ]);
@@ -217,7 +217,7 @@ try {
         }
 
         // set title
-        $title = $_ENV['TITLE'];
+        $title = $_ENV['APP_TITLE'];
         $title = ($article->title === '.' ? 'Untitled work' : $article->title).' on '.$title;
 
         // set image

@@ -14,7 +14,7 @@ if(!defined("__GOOSE__")){exit();}
 
 @section('meta')
 <title>{{ $title }}</title>
-<meta name="description" content="{{$_ENV['DESCRIPTION']}}"/>
+<meta name="description" content="{{$_ENV['APP_DESCRIPTION']}}"/>
 <meta property="og:title" content="{{$title}}"/>
 <meta property="og:description" content="{{$description}}">
 <meta property="og:image" content="{{$image}}">

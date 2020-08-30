@@ -16,7 +16,7 @@ if(!defined("__GOOSE__")){exit();}
     <div class="header__wrap">
       <div class="header__body">
         <div class="header__logo">
-          <a href="{{__ROOT__}}/" title="{{$_ENV['TITLE']}}">
+          <a href="{{__ROOT__}}/" title="{{$_ENV['APP_TITLE']}}">
             <img src="{{__ROOT__}}/assets/images/ico-logo.svg" alt="redgoose">
           </a>
         </div>
