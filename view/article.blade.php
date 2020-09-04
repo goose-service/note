@@ -14,7 +14,7 @@ if(!defined("__GOOSE__")){exit();}
 
 @section('meta')
 <title>{{ $title }}</title>
-<meta name="description" content="{{$_ENV['APP_DESCRIPTION']}}"/>
+<meta name="description" content="{{$description}}"/>
 <meta property="og:title" content="{{$title}}"/>
 <meta property="og:description" content="{{$description}}">
 <meta property="og:image" content="{{$image}}">
@@ -25,8 +25,8 @@ if(!defined("__GOOSE__")){exit();}
   <header class="article__header">
     <h2>{{$data->title}}</h2>
     <p>
-      <span>Nest: {{$data->nest_name}}</span>
-      <span>Category: {{$data->category_name}}</span>
+      @if(isset($data->nest_name))<span>Nest: {{$data->nest_name}}</span>@endif
+      @if(isset($data->category_name))<span>Category: {{$data->category_name}}</span>@endif
       <span>{{$data->order}}</span>
     </p>
   </header>

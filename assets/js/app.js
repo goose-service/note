@@ -116,15 +116,17 @@ class Redgoose {
 			let cnt = parseInt(em.textContent);
 			em.innerHTML = String(cnt + 1);
 			// call xhr
-			ajax(`/on-like/${srl}/`, 'post', null).then((res) => {
-				if (!res.success)
-				{
+			ajax(`/on-like/${srl}/`, 'post', null)
+				.then((res) => {
+					if (!res.success) throw new Error();
+					em.innerHTML = String(res.star);
+				})
+				.catch((e) => {
 					alert('Failed update like');
 					button.removeAttribute('disabled');
 					button.classList.remove('on');
 					em.innerHTML = String(cnt);
-				}
-			});
+				});
 		});
 	}
 }

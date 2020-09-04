@@ -33,6 +33,18 @@
   }
   &__content {
     margin: 30px 0 0;
+    .redgoose-body {
+      pre {
+        position: relative;
+        box-sizing: border-box;
+        left: 50%;
+        width: 75vw;
+        max-width: 1024px;
+        min-width: 100%;
+        transform: translateX(-50%);
+        transform-origin: 0 50%;
+      }
+    }
   }
   &__nav {
     margin: 32px 0 0;
@@ -203,7 +215,7 @@
 }
 .comment {
   padding: 24px;
-  border-radius: 8px;
+  border-radius: 4px;
   box-sizing: border-box;
   background: #f1f1f1;
   &__body {
@@ -221,7 +233,17 @@
     color: var(--color-text-blur);
     font-style: normal;
   }
+  .redgoose-body {
+    pre {
+      background: #dfdfdf;
+    }
+  }
   @include dark-mode() {
     background: #2c2c2c;
+    .redgoose-body {
+      pre {
+        background: #222;
+      }
+    }
   }
 }

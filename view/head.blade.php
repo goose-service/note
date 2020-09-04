@@ -3,10 +3,10 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="author" content="redgoose-note">
 <meta name="keywords" content="redgoose,redgoose-note,development,graphics,review">
-<link rel="canonical" href="{{core\Util::urlHttp()}}://{{$_SERVER['HTTP_HOST']}}{{$_SERVER['REQUEST_URI']}}">
+<link rel="canonical" href="{{__URL__}}{{$_SERVER['REQUEST_URI']}}">
 
 <meta property="og:site_name" content="redgoose-note"/>
-<meta property="og:url" content="{{core\Util::urlHttp()}}://{{$_SERVER['HTTP_HOST']}}{{$_SERVER['REQUEST_URI']}}"/>
+<meta property="og:url" content="{{__URL__}}{{$_SERVER['REQUEST_URI']}}"/>
 <meta property="og:locale" content="ko_KR"/>
 <meta property="og:type" content="website"/>
 

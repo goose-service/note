@@ -9,8 +9,6 @@ return [
 	[ 'GET', '/index/[char:nest]/', 'index/nest' ],
 	[ 'GET', '/index/[char:nest]/[i:category]', 'index/nest' ],
 	[ 'GET', '/index/[char:nest]/[i:category]/', 'index/nest' ],
-	[ 'GET', '/search', 'index/search' ],
-	[ 'GET', '/search/', 'index/search' ],
 
 	[ 'GET', '/article/[i:srl]', 'article' ],
 	[ 'GET', '/article/[i:srl]/', 'article' ],
@@ -19,6 +17,7 @@ return [
 	[ 'GET', '/page/[char:name]/', 'page' ],
 
 	[ 'GET', '/rss', 'rss' ],
+	[ 'GET', '/rss/', 'rss' ],
 
   [ 'POST', '/on-like/[i:srl]/', 'on-like' ],
 

@@ -72,7 +72,7 @@ if(!defined("__GOOSE__")){exit();}
           </svg>
         </button>
         <div class="header-search dropdown-content">
-          <form action="{{__ROOT__}}/search/" method="get" id="search_keyword">
+          <form action="{{__ROOT__}}/" method="get" id="search_keyword">
             <fieldset>
               <legend>search keyword form</legend>
               <span>

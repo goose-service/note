@@ -13,7 +13,7 @@ if(!defined("__GOOSE__")){exit();}
 <meta name="description" content="{{$_ENV['APP_DESCRIPTION']}}"/>
 <meta property="og:title" content="{{$title}}"/>
 <meta property="og:description" content="{{$_ENV['APP_DESCRIPTION']}}">
-<meta property="og:image" content="{{__API__}}/usr/icons/og-redgoose.jpg">
+<meta property="og:image" content="{{__URL__}}/assets/images/og-redgoose.jpg">
 @endsection
 
 @section('contents')
@@ -48,18 +48,25 @@ if(!defined("__GOOSE__")){exit();}
       <a href="{{__ROOT__}}/article/{{$item->srl}}/" class="index-article__wrap">
         <figure class="index-article__image">
           @if($item->image)
-          <img src="{{__API__}}/{{$item->image}}" alt="{{$item->title}}">
+          <img src="{{$item->image}}" alt="{{$item->title}}">
           @else
-          <span>
-            <img src="{{__ROOT__}}/assets/images/empty/{{rand(0,20)}}.svg" alt="">
-          </span>
+          {!! Core\AppEmptyIcon::random() !!}
           @endif
         </figure>
         <div class="index-article__body">
           <strong>{{$item->title}}</strong>
           <p>
             <span>{{$item->regdate}}</span>
-            <span>{{$item->category_name}}</span>
+            @if ($item->nestName || $item->categoryName)
+            <span>
+              @if ($item->nestName)
+              <em>{{$item->nestName}}</em>
+              @endif
+              @if ($item->categoryName)
+              <em>{{$item->categoryName}}</em>
+              @endif
+            </span>
+            @endif
           </p>
         </div>
       </a>
@@ -78,7 +85,7 @@ if(!defined("__GOOSE__")){exit();}
   </article>
   @endif
 
-  @if (isset($paginate->total) && $paginate->total > 0)
+  @if ($paginate->mobile || $paginate->desktop)
   <div class="index__paginate">
     {!! $paginate->mobile !!}
     {!! $paginate->desktop !!}
