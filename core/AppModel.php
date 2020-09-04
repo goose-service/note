@@ -73,6 +73,7 @@ class AppModel {
         'field' => 'srl,category_srl,nest_srl,json,title,regdate,order',
         'order' => '`order` desc, `srl` desc',
         'size' => $_ENV['APP_DEFAULT_INDEX_SIZE'],
+        'limit' => [ ($result->page - 1) * $result->size, $result->size ],
         'page' => $result->page,
         'where' => $where,
         'json_field' => ['json'],
