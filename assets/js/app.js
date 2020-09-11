@@ -144,6 +144,7 @@ class Redgoose {
 		const $items = document.querySelectorAll('.index-article__wrap');
 		$items.forEach((o) => {
 			o.addEventListener('mouseenter', (e) => {
+				if (window.innerWidth < 768) return true;
 				const bd = '.index-article__body';
 				const $elements = e.target.querySelectorAll(`${bd} > strong, ${bd} > p > span:first-child, ${bd} > p > span:nth-child(2) > em`);
 				$elements.forEach((o, k) => {
