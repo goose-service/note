@@ -93,3 +93,9 @@ if(!defined("__GOOSE__")){exit();}
   @endif
 </article>
 @endsection
+
+@section('script')
+<script>
+window.app.initialArticles();
+</script>
+@endsection

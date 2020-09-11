@@ -1,6 +1,6 @@
 {
   "name": "note.redgoose.me",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "main": "index.js",
   "repository": "https://gitlab.com/redgoose-me/note.redgoose.me.git",
   "author": "redgoose-dev <scripter@me.com>",
@@ -13,10 +13,11 @@
   },
   "devDependencies": {
     "autoprefixer": "^9.8.6",
+    "auto-writer": "^1.1.2",
     "cssnano": "^4.1.10",
     "global": "^4.4.0",
     "parcel": "^1.12.4",
-    "postcss-modules": "^3.2.1",
+    "postcss-modules": "^3.2.2",
     "postcss-preset-env": "^6.7.0",
     "sass": "^1.26.10"
   },

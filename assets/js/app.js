@@ -1,24 +1,15 @@
+import shuffle from 'auto-writer/src/shuffle';
 import ajax from './ajax';
 import './prototypes';
 import '../css/app.scss';
 
 class Redgoose {
+
 	/**
 	 * constructor
 	 */
 	constructor()
 	{
-		this.headerElements = {
-			navigation: document.getElementById('headerNavigation'),
-			search: document.getElementById('headerSearch'),
-			searchForm: document.getElementById('search_keyword'),
-		};
-		this.articleElements = {
-			main: document.getElementById('article'),
-			content: document.getElementById('article_content'),
-			buttonLike: document.getElementById('button_like'),
-		};
-
 		// init header events
 		this.initialHeaderEvents();
 	}
@@ -28,6 +19,13 @@ class Redgoose {
 	 */
 	initialHeaderEvents()
 	{
+		// set elements
+		this.headerElements = {
+			navigation: document.getElementById('headerNavigation'),
+			search: document.getElementById('headerSearch'),
+			searchForm: document.getElementById('search_keyword'),
+		};
+
 		const self = this;
 		const navigation = this.headerElements.navigation.children[0];
 		const search = this.headerElements.search.children[0];
@@ -104,6 +102,13 @@ class Redgoose {
 	 */
 	initialArticle()
 	{
+		// set elements
+		this.articleElements = {
+			main: document.getElementById('article'),
+			content: document.getElementById('article_content'),
+			buttonLike: document.getElementById('button_like'),
+		};
+
 		// button like event
 		this.articleElements.buttonLike.addEventListener('click', (e) => {
 			const button = e.currentTarget;
@@ -129,6 +134,37 @@ class Redgoose {
 				});
 		});
 	}
+
+	/**
+	 * initial articles
+	 */
+	initialArticles()
+	{
+		// mouse over items
+		const $items = document.querySelectorAll('.index-article__wrap');
+		$items.forEach((o) => {
+			o.addEventListener('mouseenter', (e) => {
+				const bd = '.index-article__body';
+				const $elements = e.target.querySelectorAll(`${bd} > strong, ${bd} > p > span:first-child, ${bd} > p > span:nth-child(2) > em`);
+				$elements.forEach((o, k) => {
+					let time = 0;
+					switch (k)
+					{
+						case 0: time = 0; break; // title
+						case 1: time = 120; break; // date
+						case 2: time = 180; break; // nest name
+						case 3: time = 180; break; // category name
+					}
+					setTimeout(() => shuffle(o, {
+						text: o.innerText,
+						pattern: 'abcdefghijklmnopqrstuvwxyz0123456789-_!@#$%^&*()+~<>ㄱㄴㄷㄹㅁㅂㅅㅇㅈㅊㅋㅌㅍㅎㄲㄸㅃㅆㅉ',
+						randomTextType: k === 0 ? 'pattern' : 'unicode',
+					}), time);
+				});
+			});
+		});
+	}
+
 }
 
 module.exports = Redgoose;
