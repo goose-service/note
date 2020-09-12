@@ -298,6 +298,7 @@
   }
   &__body {
     flex: 1;
+    min-width: 0;
     padding: 0 16px;
     strong {
       display: block;
@@ -372,7 +373,6 @@
       }
     }
     &__body {
-      min-width: 0;
       padding: 0 20px;
       strong {}
       p {}
