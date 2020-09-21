@@ -1,6 +1,6 @@
 import shuffle from 'auto-writer/src/shuffle';
 import ajax from './ajax';
-import './prototypes';
+import LightBox from './LightBox';
 import '../css/app.scss';
 
 class Redgoose {
@@ -132,6 +132,16 @@ class Redgoose {
 					button.classList.remove('on');
 					em.innerHTML = String(cnt);
 				});
+		});
+
+		// image lightbox
+		const lightbox = new LightBox();
+		const $images = this.articleElements.content.querySelectorAll('.grid-item img');
+		$images.forEach((o) => {
+			o.addEventListener('click', (e) => {
+				if (!e.target.src) return;
+				lightbox.open(e.target.src, e.target.name);
+			});
 		});
 	}
 
