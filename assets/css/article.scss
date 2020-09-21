@@ -246,7 +246,7 @@
   max-height: 1200px;
   transform: translateX(-50%);
   transform-origin: 50% 50%;
-  margin: calc(var(--size-margin-vertical) * 2.5) 0 var(--size-margin-vertical);
+  margin: calc(var(--size-margin-vertical) * 2) 0 var(--size-margin-vertical);
   object-fit: contain;
   @include responsive(desktop) {
     max-width: 90vw;
@@ -263,7 +263,7 @@
     display: grid;
     grid-template-columns: repeat(var(--grid-item-columns), 1fr);
     grid-gap: var(--grid-item-gap);
-    margin: calc(var(--size-margin-vertical) * 2.5) auto var(--size-margin-vertical);
+    margin: calc(var(--size-margin-vertical) * 2) auto var(--size-margin-vertical);
     left: 50%;
     transform: translateX(-50%);
     width: 100vw;
@@ -320,7 +320,7 @@
     }
   }
   .grid-group {
-    margin: calc(var(--size-margin-vertical) * 2.5) auto var(--size-margin-vertical);
+    margin: calc(var(--size-margin-vertical) * 2) auto var(--size-margin-vertical);
     > .grid-item {
       margin-top: var(--grid-item-gap);
       margin-bottom: var(--grid-item-gap);
