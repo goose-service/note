@@ -12,8 +12,8 @@
     "build": "rm -rf assets/dist && parcel build assets/js/app.js --global Redgoose --no-source-maps --out-dir assets/dist --cache-dir cache/parcel"
   },
   "devDependencies": {
-    "autoprefixer": "^10.0.0",
     "auto-writer": "^1.1.2",
+    "autoprefixer": "^10.0.0",
     "cssnano": "^4.1.10",
     "global": "^4.4.0",
     "parcel": "^1.12.4",
