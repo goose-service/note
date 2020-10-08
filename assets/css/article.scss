@@ -16,8 +16,9 @@
       margin: 0;
       font-size: 1.75rem;
       line-height: 1.2;
-      letter-spacing: -1px;
+      letter-spacing: normal;
       word-break: break-all;
+      font-family: var(--font-title);
     }
     p {
       margin: 2px 0 0;
@@ -26,6 +27,7 @@
         display: inline-block;
         font-size: 11px;
         color: var(--color-text-blur);
+        font-family: var(--font-eng);
         &:nth-child(n+2):before {
           content: ', ';
         }
@@ -133,9 +135,7 @@
     padding-top: 15px;
     &__header {
       h2 {
-        font-size: 2rem;
-        line-height: 1.1;
-        letter-spacing: -1.5px;
+        font-size: 2.25rem;
       }
       p {
         margin-top: 5px;
@@ -260,6 +260,10 @@
   }
 }
 .redgoose-body {
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-title);
+    font-weight: normal;
+  }
   .grid-item {
     --grid-item-columns: 1;
     --grid-item-gap: 10px;
