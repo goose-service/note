@@ -136,7 +136,7 @@ class Redgoose {
 
 		// image lightbox
 		const lightbox = new LightBox();
-		const $images = this.articleElements.content.querySelectorAll('.grid-item img');
+		const $images = this.articleElements.content.querySelectorAll('img');
 		$images.forEach((o) => {
 			o.addEventListener('click', (e) => {
 				if (!e.target.src) return;
