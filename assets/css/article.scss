@@ -15,8 +15,8 @@
     h2 {
       margin: 0;
       font-size: 1.75rem;
-      line-height: 1.2;
-      letter-spacing: normal;
+      line-height: 1.15;
+      letter-spacing: -.5px;
       word-break: break-all;
       font-family: var(--font-title);
       font-weight: 500;
@@ -136,7 +136,7 @@
     padding-top: 15px;
     &__header {
       h2 {
-        font-size: 2.5rem;
+        font-size: 40px;
       }
       p {
         margin-top: 5px;

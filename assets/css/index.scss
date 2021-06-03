@@ -5,11 +5,12 @@
   padding: var(--index-padding);
   &__header {
     h2 {
-      margin: 0 0 15px;
+      margin: 0 0 16px;
       padding: 0 20px;
-      font-family: var(--font-title);
-      font-size: 1.75rem;
+      font-family: var(--font-eng);
+      font-size: 28px;
       font-weight: 500;
+      letter-spacing: -.5px;
       text-align: center;
       line-height: 1.25;
     }
@@ -99,9 +100,9 @@
     --index-padding: 0 24px;
     &__header {
       h2 {
-        margin: 0 0 15px;
+        margin: 0 0 16px;
         padding: 0;
-        font-size: 2.25rem;
+        font-size: 36px;
       }
     }
     &__articles {
