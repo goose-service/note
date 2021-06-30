@@ -354,7 +354,7 @@
 
   @include responsive(desktop) {
     img {
-        max-width: 1024px;
+        max-width: 1000px;
       @include retina() {
         zoom: .75;
       }
@@ -362,7 +362,7 @@
   }
   @include responsive(max) {
     img {
-      max-width: 1440px;
+      max-width: 1416px;
     }
   }
   @media (max-width: 320px) {
