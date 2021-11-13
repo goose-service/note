@@ -84,7 +84,7 @@ try {
       $connect = new AppModel();
       $res = $connect->indexNest((object)[
         'nest_id' => $_params->nest,
-        'category_srl' => isset($_params->category) ? $_params->category : null,
+        'category_srl' => $_params->category ?? null,
       ]);
 
       // set title
@@ -99,10 +99,10 @@ try {
         'categories' => $res->categories,
         'index' => $res->articles,
         'page' => $res->page,
-        'nest_id' => isset($_params->nest) ? $_params->nest : null,
-        'nest_srl' => isset($res->nest->srl) ? $res->nest->srl : null,
-        'category_srl' => isset($_params->category) ? $_params->category : null,
-        'category_name' => isset($res->category->name) ? $res->category->name : null,
+        'nest_id' => $_params->nest ?? null,
+        'nest_srl' => $res->nest->srl ?? null,
+        'category_srl' => $_params->category ?? null,
+        'category_name' => $res->category->name ?? null,
         'paginate' => $res->paginate,
       ]);
       break;

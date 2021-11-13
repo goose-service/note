@@ -46,7 +46,7 @@ class AppModel {
    * @return object
    * @throws Exception
    */
-  public function index()
+  public function index(): object
   {
     try
     {
@@ -88,7 +88,9 @@ class AppModel {
       }
 
       // make pagination
-      $result->paginate = ($result->total > 0) ? $this->makePagination($result->total, $result->page, $result->size) : null;
+      $params = [];
+      if (isset($_GET['q'])) $params['q'] = $_GET['q'];
+      $result->paginate = ($result->total > 0) ? $this->makePagination($result->total, $result->page, $result->size, $params) : null;
 
       return $result;
     }
@@ -220,7 +222,9 @@ class AppModel {
       ];
 
       // make pagination
-      $result->paginate = ($result->total > 0) ? $this->makePagination($result->total, $result->page, $result->size) : null;
+      $params = [];
+      if (isset($_GET['q'])) $params['q'] = $_GET['q'];
+      $result->paginate = ($result->total > 0) ? $this->makePagination($result->total, $result->page, $result->size, $params) : null;
 
       return $result;
     }
@@ -393,7 +397,7 @@ class AppModel {
         'field' => 'name',
         'where' => 'srl='.(int)$v->nest_srl,
       ]);
-      $items[$k]->nest_name = isset($nest->data->name) ? $nest->data->name : null;
+      $items[$k]->nest_name = $nest->data->name ?? null;
     }
     return $items;
   }
@@ -419,7 +423,7 @@ class AppModel {
         'field' => 'name',
         'where' => 'srl='.(int)$v->category_srl,
       ]);
-      $items[$k]->category_name = isset($category->data->name) ? $category->data->name : null;
+      $items[$k]->category_name = $category->data->name ?? null;
     }
     return $items;
   }
@@ -440,8 +444,8 @@ class AppModel {
         'srl' => (int)$item->srl,
         'title' => ($item->title === '.') ? 'untitled article' : $item->title,
         'image' => isset($item->json->thumbnail->path) ? $_ENV['APP_PATH_API_URL'].'/'.$item->json->thumbnail->path : null,
-        'nestName' => isset($item->nest_name) ? $item->nest_name : null,
-        'categoryName' => isset($item->category_name) ? $item->category_name : null,
+        'nestName' => $item->nest_name ?? null,
+        'categoryName' => $item->category_name ?? null,
         'regdate' => $item->order,
       ];
     }
@@ -458,7 +462,7 @@ class AppModel {
    * @param array $params
    * @return object
    */
-  private function makePagination($total, $page=1, $size=10, $params=[])
+  private function makePagination(int $total, int $page=1, int $size=10, array $params = []): object
   {
     $result = (object)[
       'total' => $total,
