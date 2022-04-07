@@ -18,8 +18,6 @@ case "$1" in
     if [ ! -d cache ]; then
       mkdir cache
       chmod 777 cache
-      mkdir cache/view
-      chmod 777 cache/view
     fi
     # copy .env
     if [ ! -f .env ]; then

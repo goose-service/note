@@ -109,8 +109,8 @@ if(!defined("__GOOSE__")){exit();}
     <p class="footer__copyright">Copyright {{date('Y')}} redgoose. All right reserved.</p>
   </footer>
 </main>
-<script src="{{__ROOT__}}/assets/dist/app.js"></script>
-<script>
+<script type="module">
+import Redgoose from '{{__ROOT__}}/assets/dist/app.es.js';
 window.app = new Redgoose();
 </script>
 @yield('script')

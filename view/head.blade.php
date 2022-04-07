@@ -17,5 +17,6 @@
 <link rel="icon" type="image/x-icon" href="{{__ROOT__}}/assets/images/icon/redgoose-256x256.png"/>
 <link rel="apple-touch-icon" href="{{__ROOT__}}/assets/images/icon/redgoose-256x256.png"/>
 <link rel="apple-touch-startup-image" href="{{__ROOT__}}/assets/images/icon/redgoose-256x256.png"/>
-<link rel="stylesheet" href="{{__ROOT__}}/assets/dist/app.css" media="screen"/>
+<link rel="stylesheet" href="{{__ROOT__}}/assets/fonts/font-loader.css" media="screen"/>
+<link rel="stylesheet" href="{{__ROOT__}}/assets/dist/style.css" media="screen"/>
 <link rel="manifest" href="{{__ROOT__}}/manifest.json"/>

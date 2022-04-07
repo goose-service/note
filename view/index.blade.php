@@ -85,7 +85,7 @@ if(!defined("__GOOSE__")){exit();}
   </article>
   @endif
 
-  @if ($paginate->mobile || $paginate->desktop)
+  @if (($paginate->mobile ?? false) || ($paginate->desktop ?? false))
   <div class="index__paginate">
     {!! $paginate->mobile !!}
     {!! $paginate->desktop !!}
@@ -95,7 +95,7 @@ if(!defined("__GOOSE__")){exit();}
 @endsection
 
 @section('script')
-<script>
+<script type="module">
 window.app.initialArticles();
 </script>
 @endsection

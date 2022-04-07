@@ -178,4 +178,4 @@ class Redgoose {
 
 }
 
-module.exports = Redgoose;
+export default Redgoose;

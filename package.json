@@ -1,6 +1,6 @@
 {
   "name": "note.redgoose.me",
-  "version": "2.3.7",
+  "version": "2.4.0",
   "main": "index.js",
   "repository": "https://gitlab.com/redgoose-me/note.redgoose.me.git",
   "author": "redgoose-dev <scripter@me.com>",
@@ -8,20 +8,16 @@
   "scripts": {
     "start": "./action.sh start",
     "setup": "./action.sh setup",
-    "watch": "parcel watch assets/js/app.js --global Redgoose --no-autoinstall --out-dir assets/dist --cache-dir cache/parcel --public-url ./",
-    "build": "rm -rf assets/dist && parcel build assets/js/app.js --global Redgoose --no-source-maps --out-dir assets/dist --public-url ./ --cache-dir cache/parcel"
+    "build": "vite build"
   },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ],
   "devDependencies": {
     "auto-writer": "^1.1.2",
-    "autoprefixer": "^10.2.6",
-    "cssnano": "^4.1.11",
-    "global": "^4.4.0",
-    "parcel": "1.12.3",
-    "postcss-modules": "^4.0.0",
-    "postcss-preset-env": "^6.7.0",
-    "sass": "^1.34.1"
-  },
-  "dependencies": {
+    "vite": "^2.9.1",
+    "sass": "^1.50.0",
     "redgoose-content-body": "https://github.com/redgoose-dev/redgoose-content-body.git"
   }
 }

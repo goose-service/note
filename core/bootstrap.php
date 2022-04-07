@@ -37,7 +37,7 @@ if ($_ENV['APP_TIMEZONE'])
 }
 
 // set blade
-$blade = new Blade(__PATH__.'/view', __PATH__.'/cache/view');
+$blade = new Blade(__PATH__.'/view', __PATH__.'/cache');
 
 // set router
 try {
@@ -49,7 +49,7 @@ try {
     throw new Exception('Not found page', 404);
   }
 
-  $_target = $router->match['target'];
+  $_target = (string)$router->match['target'];
   $_params = (object)$router->match['params'];
 
   switch($_target)
