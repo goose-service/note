@@ -17,7 +17,7 @@ case "$1" in
     # make cache directory
     if [ ! -d cache ]; then
       mkdir cache
-      chmod 777 cache
+      chmod 707 cache
     fi
     # copy .env
     if [ ! -f .env ]; then
@@ -26,7 +26,7 @@ case "$1" in
     ;;
 
   *)
-    echo "Usage: ./action.sh {start|setup}" >&2
+    echo "Usage: ./cmd.sh {start|setup}" >&2
     exit 3
     ;;
 esac

@@ -6,8 +6,8 @@
   "author": "redgoose-dev <scripter@me.com>",
   "license": "ISC",
   "scripts": {
-    "start": "./action.sh start",
-    "setup": "./action.sh setup",
+    "start": "./cmd.sh start",
+    "setup": "./cmd.sh setup",
     "build": "vite build"
   },
   "browserslist": [

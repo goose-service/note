@@ -15,13 +15,10 @@ composer install
 
 ```bash
 # server start
-action.sh start 8001
+./cmd.sh start 8001
 
-# js & css watch
-action.sh watch
-
-# js & css build
-action.sh build
+# js & css watch&build
+yarn run build
 ```
 
 ## production
@@ -29,5 +26,5 @@ action.sh build
 배포하기전에 실행해야할 명령들
 
 ```bash
-action.sh build
+./cmd.sh build
 ```
