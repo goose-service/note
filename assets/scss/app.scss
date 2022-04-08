@@ -1,9 +1,8 @@
-@import "./libs/variables";
-@import "./libs/mixins";
-@import "./libs/normalize";
+@use './libs/mixins';
+@import './libs/normalize';
 
 :root {
-	--color-text: #222;
+	--color-text: rgb(34 34 34);
 	--color-text-blur: #777;
 	--color-key: #b31f37;
 	--color-bg: #fafbfc;
@@ -12,8 +11,9 @@
 	--font-eng: 'ortsa', Helvetica, Arial, sans-serif;
 	--font-title: 'AritaBuri', sas-serif;
 	--font-code: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
-	@include dark-mode() {
-		--color-text: #ddd;
+	@include mixins.dark-mode() {
+		color-scheme: dark;
+		--color-text: rgb(221 221 221);
 		--color-key: #1ccd5c;
 		--color-bg: #222;
 		--color-text-code: #ffcd3a;
@@ -49,7 +49,7 @@ code, kbd, pre, samp {
 }
 
 // load contents
-@import "./layout";
-@import "./index";
-@import "./article";
-@import "./lightbox";
+@import './layout';
+@import './index';
+@import './article';
+@import './lightbox';

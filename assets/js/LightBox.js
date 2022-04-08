@@ -9,9 +9,8 @@ function LightBox() {
 
   /**
    * template
-   *
-   * @param {String} src
-   * @param {String} alt
+   * @param {string} src
+   * @param {string} alt
    * @return ChildNode
    */
   function template(src, alt)
@@ -29,9 +28,8 @@ function LightBox() {
 
   /**
    * open
-   *
-   * @param {String} src
-   * @param {String} alt
+   * @param {string} src
+   * @param {string} alt
    */
   this.open = function(src, alt)
   {

@@ -60,13 +60,10 @@ try {
       $connect = new AppModel();
       $res = $connect->index();
 
-      // set page title
-      $pageTitle = (isset($_GET['q']) && $_GET['q']) ? 'Keyword: '.$_GET['q'] : 'Newest articles';
-
       // render page
       $blade->render('index', (object)[
         'title' => $_ENV['APP_TITLE'],
-        'pageTitle' => $pageTitle,
+        'pageTitle' => ($_GET['q'] ?? false) ? 'Keyword: '.$_GET['q'] : 'Newest articles',
         'index' => $res->articles,
         'page' => $res->page,
         'paginate' => $res->paginate,
@@ -75,7 +72,7 @@ try {
 
     // index - select nest
     case 'index/nest':
-      if (!(isset($_params->nest) && $_params->nest))
+      if (!($_params->nest ?? false))
       {
         throw new Exception('Not found nest id.');
       }
@@ -99,7 +96,7 @@ try {
         'categories' => $res->categories,
         'index' => $res->articles,
         'page' => $res->page,
-        'nest_id' => $_params->nest ?? null,
+        'nest_id' => $_params->nest,
         'nest_srl' => $res->nest->srl ?? null,
         'category_srl' => $_params->category ?? null,
         'category_name' => $res->category->name ?? null,
@@ -139,7 +136,7 @@ try {
       {
         throw new Exception('Not found page', 404);
       }
-      $blade->render('pages.'.$_page);
+      $blade->render('pages.'.$_page, (object)[]);
       break;
 
     // like

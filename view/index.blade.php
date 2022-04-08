@@ -27,7 +27,7 @@ if(!defined("__GOOSE__")){exit();}
         <?php
         /** @var object $item */
         $className = ['categories__item'];
-        if (!!($category_srl === $item->srl || (!$category_srl && !$item->srl))) $className[] = 'on';
+        if (!!((int)$category_srl === $item->srl || (!$category_srl && !$item->srl))) $className[] = 'on';
         ?>
         <li class="{{join(' ', $className)}}">
           <a href="{{__ROOT__}}/index/{{$nest_id}}/{{$item->srl ? $item->srl.'/' : ''}}">

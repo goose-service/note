@@ -1,5 +1,5 @@
-@import "./libs/mixins";
-@import "redgoose-content-body/dist/body";
+@use './libs/mixins';
+@import 'redgoose-content-body/dist/body';
 
 .article {
   --size-article-side-padding: 24px;
@@ -12,14 +12,14 @@
 
   &__header {
     text-align: center;
-    h2 {
+    h1 {
       margin: 0;
       font-size: 1.75rem;
       line-height: 1.15;
       letter-spacing: -.5px;
       word-break: break-all;
       font-family: var(--font-title);
-      font-weight: 500;
+      font-weight: 600;
     }
     p {
       margin: 2px 0 0;
@@ -131,15 +131,15 @@
     }
   }
 
-  @include responsive(tablet) {
+  @include mixins.responsive(tablet) {
     --size-article-side-padding: 62px;
     padding-top: 15px;
     &__header {
-      h2 {
+      h1 {
         font-size: 40px;
       }
       p {
-        margin-top: 5px;
+        margin-top: 6px;
       }
     }
     &__content {
@@ -150,12 +150,12 @@
       margin-top: 50px;
     }
   }
-  @include dark-mode() {
+  @include mixins.dark-mode() {
     --color-article-like-step-1: #8ef01f;
     --color-article-like-step-2: var(--color-key);
     --color-article-like-step-3: #033615;
     &__header {
-      h2 {
+      h1 {
         color: #fff;
       }
     }
@@ -191,7 +191,7 @@
       }
     }
   }
-  @include responsive(tablet) {
+  @include mixins.responsive(tablet) {
     margin: 72px auto 0;
     max-width: 768px;
     &__index {
@@ -228,7 +228,7 @@
       background: #dfdfdf;
     }
   }
-  @include dark-mode() {
+  @include mixins.dark-mode() {
     background: #2c2c2c;
     .redgoose-body {
       pre {
@@ -298,7 +298,7 @@
         --padding-top: calc(100% / #{$i});
       }
     }
-    @include responsive(tablet) {
+    @include mixins.responsive(tablet) {
       @for $i from 1 through 6 {
         &[data-tablet="#{$i}"] { --grid-item-columns: #{$i}; }
         > p[col-tablet="#{$i}"] {
@@ -307,7 +307,7 @@
         }
       }
     }
-    @include responsive(desktop) {
+    @include mixins.responsive(desktop) {
       width: 90vw;
       @for $i from 1 through 6 {
         &[data-desktop="#{$i}"] { --grid-item-columns: #{$i}; }
@@ -317,7 +317,7 @@
         }
       }
     }
-    @include responsive(max) {
+    @include mixins.responsive(max) {
       @for $i from 1 through 6 {
         &[data-desktop-large="#{$i}"] { --grid-item-columns: #{$i}; }
         > p[col-desktop-large="#{$i}"] {
@@ -352,15 +352,15 @@
     }
   }
 
-  @include responsive(desktop) {
+  @include mixins.responsive(desktop) {
     img {
       max-width: 1024px;
-      @include retina() {
+      @include mixins.retina() {
         zoom: .75;
       }
     }
   }
-  @include responsive(max) {
+  @include mixins.responsive(max) {
     img {
       max-width: 1440px;
     }

@@ -1,9 +1,11 @@
+# directories
 .idea/
 node_modules/
 vendor/
 cache/
 .AppleDouble/
 
+# files
 .DS_Store
 .env
 yarn.lock

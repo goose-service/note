@@ -10,7 +10,8 @@ export default defineConfig(({ mode }) => {
       outDir: 'assets/dist',
       lib: {
         entry: path.resolve(__dirname, 'assets/js/app.js'),
-        name: 'App',
+        formats: [ 'es' ],
+        name: 'RedgooseApp',
         fileName: format => `app.${format}.js`,
       },
       minify: true,

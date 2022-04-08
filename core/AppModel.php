@@ -107,7 +107,7 @@ class AppModel {
    * @return object
    * @throws Exception
    */
-  public function indexNest(object $options)
+  public function indexNest(object $options): object
   {
     try
     {
@@ -126,8 +126,14 @@ class AppModel {
         'json_field' => ['json'],
         'debug' => __APP_DEBUG__,
       ]);
-      if ($nest->data) $nest = $nest->data;
-      else throw new Exception('There is no `nest` data.');
+      if ($nest->data)
+      {
+        $nest = $nest->data;
+      }
+      else
+      {
+        throw new Exception('There is no `nest` data.', 404);
+      }
 
       // get categories
       $result->categories = [];
@@ -159,7 +165,6 @@ class AppModel {
           ]);
           array_unshift($result->categories, (object)[
             'srl' => '',
-            'nest_srl' => $nest->srl,
             'name' => 'All',
             'count_article' => $cnt->data,
           ]);
@@ -236,12 +241,11 @@ class AppModel {
 
   /**
    * article
-   *
    * @param int $article_srl
    * @return object
    * @throws Exception
    */
-  public function article(int $article_srl)
+  public function article(int $article_srl): object
   {
     try
     {
@@ -351,18 +355,17 @@ class AppModel {
 
   /**
    * like
-   *
    * @param int $article_srl
    * @return object
    */
-  public function like(int $article_srl)
+  public function like(int $article_srl): object
   {
     $result = (object)[];
     try
     {
       // request
       $res = $this->connect->request('post', "/articles/{$article_srl}/update/", (object)[
-        'get' => (object)[ 'type' => 'star' ],
+        'post' => (object)[ 'type' => 'star' ],
       ]);
       if (!($res->success && isset($res->data))) throw new Exception();
       $result->success = true;
@@ -378,11 +381,10 @@ class AppModel {
 
   /**
    * extend nest name in items
-   *
    * @param array $items
    * @return array
    */
-  private function extendNestNameInItems(array $items)
+  private function extendNestNameInItems(array $items): array
   {
     if (!(isset($items) && count($items))) return [];
     foreach ($items as $k=>$v)
@@ -408,7 +410,7 @@ class AppModel {
    * @param array $items
    * @return array
    */
-  private function extendCategoryNameInItems(array $items)
+  private function extendCategoryNameInItems(array $items): array
   {
     if (!(isset($items) && count($items))) return [];
     foreach ($items as $k=>$v)
@@ -430,11 +432,10 @@ class AppModel {
 
   /**
    * convert articles
-   *
    * @param array $items
    * @return array
    */
-  private function convertArticles(array $items)
+  private function convertArticles(array $items): array
   {
     if (!(isset($items) && count($items))) return [];
     $result = [];

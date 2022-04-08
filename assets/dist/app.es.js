@@ -87,7 +87,7 @@ function shuffle($el, options) {
     $el.dataset.id = intervalId.toString();
   }
 }
-function ajax(url = null, method = "get", params = null, headers = null) {
+function ajax(url = "", method = "get", params = null, headers = null) {
   return new Promise(function(resolve, reject) {
     if (!url)
       reject("not found url");
@@ -145,7 +145,7 @@ function LightBox() {
   };
 }
 var app = "";
-class Redgoose {
+class RedgooseApp {
   constructor() {
     this.initialHeaderEvents();
   }
@@ -277,4 +277,4 @@ class Redgoose {
     });
   }
 }
-export { Redgoose as default };
+export { RedgooseApp as default };

@@ -1,9 +1,9 @@
 import shuffle from 'auto-writer/src/shuffle';
 import ajax from './ajax';
 import LightBox from './LightBox';
-import '../css/app.scss';
+import '../scss/app.scss';
 
-class Redgoose {
+export default class RedgooseApp {
 
 	/**
 	 * constructor
@@ -177,5 +177,3 @@ class Redgoose {
 	}
 
 }
-
-export default Redgoose;

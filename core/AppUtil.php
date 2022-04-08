@@ -15,17 +15,8 @@ class AppUtil {
    * @param Blade $blade
    * @throws Exception
    */
-  static public function error($error, $blade)
+  static public function error(Exception $error, Blade $blade)
   {
-    // debug
-    if ($_ENV['APP_USE_DEBUG'] === '1')
-    {
-      Console::log((object)[
-        'message' => $error->getMessage(),
-        'code' => $error->getCode(),
-      ]);
-    }
-
     $code = $error->getCode();
     switch ($code)
     {
@@ -45,6 +36,15 @@ class AppUtil {
       'code' => $code,
       'message' => $message,
     ]);
+
+    // debug
+    if ($_ENV['APP_USE_DEBUG'] === '1')
+    {
+      Console::log((object)[
+        'message' => $error->getMessage(),
+        'code' => $error->getCode(),
+      ]);
+    }
     exit;
   }
 

@@ -23,7 +23,7 @@ if(!defined("__GOOSE__")){exit();}
 @section('contents')
 <article class="article" id="article">
   <header class="article__header">
-    <h2>{{$data->title}}</h2>
+    <h1>{{$data->title}}</h1>
     <p>
       @if(isset($data->nest_name))<span>Nest: {{$data->nest_name}}</span>@endif
       @if(isset($data->category_name))<span>Category: {{$data->category_name}}</span>@endif
@@ -69,7 +69,7 @@ if(!defined("__GOOSE__")){exit();}
 @endsection
 
 @section('script')
-<script>
+<script type="module">
 window.app.initialArticle();
 </script>
 @endsection

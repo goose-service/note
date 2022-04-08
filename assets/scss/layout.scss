@@ -1,4 +1,4 @@
-@import "./libs/mixins";
+@use './libs/mixins';
 
 // heading title
 .heading-title {
@@ -33,7 +33,7 @@
 		height: var(--size-header-height);
 		background: var(--color-header-bg);
 		user-select: none;
-		@include background-blur(5px);
+		@include mixins.background-blur(5px);
 		&:before {
 			content: '';
 			display: block;
@@ -65,7 +65,7 @@
 			z-index: 2;
 			display: block;
 			padding: 8px;
-			@include button-touch-options();
+			@include mixins.button-touch-options();
 		}
 		img {
 			display: block;
@@ -88,7 +88,7 @@
 			background-color: rgba(#000, 0);
 			transition: background-color 200ms ease-out;
 			font-size: 0;
-			@include button-touch-options();
+			@include mixins.button-touch-options();
 			svg {
 				display: block;
 				position: absolute;
@@ -148,7 +148,7 @@
 			background: rgba(0,0,0,0);
 			transition: background .2s ease-out;
 			font-size: 0;
-			@include button-touch-options();
+			@include mixins.button-touch-options();
 			svg {
 				display: block;
 				position: absolute;
@@ -198,7 +198,7 @@
 		}
 	}
 
-	@include responsive(tablet) {
+	@include mixins.responsive(tablet) {
 		--size-header-height: 48px;
 		&__wrap {
 			display: flex;
@@ -237,7 +237,7 @@
 			}
 		}
 	}
-	@include dark-mode() {
+	@include mixins.dark-mode() {
 		--color-header-fill: #fff;
 		--color-header-button-active: #111;
 		--color-header-bg: rgba(20,20,20,.75);
@@ -286,7 +286,7 @@
 			}
 		}
 	}
-	@include responsive(tablet) {
+	@include mixins.responsive(tablet) {
 		ul {
 			position: static;
 			background: none;
@@ -420,7 +420,7 @@
 			color: var(--color-header-fill);
 		}
 	}
-	@include responsive(tablet) {
+	@include mixins.responsive(tablet) {
 		form {
 			left: auto;
 			width: 340px;
@@ -441,7 +441,7 @@
 		font-family: var(--font-eng);
 	}
 
-	@include responsive(tablet) {
+	@include mixins.responsive(tablet) {
 		padding: 72px 0 24px;
 	}
 }
@@ -449,7 +449,7 @@
 // container
 .container {
 	padding: 32px 0 0;
-	@include responsive(tablet) {
+	@include mixins.responsive(tablet) {
 		padding: 52px 0 0;
 	}
 }
@@ -481,7 +481,7 @@
 		line-height: 1.25;
 	}
 
-	@include responsive(tablet) {
+	@include mixins.responsive(tablet) {
 		&__image {
 			img {
 				width: 40vw;

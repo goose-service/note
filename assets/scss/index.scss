@@ -1,4 +1,4 @@
-@import "./libs/mixins";
+@use './libs/mixins';
 
 .index {
   --index-padding: 0px;
@@ -96,7 +96,7 @@
       }
     }
   }
-  @include responsive(tablet) {
+  @include mixins.responsive(tablet) {
     --index-padding: 0 24px;
     &__header {
       h2 {
@@ -129,15 +129,15 @@
       }
     }
   }
-  @include responsive(desktop) {
+  @include mixins.responsive(desktop) {
     --index-padding: 0 64px;
   }
-  @include responsive(max) {
+  @include mixins.responsive(max) {
     &__articles {
       --articles-column: 3;
     }
   }
-  @include dark-mode() {
+  @include mixins.dark-mode() {
     &__header {
       h2 {
         color: #fff;
@@ -151,7 +151,7 @@
         --color-paginate-active: #1a1a1a;
       }
     }
-    @include responsive(tablet) {
+    @include mixins.responsive(tablet) {
       &__header {
         nav {
           background: none;
@@ -219,7 +219,7 @@
       }
     }
   }
-  @include responsive(tablet) {
+  @include mixins.responsive(tablet) {
     --color-categories-bg: none;
     margin-top: -12px;
     padding: 0;
@@ -242,7 +242,7 @@
       }
     }
   }
-  @include dark-mode() {
+  @include mixins.dark-mode() {
     --color-categories-bg: #111;
   }
 }
@@ -340,7 +340,7 @@
     }
   }
 
-  @include responsive(tablet) {
+  @include mixins.responsive(tablet) {
     --size-article-radius: 2px;
     &__wrap {
       position: relative;
@@ -380,7 +380,7 @@
       padding: 0 20px;
     }
   }
-  @include dark-mode() {
+  @include mixins.dark-mode() {
     &__wrap {
       background: #2e2e2e;
       &:active {
@@ -396,7 +396,7 @@
         }
       }
     }
-    @include responsive(tablet) {
+    @include mixins.responsive(tablet) {
       &__wrap {
         &:active {
           background: #2e2e2e;

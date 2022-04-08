@@ -1,12 +1,11 @@
 /**
  * ajax interface
- *
- * @param {String} url
- * @param {String} method
- * @param {Object} params
- * @param {Object} headers
+ * @param {string} url
+ * @param {string} method
+ * @param {object} params
+ * @param {object} headers
  */
-export default function (url=null, method='get', params=null, headers=null)
+export default function (url= '', method='get', params= null, headers= null)
 {
 	return new Promise(function(resolve, reject) {
 		// check url

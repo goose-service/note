@@ -9,7 +9,7 @@ if(!defined("__GOOSE__")){exit();}
 <meta name="description" content="{{$_ENV['APP_DESCRIPTION']}}"/>
 <meta property="og:title" content="{{$title}}"/>
 <meta property="og:description" content="{{$_ENV['APP_DESCRIPTION']}}">
-<meta property="og:image" content="{{__API__}}/usr/icons/og-redgoose.jpg">
+<meta property="og:image" content="{{__ROOT__}}/assets/images/og-redgoose.jpg">
 @endsection
 
 @section('contents')
