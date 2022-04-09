@@ -4,7 +4,6 @@ use AltoRouter, Exception;
 
 /**
  * AppRouter
- *
  * @property AltoRouter route
  * @property array match
  */

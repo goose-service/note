@@ -5,17 +5,14 @@ use Exception, eftec\bladeone\BladeOne;
 /**
  * Blade
  * BladeOne interface
- *
  * @property BladeOne blade
  */
-
 class Blade {
 
   public BladeOne $blade;
 
 	/**
 	 * construct
-	 *
 	 * @param string $path_view
 	 * @param string $path_cache
 	 */
@@ -24,14 +21,13 @@ class Blade {
 		$this->blade = new BladeOne($path_view, $path_cache);
 	}
 
-	/**
-	 * render
-	 *
-	 * @param string $view
-	 * @param object $params
-	 * @throws Exception
-	 */
-	public function render($view, $params=null)
+  /**
+   * render
+   * @param string $view
+   * @param object|null $params
+   * @throws Exception
+   */
+	public function render(string $view, object $params = null)
 	{
 		if (!$view)
 		{

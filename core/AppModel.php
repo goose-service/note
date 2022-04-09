@@ -12,7 +12,6 @@ class AppModel {
 
   /**
    * construct
-   *
    * @throws Exception
    */
   public function __construct()
@@ -42,7 +41,6 @@ class AppModel {
 
   /**
    * index
-   *
    * @return object
    * @throws Exception
    */
@@ -102,7 +100,6 @@ class AppModel {
 
   /**
    * index/nest
-   *
    * @param object $options
    * @return object
    * @throws Exception
@@ -354,7 +351,7 @@ class AppModel {
   }
 
   /**
-   * like
+   * update like
    * @param int $article_srl
    * @return object
    */
@@ -365,7 +362,9 @@ class AppModel {
     {
       // request
       $res = $this->connect->request('post', "/articles/{$article_srl}/update/", (object)[
-        'post' => (object)[ 'type' => 'star' ],
+        'post' => (object)[
+          'type' => 'star',
+        ],
       ]);
       if (!($res->success && isset($res->data))) throw new Exception();
       $result->success = true;
@@ -406,7 +405,6 @@ class AppModel {
 
   /**
    * extend category name in items
-   *
    * @param array $items
    * @return array
    */
@@ -456,7 +454,6 @@ class AppModel {
   /**
    * make pagination
    * 모바일과 데스크탑 네비게이션 객체를 만들어준다.
-   *
    * @param int $total
    * @param int $page
    * @param int $size
@@ -476,9 +473,9 @@ class AppModel {
       'params' => $params,
       'scale' => 3,
     ]);
-    $result->mobile = $paginateUnit->createElements(['paginate', 'paginate--mobile'], './');
+    $result->mobile = $paginateUnit->createElements([ 'paginate', 'paginate--mobile' ], './');
     $paginateUnit->update((object)[ 'scale' => 10 ]);
-    $result->desktop = $paginateUnit->createElements(['paginate', 'paginate--desktop'], './');
+    $result->desktop = $paginateUnit->createElements([ 'paginate', 'paginate--desktop' ], './');
     return $result;
   }
 

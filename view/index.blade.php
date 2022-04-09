@@ -85,7 +85,7 @@ if(!defined("__GOOSE__")){exit();}
   </article>
   @endif
 
-  @if (($paginate->mobile ?? false) || ($paginate->desktop ?? false))
+  @if ($paginate->desktop ?? false)
   <div class="index__paginate">
     {!! $paginate->mobile !!}
     {!! $paginate->desktop !!}

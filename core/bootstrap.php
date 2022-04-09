@@ -49,6 +49,7 @@ try {
     throw new Exception('Not found page', 404);
   }
 
+  // set route property
   $_target = (string)$router->match['target'];
   $_params = (object)$router->match['params'];
 
