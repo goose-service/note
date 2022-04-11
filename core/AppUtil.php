@@ -54,7 +54,7 @@ class AppUtil {
    */
   static public function getPage(): int
   {
-    return (isset($_GET['page']) && (int)$_GET['page'] > 1) ? (int)$_GET['page'] : 1;
+    return ((int)($_GET['page'] ?? 1) > 1) ? (int)$_GET['page'] : 1;
   }
 
   /**

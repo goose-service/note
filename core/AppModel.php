@@ -5,10 +5,9 @@ use Exception, Parsedown, redgoose\Paginate, redgoose\Console;
 /**
  * App model
  */
-
 class AppModel {
 
-  private $connect;
+  private mixed $connect;
 
   /**
    * construct
@@ -77,8 +76,8 @@ class AppModel {
         'json_field' => ['json'],
         'debug' => __APP_DEBUG__,
       ]);
-      $result->articles = (isset($result->articles->data) && count($result->articles->data)) ? $result->articles->data : [];
-      if ($result->articles && count($result->articles) > 0)
+      $result->articles = (count($result->articles->data ?? []) > 0) ? $result->articles->data : [];
+      if (count($result->articles) > 0)
       {
         $result->articles = $this->extendNestNameInItems($result->articles);
         $result->articles = $this->extendCategoryNameInItems($result->articles);
