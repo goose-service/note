@@ -53,7 +53,7 @@ if(!defined("__GOOSE__")){exit();}
     </div>
   </nav>
   @if ($comments && count($comments) > 0)
-  <article class="comments">
+  <article id="comments" class="comments">
     <h3 class="comments__title">Comments</h3>
     <ul class="comments__index">
       @foreach($comments as $k=>$item)

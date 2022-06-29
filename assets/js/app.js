@@ -107,6 +107,7 @@ export default class RedgooseApp {
 			main: document.getElementById('article'),
 			content: document.getElementById('article_content'),
 			buttonLike: document.getElementById('button_like'),
+			comments: document.getElementById('comments'),
 		};
 
 		// button like event
@@ -136,13 +137,17 @@ export default class RedgooseApp {
 
 		// image lightbox
 		const lightbox = new LightBox();
-		const $images = this.articleElements.content.querySelectorAll('img');
-		$images.forEach((o) => {
-			o.addEventListener('click', (e) => {
-				if (!e.target.src) return;
-				lightbox.open(e.target.src, e.target.name);
+		setImagesEvent(this.articleElements.content.querySelectorAll('img'));
+		setImagesEvent(this.articleElements.comments.querySelectorAll('.comment__body img'));
+		function setImagesEvent($elements)
+		{
+			$elements.forEach($el => {
+				$el.addEventListener('click', e => {
+					if (!e.target.src) return;
+					lightbox.open(e.target.src, e.target.name);
+				});
 			});
-		});
+		}
 	}
 
 	/**
