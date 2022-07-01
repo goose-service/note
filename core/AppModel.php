@@ -1,6 +1,5 @@
 <?php
 namespace Core;
-//use Core\ParsedownExtension\Article;
 use Exception;
 use redgoose\Paginate;
 
