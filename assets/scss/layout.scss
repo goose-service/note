@@ -1,5 +1,9 @@
 @use './libs/mixins';
 
+main {
+	--size-header-height: 50px;
+}
+
 // heading title
 .heading-title {
 	font-size: 0;
@@ -17,7 +21,6 @@
 	--color-header-button-active: #eee;
 	--color-header-bg: rgba(255,255,255,.75);
 	--color-header-line: rgba(0,0,0,.15);
-	--size-header-height: 50px;
 
 	&:before {
 		content: '';

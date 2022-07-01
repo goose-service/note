@@ -1,6 +1,8 @@
 <?php
 namespace Core;
-use Exception, Parsedown, redgoose\Paginate, redgoose\Console;
+//use Core\ParsedownExtension\Article;
+use Exception;
+use redgoose\Paginate;
 
 /**
  * App model
@@ -252,7 +254,6 @@ class AppModel {
 
       // set variables
       $result = (object)[];
-      $parsedown = new Parsedown();
 
       // set article params
       $where = ($app = $_ENV['APP_DEFAULT_APP_SRL']) ? " and app_srl={$app}" : '';
@@ -289,6 +290,7 @@ class AppModel {
       }
 
       // parse markdown
+      $parsedown = new ParsedownExtension\Article();
       $result->article->content = $parsedown->text($result->article->content);
 
       // extend article
@@ -328,6 +330,7 @@ class AppModel {
         {
           throw new Exception('no item');
         }
+        $parsedown = new ParsedownExtension\Comment();
         $result->comments = $result->comments->data;
         foreach ($result->comments as $key=>$item)
         {

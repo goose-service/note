@@ -2,21 +2,26 @@
 @import './libs/normalize';
 
 :root {
-	--color-text: rgb(34 34 34);
-	--color-text-blur: #777;
-	--color-key: #b31f37;
-	--color-bg: #fafbfc;
-	--color-text-code: #4f64ff;
-	--font-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+	--color-text-hsl: 0 0% 13%;
+	--color-text: hsl(var(--color-text-hsl));
+	--color-text-blur-hsl: 0 0% 47%;
+	--color-text-blur: hsl(var(--color-text-blur-hsl));
+	--color-key-hsl: 350 70% 41%;
+	--color-key: hsl(var(--color-key-hsl));
+	--color-bg-hsl: 210 25% 98%;
+	--color-bg: hsl(var(--color-bg-hsl));
+	--color-text-code-hsl: 233 100% 65%;
+	--color-text-code: hsl(var(--color-text-code-hsl));
+	--font-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
 	--font-eng: 'ortsa', Helvetica, Arial, sans-serif;
 	--font-title: 'AritaBuri', sas-serif;
 	--font-code: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
 	@include mixins.dark-mode() {
 		color-scheme: dark;
-		--color-text: rgb(221 221 221);
-		--color-key: #1ccd5c;
-		--color-bg: #222;
-		--color-text-code: #ffcd3a;
+		--color-text-hsl: 0 0% 87%;
+		--color-key-hsl: 142 76% 46%;
+		--color-bg-hsl: 0 0% 13%;
+		--color-text-code-hsl: 45 100% 61%;
 	}
 }
 
@@ -42,7 +47,6 @@ a {
 code, kbd, pre, samp {
 	font-family: var(--font-code);
 }
-
 ::selection {
 	background: var(--color-key);
 	color: #fff;
