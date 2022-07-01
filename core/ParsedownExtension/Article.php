@@ -8,6 +8,7 @@ use Parsedown;
  */
 class Article extends Parsedown
 {
+
   protected function inlineImage($excerpt): ?array
   {
     $image = parent::inlineImage($excerpt);

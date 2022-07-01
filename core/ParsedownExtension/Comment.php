@@ -8,6 +8,7 @@ use Parsedown;
  */
 class Comment extends Parsedown
 {
+
   protected function inlineImage($excerpt): ?array
   {
     $image = parent::inlineImage($excerpt);
