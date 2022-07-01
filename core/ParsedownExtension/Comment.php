@@ -12,7 +12,7 @@ class Comment extends Parsedown
   {
     $image = parent::inlineImage($excerpt);
     if (!($image ?? false)) return null;
-    $image['element']['attributes']['lazy'] = 'true';
+    $image['element']['attributes']['loading'] = 'lazy';
     return $image;
   }
 
