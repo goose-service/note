@@ -2,7 +2,7 @@
   "name": "note.redgoose.me",
   "version": "2.5.2",
   "main": "index.js",
-  "repository": "https://gitlab.com/redgoose-me/note.redgoose.me.git",
+  "repository": "https://github.com/redgoose-dev/note.redgoose.me.git",
   "author": "redgoose-dev <scripter@me.com>",
   "license": "ISC",
   "scripts": {
