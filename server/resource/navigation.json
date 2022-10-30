@@ -1,67 +1,38 @@
 {
   "home": {
-    "label": "redgoose",
+    "label": "redgoose note",
     "href": "/"
   },
   "global": [
     {
-      "label": "Works",
-      "key": "works",
-      "href": "/nest/visual/",
-      "children": [
-        {
-          "label": "Visual",
-          "key": "worksVisual",
-          "href": "/nest/visual/"
-        },
-        {
-          "label": "Tool & Service",
-          "key": "worksToolAndService",
-          "href": "/nest/tool/"
-        }
-      ]
+      "label": "Blog",
+      "key": "blog",
+      "href": "/nest/blog/"
     },
     {
-      "label": "Photography",
-      "key": "photography",
-      "href": "/nest/landscape/",
-      "children": [
-        {
-          "label": "Landscape",
-          "key": "photographyLandscape",
-          "href": "/nest/landscape/"
-        },
-        {
-          "label": "Portrait",
-          "key": "photographyPortrait",
-          "href": "/nest/portrait/"
-        },
-        {
-          "label": "Snap",
-          "key": "photographySnap",
-          "href": "/nest/snap/"
-        },
-        {
-          "label": "Composition",
-          "key": "photographyComposition",
-          "href": "/nest/composition/"
-        },
-        {
-          "label": "Foreign countries",
-          "key": "photographyForeignCountries",
-          "href": "/nest/foreign-countries/"
-        }
-      ]
+      "label": "Development",
+      "key": "development",
+      "href": "/nest/development/"
     },
     {
-      "label": "About",
-      "key": "about",
-      "href": "/page/about/"
+      "label": "Graphics",
+      "key": "graphics",
+      "href": "/nest/graphics/"
     },
     {
-      "label": "Notes",
-      "key": "notes",
-      "href": "https://note.redgoose.me"
+      "label": "Concept",
+      "key": "concept",
+      "href": "/nest/concept/"
+    },
+    {
+      "label": "ETC",
+      "key": "note-etc",
+      "href": "/nest/note-etc/"
+    },
+    {
+      "label": "redgoose",
+      "key": "redgoose",
+      "href": "https://redgoose.me"
     }
   ]
 }

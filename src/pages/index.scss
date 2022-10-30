@@ -1,0 +1,50 @@
+@use '../assets/scss/mixins';
+
+.index {
+  &__header {
+    margin: 0 0 16px;
+    padding: 0 24px;
+    h1 {
+      margin: 0;
+      font-family: var(--font-eng);
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: -.5px;
+      text-align: center;
+      line-height: 1.25;
+    }
+  }
+  &__categories {
+    margin: 20px 0 0;
+  }
+  &__body {}
+  &__items {}
+  &__empty {
+    height: 100vh;
+    min-height: calc(100vh - var(--size-header-height) - 240px);
+    max-height: calc(100vh - var(--size-header-height) - 240px);
+  }
+  &__paginate {
+    margin: 24px 0 0;
+  }
+  @include mixins.responsive(tablet) {
+    &__header {
+      margin-bottom: 24px;
+      h1 {
+        font-size: 36px;
+      }
+    }
+    &__items {
+      padding: 0 42px;
+    }
+    &__paginate {
+      margin: 36px 0 0;
+    }
+  }
+  @include mixins.responsive(desktop) {
+    //
+  }
+  @include mixins.responsive(max) {
+    //
+  }
+}

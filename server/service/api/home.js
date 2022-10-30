@@ -7,6 +7,7 @@ export async function home(req, res)
   {
     let result = await modelHome({
       page: Number(req.query?.page) > 1 ? Number(req.query?.page) : 1,
+      q: req.query?.q || undefined,
     })
     res.json(result)
   }

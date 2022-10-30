@@ -1,7 +1,6 @@
 import { instance } from './index.js'
 import { getEnv } from '../libs/entry-assets.js'
 import { ERROR_CODE } from '../libs/assets.js'
-import { dateFormat } from '../libs/date.js'
 
 function filteringArticles({ src, host })
 {
@@ -17,13 +16,11 @@ function filteringArticles({ src, host })
   })
 }
 
-export async function modelHome({ page })
+export async function modelHome({ page, q })
 {
   let result = {
     total: 0,
-    headItems: [],
-    bodyItems: [],
-    randomItems: [],
+    items: [],
   }
   const env = getEnv()
   const size = Number(env.VITE_INDEX_SIZE || 24)
@@ -33,40 +30,22 @@ export async function modelHome({ page })
     ext_field: 'category_name,nest_name',
   }
   // get articles and random articles
-  let [ items, random ] = await Promise.all([
-    instance('/articles/', {
-      query: {
-        ...baseQuery,
-        order: '`order` desc, `srl` desc',
-        limit: `${(page-1)*size},${size}`,
-      },
-    }),
-    page === 1 && instance('/articles/', {
-      query: {
-        ...baseQuery,
-        size: 4,
-        duration: `old,order,1 week`,
-        random: dateFormat(new Date(), '{yyyy}{MM}{dd}'),
-      }
-    }),
-  ].filter(Boolean))
+  let items = await instance('/articles/', {
+    query: {
+      ...baseQuery,
+      order: '`order` desc, `srl` desc',
+      limit: `${(page-1)*size},${size}`,
+      q,
+    },
+  })
   // filtering articles
   if (items?.success)
   {
     result.total = items.data?.total || 0
-    let filteredItems = items.data?.index.length > 0 ? filteringArticles({
+    result.items = items.data?.index.length > 0 ? filteringArticles({
       src: items.data.index,
       host: env.VITE_API_URL,
     }) : []
-    if (page === 1)
-    {
-      result.headItems = filteredItems.slice(0, 4)
-      result.bodyItems = filteredItems.slice(4)
-    }
-    else
-    {
-      result.bodyItems = filteredItems
-    }
   }
   else
   {
@@ -74,14 +53,6 @@ export async function modelHome({ page })
       status: ERROR_CODE.NOT_FOUND,
       message: 'not found item',
     }
-  }
-  // filtering random articles
-  if (random?.success)
-  {
-    result.randomItems = random.data?.index.length > 0 ? filteringArticles({
-      src: random.data.index,
-      host: env.VITE_API_URL,
-    }) : []
   }
   // return
   return result

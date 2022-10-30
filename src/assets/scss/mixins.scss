@@ -95,7 +95,7 @@
 }
 
 // button touch options
-@mixin button-setup($opacity: false)
+@mixin button-setup()
 {
   outline: none;
   user-select: none;
