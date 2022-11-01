@@ -9,6 +9,7 @@
       font-family: var(--font-eng);
       font-size: 28px;
       font-weight: 600;
+      color: var(--color-edge);
       letter-spacing: -.5px;
       text-align: center;
       line-height: 1.25;
@@ -30,19 +31,43 @@
   @include mixins.responsive(tablet) {
     &__header {
       margin-bottom: 24px;
+      padding: 0 42px;
       h1 {
         font-size: 36px;
       }
     }
-    &__items {
+    &__categories {
+      margin: -16px 0 0;
       padding: 0 42px;
+    }
+    &__items {
+      margin-top: 32px;
+      padding: 0 42px;
+    }
+    &__empty {
+      height: 65vh;
+      min-height: calc(65vh - var(--size-header-height));
+      max-height: calc(65vh - var(--size-header-height));
     }
     &__paginate {
       margin: 36px 0 0;
     }
   }
   @include mixins.responsive(desktop) {
-    //
+    &__header {
+      padding: 0 72px;
+      margin-bottom: 32px;
+    }
+    &__categories {
+      margin: -24px 0 0;
+      padding: 0 72px;
+    }
+    &__items {
+      padding: 0 72px;
+    }
+    &__paginate {
+      margin: 42px 0 0;
+    }
   }
   @include mixins.responsive(max) {
     //

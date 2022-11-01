@@ -1,5 +1,5 @@
 <div class="viewport">
-  <Header/>
+  <Header route={_route}/>
   <div class="container">
     {#if !$error}
       <Route path="/" let:meta>
@@ -39,7 +39,10 @@ import Header from './components/layout/header.svelte'
 import Footer from './components/layout/footer.svelte'
 import Error from './components/error.svelte'
 
-router.subscribe(() => {
+let _route = undefined
+
+router.subscribe((e) => {
+  _route = e
   error.update(() => (undefined))
   window.scrollTo(0, 0)
 })

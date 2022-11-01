@@ -7,7 +7,9 @@
     </header>
     {#if categories?.length > 0}
       <div class="index__categories">
-        .categories
+        <Categories
+          items={_categories}
+          active={route.params.category || ''}/>
       </div>
     {/if}
     <div class="index__body">
@@ -48,7 +50,9 @@
 import { onMount, onDestroy } from 'svelte'
 import { router } from 'tinro'
 import { $fetch as fetch } from 'ohmyfetch'
+import { error } from '../store'
 import Error from '../components/error.svelte'
+import Categories from '../components/pages/index/categories.svelte'
 import Items from '../components/pages/index/items.svelte'
 import Item from '../components/pages/index/item.svelte'
 import Loading from '../components/loading/loading-page.svelte'
@@ -62,10 +66,12 @@ let categories: Category[] = []
 let totalArticles: number = 0
 let articles: Article[] = []
 let size = Number(import.meta.env.VITE_INDEX_SIZE)
+let title: string = 'Newest articles'
 
 $: if (!route.params?.nest) updateIndex()
-$: if (currentRoute?.params?.nest !== route.params?.nest) updateNest()
-
+$: if (route.params?.nest && (currentRoute?.params?.nest !== route.params?.nest)) updateNest()
+$: if (route.params?.nest && (currentRoute?.params?.category !== route.params?.category)) updateNestArticles()
+$: if (route.params?.nest && currentRoute?.query.page !== route.query.page) updatePageFromNest()
 $: _categories = categories.map(o => {
   return {
     srl: o.srl ? String(o.srl) : '',
@@ -74,7 +80,31 @@ $: _categories = categories.map(o => {
     link: o.srl ? `/nest/${currentRoute.params?.nest}/${o.srl}/` : `/nest/${currentRoute.params?.nest}/`,
   }
 })
-$: _title = 'Newest articles'
+$: _title = decodeURIComponent(title)
+
+function setTitle(): void
+{
+  if (nest?.title)
+  {
+    title = nest.title
+    return
+  }
+  else if (nest)
+  {
+    title = 'unknown nest'
+    return
+  }
+  else if (route?.query?.q)
+  {
+    title = `S:/ ${currentRoute?.query?.q}`
+    return
+  }
+  else
+  {
+    title = 'Newest articles'
+    return
+  }
+}
 
 async function updateIndex(): Promise<void>
 {
@@ -87,7 +117,12 @@ async function updateIndex(): Promise<void>
     {
       query.page = Number(route.query?.page)
     }
-    let res: ResponseIndex = await fetch(`/api/`, {
+    if (route.query?.q)
+    {
+      query.q = route.query?.q
+    }
+    setTitle()
+    let res: ResponseIndex = await fetch('/api/', {
       responseType: 'json',
       query,
     })
@@ -99,22 +134,89 @@ async function updateIndex(): Promise<void>
   }
   catch (e)
   {
+    const status = e.response?._data?.status || 500
+    const message = e.response?._data?.message || 'Unknown error'
+    error.update(() => ({ status, message }))
     loading = false
   }
 }
 
 async function updateNest(): Promise<void>
 {
+  console.log('updateNest()')
   try
   {
     currentRoute = route
     loading = true
+    let query: Query = {}
+    if (Number(route.query?.page) > 1)
+    {
+      query.page = Number(route.query?.page)
+    }
+    if (currentRoute.params.category)
+    {
+      query.categorySrl = currentRoute.params.category
+    }
+    let res: ResponseNest = await fetch(`/api/nests/${currentRoute.params.nest}/`, {
+      responseType: 'json',
+      query,
+    })
+    nest = res.nest
+    categories = res.categories
+    totalArticles = res.articles?.total || 0
+    articles = res.articles?.items || []
+    setTitle()
+    loading = false
   }
   catch (e)
   {
+    const status = e.response?._data?.status || 500
+    const message = e.response?._data?.message || 'Unknown error'
+    error.update(() => ({ status, message }))
     loading = false
   }
-  console.log('updateNest()')
+}
+
+async function updateNestArticles(): Promise<void>
+{
+  console.log('updateNestArticles()')
+  try
+  {
+    currentRoute = route
+    loading = true
+    let query: Query = {}
+    if (Number(route.query?.page) > 1)
+    {
+      query.page = Number(route.query?.page)
+    }
+    query.categorySrl = currentRoute.params.category || ''
+    let res: ResponseArticles = await fetch(`/api/nests/${nest.srl}/articles/`, {
+      responseType: 'json',
+      query,
+    })
+    totalArticles = res.total || 0
+    articles = res.items || []
+    loading = false
+  }
+  catch (e)
+  {
+    const status = e.response?._data?.status || 500
+    const message = e.response?._data?.message || 'Unknown error'
+    error.update(() => ({ status, message }))
+    loading = false
+  }
+}
+
+async function updatePageFromNest(): Promise<void>
+{
+  if (route.params.category)
+  {
+    await updateNestArticles()
+  }
+  else
+  {
+    await updateNest()
+  }
 }
 </script>
 

@@ -35,7 +35,7 @@ export async function modelHome({ page, q })
       ...baseQuery,
       order: '`order` desc, `srl` desc',
       limit: `${(page-1)*size},${size}`,
-      q,
+      q: q ? decodeURIComponent(q) : undefined,
     },
   })
   // filtering articles

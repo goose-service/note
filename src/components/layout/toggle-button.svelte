@@ -2,6 +2,7 @@
   title={title}
   class="toggle-button"
   class:toggle-button--on={active}
+  class:toggle-button--is={isKeyword}
   on:click|stopPropagation={() => dispatch('click')}>
   <slot/>
 </button>
@@ -12,6 +13,7 @@ import { createEventDispatcher } from 'svelte'
 const dispatch = createEventDispatcher()
 export let title: string = 'title'
 export let active: boolean = false
+export let isKeyword: boolean = false
 </script>
 
 <style lang="scss">
@@ -36,6 +38,9 @@ export let active: boolean = false
   }
   &--on {
     background: var(--header-active-bg);
+  }
+  &--is {
+    --icon-color: var(--color-key);
   }
   &:focus-visible {
     box-shadow:

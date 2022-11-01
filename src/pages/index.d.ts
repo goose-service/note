@@ -1,6 +1,7 @@
 interface Query {
   page?: number
   categorySrl?: string
+  q?: string
 }
 
 interface Nest {
@@ -32,8 +33,14 @@ interface ResponseIndex {
 interface ResponseNest {
   nest: Nest
   categories: Category[]
+  categoryName: string
   articles: {
     total: number
     items: Article[]
   }
+}
+
+interface ResponseArticles {
+  total: number
+  items: Article[]
 }

@@ -36,6 +36,7 @@
       <ToggleButton
         title="Toggle search form"
         active={activeSearchForm}
+        isKeyword={!!route?.query?.q}
         on:click={onClickSearchFormToggle}>
         {#if !activeSearchForm}
           <Icon name="search"/>
@@ -47,7 +48,8 @@
         <form
           aria-hidden="true"
           class="header-search__form"
-          on:click|stopPropagation={() => {}}>
+          on:click|stopPropagation={() => {}}
+          on:submit|preventDefault={onSubmitKeywordSearch}>
           <fieldset>
             <legend>search keyword form</legend>
             <input
@@ -55,9 +57,12 @@
               name="q"
               placeholder="Please search keyword"
               maxlength="32"
-              value=""
+              bind:value={keyword}
               bind:this={_searchInput}/>
-            <button type="reset" title="Clear search keyword.">
+            <button
+              type="reset"
+              title="Clear search keyword."
+              on:click={onResetKeyword}>
               <Icon name="x-circle"/>
             </button>
             <button type="submit" title="Submit search keyword.">
@@ -72,19 +77,23 @@
 
 <script lang="ts">
 import { active } from 'tinro'
+import { router } from 'tinro'
 import { Icon } from '../icons'
 import navigation from '../../../server/resource/navigation.json'
 import ToggleButton from './toggle-button.svelte'
 
+export let route = undefined
 let _searchInput
 let activeNavigation: boolean = false
 let activeSearchForm: boolean = false
+let keyword = route?.query?.q || ''
 
 $: gnb = navigation.global.map((o) => ({
   label: o.label,
   href: o.href,
   target: /^http/.test(o.href) ? '_blank' : '',
 }))
+$: if (route?.query) updateKeyword()
 
 function onClickMenu(e): void
 {
@@ -120,10 +129,33 @@ function onClickSearchFormToggle(): void
   }
 }
 
+function onSubmitKeywordSearch(): void
+{
+  if (keyword)
+  {
+    router.goto(`/?q=${keyword}`)
+  }
+  else
+  {
+    router.goto(`/`)
+  }
+  onCloseDropdown()
+}
+
+function onResetKeyword(): void
+{
+  keyword = ''
+}
+
 function onCloseDropdown(_: PointerEvent = undefined): void
 {
   activeNavigation = false
   activeSearchForm = false
+}
+
+function updateKeyword(): void
+{
+  keyword = route?.query?.q ? decodeURIComponent(route.query.q) : ''
 }
 </script>
 

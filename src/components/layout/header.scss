@@ -192,13 +192,13 @@
   width: var(--size-header-height);
   height: 100%;
   &__form {
-    position: absolute;
+    position: fixed;
+    left: 0;
     right: 0;
-    width: 100vw;
     box-sizing: border-box;
     background: var(--header-active-bg);
     margin: 0;
-    padding: 30px 16px;
+    padding: 30px 20px;
     &:after {
       content: '';
       display: block;
@@ -298,7 +298,10 @@
     }
   }
   @include mixins.responsive(tablet) {
-    &__form {
+    &__form
+    {
+      position: absolute;
+      left: unset;
       width: 420px;
       padding: 24px;
       border-bottom-left-radius: 4px;

@@ -18,19 +18,16 @@
     0 -1px 0 var(--color-item-split-line),
     0 1px 0 var(--color-item-split-line);
   @include mixins.dark-mode() {
-    --color-item-split-line: hsl(0 0% 100% / 5%);
+    --color-item-split-line: hsl(0 0% 100% / 8%);
   }
   @include mixins.responsive(tablet) {
     grid-template-columns: repeat(var(--items-column, 2), 1fr);
     grid-gap: var(--items-gap, 16px);
     box-shadow: none;
   }
-  //@include mixins.responsive(desktop) {
-  //  grid-template-columns: repeat(var(--items-column, 4), 1fr);
-  //  grid-gap: var(--items-gap, 20px);
-  //}
-  //@include mixins.responsive(max) {
-  //  grid-gap: var(--items-gap, 30px);
-  //}
+  @include mixins.responsive(desktop) {
+    grid-template-columns: repeat(var(--items-column, 3), 1fr);
+    grid-gap: var(--items-gap, 20px);
+  }
 }
 </style>
