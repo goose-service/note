@@ -13,6 +13,9 @@
           <Lazy component={import('./pages/index.svelte')} route={meta}/>
         </Route>
       </Route>
+      <Route path="/article/:article/" let:meta>
+        <Lazy component={import('./pages/article.svelte')} route={meta}/>
+      </Route>
       <Route fallback let:meta>
         <div class="viewport__error">
           <Error status={404} message="Page not found"/>

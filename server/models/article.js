@@ -77,6 +77,7 @@ export async function modelArticle({ srl, updateHit })
   result.categoryName = article.data.category_name
   result.content = parsingContent(article.data.content)
   result.image = article.data.json?.thumbnail?.path ? `${host}/${article.data.json.thumbnail.path}` : null
+  result.date = article.data.order
   result.hit = article.data.hit
   result.star = article.data.star
   return result

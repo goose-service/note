@@ -47,7 +47,6 @@
 {/if}
 
 <script lang="ts">
-import { onMount, onDestroy } from 'svelte'
 import { router } from 'tinro'
 import { $fetch as fetch } from 'ohmyfetch'
 import { error } from '../store'
@@ -143,7 +142,6 @@ async function updateIndex(): Promise<void>
 
 async function updateNest(): Promise<void>
 {
-  console.log('updateNest()')
   try
   {
     currentRoute = route
@@ -179,7 +177,6 @@ async function updateNest(): Promise<void>
 
 async function updateNestArticles(): Promise<void>
 {
-  console.log('updateNestArticles()')
   try
   {
     currentRoute = route
