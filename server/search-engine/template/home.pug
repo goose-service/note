@@ -8,18 +8,11 @@ html(lang="ko")
       if error && error.status
         include ./components/error
       else
-        if bodyItems && bodyItems.length > 0
+        if items && items.length > 0
           section
             h1 redgoose works
             ul
-              each o in bodyItems
-                li
-                  include ./components/index-item
-        if randomItems && randomItems.length > 0
-          section
-            h1 random works
-            ul
-              each o in randomItems
+              each o in items
                 li
                   include ./components/index-item
         if paginate && paginate.length > 0

@@ -27,7 +27,7 @@ export async function pageHome(req, res)
       convertUrl(_url.pathname),
       req.query
     )
-    if (!(result.headItems?.length > 0 || result.bodyItems?.length > 0))
+    if (!(result.items?.length > 0))
     {
       throw new Error(ERROR_CODE.NO_ITEMS)
     }
@@ -48,11 +48,7 @@ export async function pageHome(req, res)
       url: `${env.VITE_APP_HOST}${_url.href}`,
       image: `/images/og-redgoose.jpg`,
       navigation,
-      randomItems: result?.randomItems || [],
-      bodyItems: result ? [
-        ...result.headItems,
-        ...result.bodyItems,
-      ] : [],
+      items: result.items,
       paginate,
       error: _error,
     })

@@ -5,7 +5,6 @@ import allowPath from './allow-path.js'
 import { pageHome } from './pages/home.js'
 import { pageNests } from './pages/nests.js'
 import { pageArticle } from './pages/article.js'
-import { pageAbout } from './pages/page/about.js'
 import { pageNotFound } from './pages/pageNotFound.js'
 
 // set base
@@ -18,7 +17,6 @@ router.get('/', pageHome)
 router.get('/nest/:nestId/', pageNests)
 router.get('/nest/:nestId/:categorySrl/', pageNests)
 router.get('/article/:srl/', pageArticle)
-router.get('/page/about/', pageAbout)
 router.get('*', pageNotFound)
 
 /**
