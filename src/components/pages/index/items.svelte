@@ -18,7 +18,7 @@
     0 -1px 0 var(--color-item-split-line),
     0 1px 0 var(--color-item-split-line);
   @include mixins.dark-mode() {
-    --color-item-split-line: hsl(0 0% 100% / 8%);
+    --color-item-split-line: hsl(0 0% 0% / 25%);
   }
   @include mixins.responsive(tablet) {
     grid-template-columns: repeat(var(--items-column, 2), 1fr);
