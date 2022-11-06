@@ -11,9 +11,9 @@
 .container {
   padding: 36px 0 0;
   @include mixins.responsive(tablet) {
-    padding-top: 52px;
+    padding-top: 36px;
   }
   @include mixins.responsive(desktop) {
-    padding-top: 64px;
+    padding-top: 42px;
   }
 }
