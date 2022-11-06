@@ -52,7 +52,7 @@ export async function pageNests(req, res)
       keywords: env.VITE_APP_KEYWORDS,
       host: env.VITE_APP_HOST,
       url: `${env.VITE_APP_HOST}${_url.href}`,
-      image: `/images/og-redgoose.jpg`,
+      image: `/images/og-note-redgoose.jpg`,
       navigation,
       nest: result ? {
         ...result.nest,

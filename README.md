@@ -1,25 +1,26 @@
-# redgoose-v5
-
-redgoose.me ver 5.6
-
+# redgoose-note v3
 
 ## Install
 
-저장소를 클론 받으면 다음 명령어로 실행해줘야한다
+저장소를 클론 받으면 다음 명령어로 실행해줘야한다.
 
 ```bash
+git clone https://github.com/redgoose-dev/note.redgoose.me.git
+cd note.redgoose.me
+bun install
 ```
 
 
-## Development
+## Usage
+
+### Development
 
 ```bash
 bun run dev
 bun run dev:live
 ```
 
-
-## Production
+### Production
 
 ```bash
 npm run build
@@ -34,41 +35,15 @@ npm run start
 
 ## docker
 
-
-## vendors
-
-- Vite
-- SCSS
-- Typescript
-- DotENV
-- express
-- isbot
-- svelte
-
-
-## docker
-
 ### make image
 
 이미지 만들기
 
 ```shell
-# Mac M1 for linux
-docker buildx build --platform=linux/amd64 -t redgoose/redgoose.me:latest .
-# Mac M1 for macos
-docker buildx build --platform=linux/arm64/v8 -t redgoose/redgoose.me:latest .
+# Mac Silicone for Linux
+docker buildx build --platform=linux/amd64 -t redgoose/note.redgoose.me:latest .
+# Mac Silicone for MacOS
+docker buildx build --platform=linux/arm64/v8 -t redgoose/note.redgoose.me:latest .
 # Mac Intel
-docker build -t redgoose/redgoose.me:latest .
+docker build -t redgoose/note.redgoose.me:latest .
 ```
-
-
-## TODO
-
-- [x] 출력 순서가 거꾸로 되어있는거 같다?
-- [x] 좋아요 액션 API 연동
-- [x] RSS 작업
-- [x] 모바일 화면에서 메뉴토글 기능작업
-- [ ] docker 설정
-- [x] 본문 라이트박스 제작
-- [x] markdown 조정
-- [x] 봇용 html 작업

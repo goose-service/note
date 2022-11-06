@@ -54,7 +54,7 @@ export async function pageArticle(req, res)
       articleTitle: result?.title || undefined,
       nest: result?.nestName || undefined,
       category: result?.categoryName || undefined,
-      image: result?.image || `/images/og-redgoose.jpg`,
+      image: result?.image || `/images/og-note-redgoose.jpg`,
       content: result?.content || undefined,
       srl: result?.srl || undefined,
       hit: result?.hit || 0,

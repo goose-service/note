@@ -59,7 +59,7 @@ import Paginate from '../components/paginate.svelte'
 
 export let route: Route
 let currentRoute
-let loading: boolean = false
+let loading: boolean = true
 let nest: Nest = undefined
 let categories: Category[] = []
 let totalArticles: number = 0
