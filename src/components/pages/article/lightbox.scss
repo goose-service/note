@@ -1,0 +1,59 @@
+@use '../../../assets/scss/mixins';
+
+.lightbox {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 99999;
+  background: hsl(var(--color-bg-hsl) / 65%);
+  @include mixins.background-blur(36px);
+  &__image {
+    display: grid;
+    place-content: center;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    img {
+      display: block;
+      max-width: 88vw;
+      max-height: 88vh;
+      object-fit: contain;
+      border-radius: 2px;
+    }
+  }
+  &__close {
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    border: none;
+    font-size: 0;
+    background: none;
+    -webkit-tap-highlight-color: transparent;
+    box-sizing: border-box;
+    @include mixins.button-setup();
+    cursor: zoom-out;
+    :global(svg) {
+      display: none;
+    }
+  }
+  @include mixins.responsive(tablet) {
+    &__close {
+      :global(svg) {
+        display: block;
+        position: absolute;
+        right: 16px;
+        top: 16px;
+        --icon-size: 48px;
+        --icon-stroke: 1;
+        --icon-color: hsl(var(--color-text-hsl) / 50%);
+      }
+    }
+  }
+}

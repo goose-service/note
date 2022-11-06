@@ -1,0 +1,38 @@
+{
+  "home": {
+    "label": "redgoose note",
+    "href": "/"
+  },
+  "global": [
+    {
+      "label": "Blog",
+      "key": "blog",
+      "href": "/nest/blog/"
+    },
+    {
+      "label": "Development",
+      "key": "development",
+      "href": "/nest/development/"
+    },
+    {
+      "label": "Graphics",
+      "key": "graphics",
+      "href": "/nest/graphics/"
+    },
+    {
+      "label": "Concept",
+      "key": "concept",
+      "href": "/nest/concept/"
+    },
+    {
+      "label": "ETC",
+      "key": "note-etc",
+      "href": "/nest/note-etc/"
+    },
+    {
+      "label": "redgoose",
+      "key": "redgoose",
+      "href": "https://redgoose.me"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+@use './assets/scss/mixins';
+
+.viewport {
+  &__error {
+    height: 100vh;
+    min-height: calc(75vh - var(--size-header-height));
+    max-height: calc(75vh - var(--size-header-height));
+  }
+}
+
+.container {
+  padding: 36px 0 0;
+  @include mixins.responsive(tablet) {
+    padding-top: 52px;
+  }
+  @include mixins.responsive(desktop) {
+    padding-top: 64px;
+  }
+}

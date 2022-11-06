@@ -1,0 +1,66 @@
+@use '../assets/scss/mixins';
+
+.article {
+  --article-side-padding: 24px;
+  &__header {
+    text-align: center;
+    padding: 0 var(--article-side-padding);
+    h1 {
+      margin: 0;
+      font-size: 28px;
+      line-height: 1.15;
+      letter-spacing: -.5px;
+      word-break: break-all;
+      font-family: var(--font-title);
+      color: var(--color-edge);
+      font-weight: 600;
+    }
+    p {
+      margin: 4px 0 0;
+      color: var(--color-text-blur);
+      font-size: 0;
+      span {
+        display: inline-block;
+        font-family: var(--font-eng);
+        font-size: 10px;
+        &:nth-child(n+2):before {
+          content: '/';
+          display: inline-block;
+          margin: 0 5px;
+          line-height: 1.2;
+        }
+      }
+    }
+  }
+  &__body {
+    margin: 24px 0 0;
+    padding: 0 var(--article-side-padding);
+    min-height: 15vh;
+  }
+  &__star {
+    margin: 36px 0 0;
+    text-align: center;
+  }
+  &__empty {
+    height: 100vh;
+    min-height: calc(75vh - var(--size-header-height));
+    max-height: calc(75vh - var(--size-header-height));
+  }
+  @include mixins.responsive(tablet) {
+    --article-side-padding: 62px;
+    &__header {
+      h1 {
+        font-size: 40px;
+      }
+      p {
+        span {
+          font-size: 11px;
+        }
+      }
+    }
+    &__body {
+      max-width: 800px;
+      margin: 54px auto 0;
+    }
+  }
+}
