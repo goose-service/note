@@ -51,7 +51,7 @@
     --article-side-padding: 62px;
     &__header {
       h1 {
-        font-size: 40px;
+        font-size: 36px;
       }
       p {
         span {
@@ -62,6 +62,30 @@
     &__body {
       max-width: 800px;
       margin: 54px auto 0;
+    }
+  }
+}
+
+.comments {
+  margin: 40px 0 0;
+  padding: 0 24px;
+  &__title {
+    margin: 0;
+    font-size: 0;
+  }
+  &__index {
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 16px;
+    max-width: 680px;
+  }
+  @include mixins.responsive(tablet) {
+    margin-top: 72px;
+    padding: 0 62px;
+    &__index {
+      gap: 32px;
     }
   }
 }

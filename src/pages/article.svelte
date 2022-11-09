@@ -29,6 +29,19 @@
           on:click={onClickStar}/>
       </nav>
     </div>
+    {#if comments?.length > 0}
+      <article class="comments">
+        <h1 class="comments__title">Comments</h1>
+        <ul class="comments__index">
+          {#each comments as o, key}
+            <Comment
+              srl={o.srl}
+              content={o.content}
+              date={o.date}/>
+          {/each}
+        </ul>
+      </article>
+    {/if}
   {/if}
 </article>
 {#if lightbox?.src}
@@ -41,15 +54,22 @@
 import { onMount } from 'svelte'
 import { $fetch as fetch } from 'ohmyfetch'
 import { error } from '../store'
+import { hashScroll } from '../libs/util'
 import Loading from '../components/loading/loading-page.svelte'
 import Error from '../components/error.svelte'
 import StarButton from '../components/pages/article/star-button.svelte'
 import ContentBody from '../components/pages/article/content-body.svelte'
 import LightBox from '../components/pages/article/lightbox.svelte'
+import Comment from '../components/pages/article/comment.svelte'
 
 interface Lightbox {
   src?: string
   alt?: string
+}
+interface Comment {
+  srl: number
+  content: string
+  date: string
 }
 
 export let route: Route
@@ -62,6 +82,7 @@ let starButton = {
   disabled: false,
   count: 0,
 }
+let comments: Comment[] = []
 let empty: boolean = false
 let lightbox: Lightbox = {}
 
@@ -85,7 +106,10 @@ async function fetchData(): Promise<void>
     contentBody = res.content
     starButton.disabled = !res.enableStarButton
     starButton.count = res.star
+    comments = res.comments
     loading = false
+    // move scroll
+    hashScroll(location.hash)
   }
   catch (e)
   {

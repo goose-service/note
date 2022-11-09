@@ -21,11 +21,12 @@ html(lang="ko")
               dt Star
               dd #{star}
           div !{content}
-        article
-          h1 Comments
-          ul
-            each o in comments
-              li
-                div !{o.content}
-                p commented #{o.date}
+        if comments && comments.length > 0
+          article
+            h1 Comments
+            ul
+              each o in comments
+                li
+                  div !{o.content}
+                  p commented #{o.date}
       include ./layout/footer
