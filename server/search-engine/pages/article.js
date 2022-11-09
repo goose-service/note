@@ -59,6 +59,7 @@ export async function pageArticle(req, res)
       srl: result?.srl || undefined,
       hit: result?.hit || 0,
       star: result?.star || 0,
+      comments: result.comments?.length > 0 ? result.comments : [],
       error: _error,
     }
     // render

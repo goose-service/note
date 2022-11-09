@@ -2,6 +2,7 @@ import { marked, Renderer } from 'marked'
 import { instance } from './index.js'
 import { getEnv } from '../libs/entry-assets.js'
 import { ERROR_CODE } from '../libs/assets.js'
+import { dateFormat } from '../libs/date.js'
 
 const sharp = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>`
 
@@ -54,10 +55,11 @@ export async function modelArticle({ srl, updateHit })
     image: '',
     hit: '',
     star: 0,
+    comments: [],
   }
   const env = getEnv()
   const host = env.VITE_API_URL
-  let article = await instance(`/articles/${srl}/`, {
+  const article = await instance(`/articles/${srl}/`, {
     query: {
       app: env.VITE_APP_SRL,
       hit: updateHit ? 1 : 0,
@@ -71,6 +73,9 @@ export async function modelArticle({ srl, updateHit })
       message: 'not found item',
     }
   }
+  const nest = await instance(`/nests/${article.data.nest_srl}/`, {
+    field: 'srl,json'
+  })
   result.srl = article.data.srl
   result.title = article.data.title
   result.nestName = article.data.nest_name
@@ -80,6 +85,21 @@ export async function modelArticle({ srl, updateHit })
   result.date = article.data.order
   result.hit = article.data.hit
   result.star = article.data.star
+  // get comments
+  if (Number(nest.data.json?.useComment) === 1)
+  {
+    const comments = await instance(`/comments/`, {
+      query: { article: article.data.srl },
+    })
+    if (comments.data?.index?.length > 0)
+    {
+      result.comments = comments.data.index.map((item) => ({
+        srl: item.srl,
+        content: parsingContent(item.content),
+        date: dateFormat(new Date(item.regdate), '{yyyy}-{MM}-{dd}')
+      }))
+    }
+  }
   return result
 }
 
