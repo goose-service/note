@@ -48,8 +48,9 @@ export async function modelNests({ nestId, categorySrl, page })
     instance('/categories/', {
       query: {
         field: 'srl,name',
-        nest: nest.data.srl,
-        ext_field: 'count_article,item_all',
+        module: 'article',
+        target: nest.data.srl,
+        ext_field: 'count,all',
       },
     }),
     instance('/articles/', {
