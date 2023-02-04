@@ -3,6 +3,7 @@ import { getEnv } from '../../libs/entry-assets.js'
 import { modelArticle } from '../../models/article.js'
 import * as error from '../../libs/error.js'
 import { ERROR_CODE } from '../../libs/assets.js'
+import { parsingContent } from '../../libs/markdown.js'
 import navigation from '../../resource/navigation.json' assert { type: 'json' }
 
 export async function pageArticle(req, res)
@@ -55,11 +56,14 @@ export async function pageArticle(req, res)
       nest: result?.nestName || undefined,
       category: result?.categoryName || undefined,
       image: result?.image || `/images/og-note-redgoose.jpg`,
-      content: result?.content || undefined,
+      content: result?.content ? parsingContent(result.content) : undefined,
       srl: result?.srl || undefined,
       hit: result?.hit || 0,
       star: result?.star || 0,
-      comments: result.comments?.length > 0 ? result.comments : [],
+      comments: result.comments?.length > 0 ? result.comments.map(o => ({
+        ...o,
+        content: o.content ? parsingContent(o.content) : '',
+      })) : [],
       error: _error,
     }
     // render

@@ -134,6 +134,12 @@
       font-size: 14px;
       line-height: 1.15;
       @include mixins.text-single-line();
+      @include mixins.hover() {
+        &:not(.active) {
+          background-color: hsl(var(--color-text-hsl) / 5%);
+        }
+      }
+      transition: background-color 120ms ease-out;
       &:active {
         opacity: .75;
       }
@@ -181,6 +187,13 @@
         display: grid;
         place-content: center;
         height: 100%;
+        padding: 0 6px;
+      }
+    }
+  }
+  @include mixins.responsive(desktop) {
+    &__menu {
+      a {
         padding: 0 12px;
       }
     }

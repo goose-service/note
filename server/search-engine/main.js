@@ -1,5 +1,6 @@
 import * as path from 'path'
 import { Router } from 'express'
+import { marked } from 'marked'
 import { isDev } from '../libs/entry-assets.js'
 import allowPath from './allow-path.js'
 import { pageHome } from './pages/home.js'
@@ -11,6 +12,12 @@ import { pageNotFound } from './pages/pageNotFound.js'
 const router = Router({ strict: false })
 const dev = isDev()
 const __dirname = path.resolve('server/search-engine')
+
+// setup marked
+marked.setOptions({
+  gfm: true,
+  breaks: true,
+})
 
 // set routers
 router.get('/', pageHome)

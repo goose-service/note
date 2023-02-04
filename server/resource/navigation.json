@@ -33,6 +33,11 @@
       "label": "redgoose",
       "key": "redgoose",
       "href": "https://redgoose.me"
+    },
+    {
+      "label": "slideshow",
+      "key": "slideshow",
+      "href": "https://slideshow.redgoose.me"
     }
   ]
 }

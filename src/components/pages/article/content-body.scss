@@ -1,5 +1,4 @@
 @use '../../../assets/scss/mixins';
-
 @import '@redgoose/markdown-style/dist/body.scss';
 
 .redgoose-body {
@@ -130,6 +129,26 @@
       }
     }
   }
+  code {
+    color: var(--color-sub);
+    background: hsl(var(--color-edge-hsl) / 8%);
+    padding: .2em .4em;
+    border-radius: 4px;
+    font-size: 85%;
+    white-space: break-spaces;
+  }
+  pre {
+    background: hsl(0 0% 20%);
+    border-radius: 4px;
+    line-height: 1.62;
+    color-scheme: dark;
+    box-shadow:
+      0 4px 36px hsl(0 0% 0% / 25%),
+      0 8px 24px hsl(0 0% 0% / 25%);
+    > code {
+      color: hsl(0 0% 90%);
+    }
+  }
   @include mixins.responsive(tablet) {
     h1, h2, h3, h4, h5, h6 {
       position: relative;
@@ -156,6 +175,13 @@
           opacity: 1;
         }
       }
+    }
+  }
+  @include mixins.dark-mode {
+    pre {
+      box-shadow:
+        0 4px 24px hsl(0 0% 0% / 8%),
+        0 8px 16px hsl(0 0% 0% / 12%);
     }
   }
 }

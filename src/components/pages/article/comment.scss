@@ -8,8 +8,9 @@
   scroll-margin-top: calc(var(--size-header-height) + 32px);
   box-shadow:
     0 0 0 .5px hsl(0 0% 0% / 15%),
-    0 4px 8px hsl(0 0% 0% / 8%),
-    0 8px 24px hsl(0 0% 0% / 10%);
+    0 4px 36px hsl(0 0% 0% / 8%),
+    0 16px 24px hsl(0 0% 0% / 10%);
+  min-width: 0;
   :global(.redgoose-body) {
     --size-text: 14px;
     --size-text-length: 1.52;
