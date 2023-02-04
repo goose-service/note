@@ -1,0 +1,37 @@
+{
+  "short_name": "redgoose-note",
+  "name": "붉은거위 노트 / redgoose note",
+  "icons": [
+    {
+      "src": "/images/redgoose-256x256.png",
+      "type": "image/png",
+      "sizes": "256x256",
+      "purpose": "any"
+    },
+    {
+      "src": "/images/redgoose-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any"
+    },
+    {
+      "src": "/images/redgoose-256x256-mask.png",
+      "type": "image/png",
+      "sizes": "256x256",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/images/redgoose-512x512-mask.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
+    }
+  ],
+  "id": "/",
+  "start_url": "/",
+  "description": "붉은거위의 끄적이는 노트. 스크랩을 하거나 생각나는 것들을 기록하는 곳",
+  "display": "standalone",
+  "theme_color": "#111111",
+  "background_color": "#fafbfc",
+  "orientation": "portrait"
+}
