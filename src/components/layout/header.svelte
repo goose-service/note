@@ -2,7 +2,7 @@
   <div class="header__wrap">
     <h1 class="header__logo header-logo">
       <a href={navigation.home.href} title={navigation.home.label} on:click={onClickLink}>
-        <img src="/images/ico-logo.svg" alt="redgoose"/>
+        <img src="/images/ico-logo.webp" width="480" height="407" alt="redgoose"/>
       </a>
     </h1>
     <nav class="header__gnb header-gnb">

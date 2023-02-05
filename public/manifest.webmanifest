@@ -3,27 +3,15 @@
   "name": "붉은거위 노트 / redgoose note",
   "icons": [
     {
-      "src": "/images/redgoose-256x256.png",
-      "type": "image/png",
-      "sizes": "256x256",
+      "src": "/images/redgoose-note-1024x1024.webp",
+      "type": "image/webp",
+      "sizes": "1024x1024",
       "purpose": "any"
     },
     {
-      "src": "/images/redgoose-512x512.png",
-      "type": "image/png",
-      "sizes": "512x512",
-      "purpose": "any"
-    },
-    {
-      "src": "/images/redgoose-256x256-mask.png",
-      "type": "image/png",
-      "sizes": "256x256",
-      "purpose": "maskable"
-    },
-    {
-      "src": "/images/redgoose-512x512-mask.png",
-      "type": "image/png",
-      "sizes": "512x512",
+      "src": "/images/redgoose-note-1024x1024-mask.webp",
+      "type": "image/webp",
+      "sizes": "1024x1024",
       "purpose": "maskable"
     }
   ],

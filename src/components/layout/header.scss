@@ -70,7 +70,8 @@
   }
   img {
     display: block;
-    width: 64px;
+    width: 72px;
+    height: auto;
     aspect-ratio: 62 / 50;
   }
   @include mixins.responsive(tablet) {
@@ -80,7 +81,7 @@
       position: absolute;
       transform: none;
       left: 0;
-      top: 8px;
+      top: 6px;
       padding: 2px;
       &:focus-visible {
         outline: 2px solid var(--color-key);

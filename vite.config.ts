@@ -31,6 +31,9 @@ const config = defineConfig(async ({ mode }) => {
             }
             return `assets/${ext}[name]-[hash][extname]`
           },
+          manualChunks: {
+            'highlight.js': [ 'highlight.js' ],
+          },
         },
       },
     },
