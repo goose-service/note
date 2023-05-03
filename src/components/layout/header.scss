@@ -162,7 +162,7 @@
   @include mixins.responsive(tablet) {
     display: flex;
     width: auto;
-    &:global(> .toggle-button) {
+    :global(> .toggle-button) {
       display: none;
     }
     &__menu {
