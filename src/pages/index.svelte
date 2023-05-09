@@ -47,7 +47,6 @@
 {/if}
 
 <script lang="ts">
-import { router } from 'tinro'
 import { $fetch as fetch } from 'ohmyfetch'
 import { error } from '../store'
 import Error from '../components/error.svelte'
@@ -80,7 +79,7 @@ $: _categories = categories.map(o => {
   }
 })
 $: _title = decodeURIComponent(title)
-$: _query = filteringQuery(router.location.query.get() || {})
+$: _query = filteringQuery(route.query)
 
 function setTitle(): void
 {
