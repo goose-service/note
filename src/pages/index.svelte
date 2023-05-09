@@ -39,7 +39,7 @@
             total={totalArticles}
             size={size}
             url="./"
-            query={router.location.query.get()}/>
+            query={_query}/>
         </div>
       {/if}
     </div>
@@ -80,6 +80,7 @@ $: _categories = categories.map(o => {
   }
 })
 $: _title = decodeURIComponent(title)
+$: _query = filteringQuery(router.location.query.get() || {})
 
 function setTitle(): void
 {
@@ -214,6 +215,12 @@ async function updatePageFromNest(): Promise<void>
   {
     await updateNest()
   }
+}
+
+function filteringQuery(src: any): any
+{
+  if (src.q) src.q = decodeURI(src.q)
+  return src || {}
 }
 </script>
 
