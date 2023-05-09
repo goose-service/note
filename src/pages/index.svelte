@@ -22,8 +22,8 @@
                 title={o.title}
                 image={o.image}
                 date={o.date}
-                nest="nest"
-                category="category"/>
+                nest={o.nest}
+                category={o.category}/>
             {/each}
           </Items>
         </div>
