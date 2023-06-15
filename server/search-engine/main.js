@@ -17,6 +17,7 @@ const __dirname = path.resolve('server/search-engine')
 marked.setOptions({
   gfm: true,
   breaks: true,
+  silent: true,
 })
 
 // set routers

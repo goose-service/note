@@ -52,7 +52,7 @@
 
 <script lang="ts">
 import { onMount } from 'svelte'
-import { $fetch as fetch } from 'ohmyfetch'
+import { ofetch } from 'ofetch'
 import { error } from '../store'
 import { hashScroll } from '../libs/util'
 import Loading from '../components/loading/loading-page.svelte'
@@ -93,7 +93,7 @@ async function fetchData(): Promise<void>
   try
   {
     loading = true
-    let res = await fetch(`/api/article/${route.params.article}/`, {
+    let res = await ofetch(`/api/article/${route.params.article}/`, {
       responseType: 'json',
     })
     srl = res.srl
@@ -131,7 +131,7 @@ async function onClickStar(): Promise<void>
 {
   try
   {
-    let res = await fetch(`/api/article/${route.params.article}/star/`, <any>{
+    let res = await ofetch(`/api/article/${route.params.article}/star/`, <any>{
       method: 'post',
       responseType: 'json',
     })

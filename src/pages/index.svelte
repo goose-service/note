@@ -47,7 +47,7 @@
 {/if}
 
 <script lang="ts">
-import { $fetch as fetch } from 'ohmyfetch'
+import { ofetch } from 'ofetch'
 import { error } from '../store'
 import Error from '../components/error.svelte'
 import Categories from '../components/pages/index/categories.svelte'
@@ -121,7 +121,7 @@ async function updateIndex(): Promise<void>
       query.q = route.query?.q
     }
     setTitle()
-    let res: ResponseIndex = await fetch('/api/', {
+    let res: ResponseIndex = await ofetch('/api/', {
       responseType: 'json',
       query,
     })
@@ -155,7 +155,7 @@ async function updateNest(): Promise<void>
     {
       query.categorySrl = currentRoute.params.category
     }
-    let res: ResponseNest = await fetch(`/api/nests/${currentRoute.params.nest}/`, {
+    let res: ResponseNest = await ofetch(`/api/nests/${currentRoute.params.nest}/`, {
       responseType: 'json',
       query,
     })
@@ -187,7 +187,7 @@ async function updateNestArticles(): Promise<void>
       query.page = Number(route.query?.page)
     }
     query.categorySrl = currentRoute.params.category || ''
-    let res: ResponseArticles = await fetch(`/api/nests/${nest.srl}/articles/`, {
+    let res: ResponseArticles = await ofetch(`/api/nests/${nest.srl}/articles/`, {
       responseType: 'json',
       query,
     })

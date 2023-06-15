@@ -7,27 +7,42 @@
   {/if}
 </div>
 
-<script lang="ts">
+<script>
 import { createEventDispatcher } from 'svelte'
-import { marked, Renderer } from 'marked'
+import { Marked, Renderer } from 'marked'
+import { markedHighlight } from 'marked-highlight'
 import hljs from 'highlight.js'
 import { ICON_SHARP } from '../../../libs/assets'
 import 'highlight.js/styles/github-dark.css'
 
 const dispatch = createEventDispatcher()
-export let body: string = undefined
+export let body = undefined
+
+// setup marked
+const marked = new Marked({
+  gfm: true,
+  breaks: true,
+  silent: true,
+})
+marked.use(markedHighlight({
+  langPrefix: 'hljs language-',
+  highlight: function(code, lang) {
+    const language = hljs.getLanguage(lang) ? lang : 'plaintext'
+    return hljs.highlight(code, { language }).value
+  },
+}))
 
 $: _body = parsingMarkdown()
 
-function onClickBody(e): void
+function onClickBody(e)
 {
-  let _target: HTMLElement = e.target
+  let _target = e.target
   switch (_target.tagName?.toLowerCase())
   {
     case 'img':
       dispatch('openLightbox', {
-        src: (_target as HTMLImageElement).src,
-        alt: (_target as HTMLImageElement).alt,
+        src: _target.src,
+        alt: _target.alt,
       })
       break
   }
@@ -49,16 +64,8 @@ function parsingMarkdown()
     const _title = title ? ` title="${title}"` : ''
     return `<a href="${href}"${_target}${_title}>${text}</a>`
   }
-  return marked.parse(body, {
-    renderer,
-    gfm: true,
-    breaks: true,
-    langPrefix: 'hljs language-',
-    highlight: function(code, lang) {
-      const language = (hljs as any).getLanguage(lang) ? lang : 'plaintext'
-      return hljs.highlight(code, { language }).value
-    },
-  })
+  marked.use({ renderer })
+  return marked.parse(body)
 }
 </script>
 
