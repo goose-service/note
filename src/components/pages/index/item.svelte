@@ -19,21 +19,21 @@
   </a>
 </li>
 
-<script lang="ts">
+<script>
 import shuffle from 'auto-writer/src/shuffle'
 import { EmptyIcon } from '../../icons'
 
 let elements = []
-export let srl: number
-export let image: string
-export let title: string
-export let date: string
-export let nest: string
-export let category: string
+export let srl
+export let image
+export let title
+export let date
+export let nest
+export let category
 
 $: _description = computedDescription()
 
-function onEnterItem(): void
+function onEnterItem()
 {
   if (window.innerWidth < 768) return
   elements.forEach((el, k) => {
@@ -45,7 +45,7 @@ function onEnterItem(): void
   })
 }
 
-function computedDescription(): string
+function computedDescription()
 {
   return [
     date && date,

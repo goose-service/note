@@ -7,13 +7,13 @@
   <slot/>
 </button>
 
-<script lang="ts">
+<script>
 import { createEventDispatcher } from 'svelte'
 
 const dispatch = createEventDispatcher()
-export let title: string = 'title'
-export let active: boolean = false
-export let isKeyword: boolean = false
+export let title = 'title'
+export let active = false
+export let isKeyword = false
 </script>
 
 <style lang="scss">

@@ -22,7 +22,7 @@
         aria-hidden="true"
         on:click={onClickMenu}>
         <ul>
-          {#each gnb as o,k}
+          {#each gnb as o}
             <li>
               <a href={o.href} target={o.target} use:active on:click={onClickLink}>
                 {o.label}
@@ -75,7 +75,7 @@
   </div>
 </header>
 
-<script lang="ts">
+<script>
 import { active } from 'tinro'
 import { router } from 'tinro'
 import { Icon } from '../icons'
@@ -84,8 +84,8 @@ import ToggleButton from './toggle-button.svelte'
 
 export let route = undefined
 let _searchInput
-let activeNavigation: boolean = false
-let activeSearchForm: boolean = false
+let activeNavigation = false
+let activeSearchForm = false
 let keyword = route?.query?.q || ''
 
 $: gnb = navigation.global.map((o) => ({
@@ -95,21 +95,21 @@ $: gnb = navigation.global.map((o) => ({
 }))
 $: if (route?.query) updateKeyword()
 
-function onClickMenu(e): void
+function onClickMenu(e)
 {
   if (!e.target.classList.contains('header-gnb__menu')) return
   e.stopPropagation()
 }
 
-function onClickLink(e: PointerEvent): void
+function onClickLink(e)
 {
   if (!e.currentTarget) return
-  (e.currentTarget as HTMLElement).blur()
+  e.currentTarget.blur()
   onCloseDropdown()
   window.removeEventListener('click', onCloseDropdown)
 }
 
-function onClickNavigationToggle(): void
+function onClickNavigationToggle()
 {
   activeNavigation = !activeNavigation
   activeSearchForm = false
@@ -118,7 +118,7 @@ function onClickNavigationToggle(): void
     window.addEventListener('click', onCloseDropdown, { once: true })
   }
 }
-function onClickSearchFormToggle(): void
+function onClickSearchFormToggle()
 {
   activeSearchForm = !activeSearchForm
   activeNavigation = false
@@ -129,7 +129,7 @@ function onClickSearchFormToggle(): void
   }
 }
 
-function onSubmitKeywordSearch(): void
+function onSubmitKeywordSearch()
 {
   if (keyword)
   {
@@ -142,18 +142,18 @@ function onSubmitKeywordSearch(): void
   onCloseDropdown()
 }
 
-function onResetKeyword(): void
+function onResetKeyword()
 {
   keyword = ''
 }
 
-function onCloseDropdown(_: PointerEvent = undefined): void
+function onCloseDropdown()
 {
   activeNavigation = false
   activeSearchForm = false
 }
 
-function updateKeyword(): void
+function updateKeyword()
 {
   keyword = route?.query?.q ? decodeURIComponent(route.query.q) : ''
 }

@@ -69,4 +69,4 @@ function parsingMarkdown()
 }
 </script>
 
-<style src="./content-body.scss" global lang="scss"></style>
+<style src="./content-body.scss" lang="scss"></style>

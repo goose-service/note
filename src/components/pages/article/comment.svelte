@@ -10,17 +10,17 @@
   </div>
 </li>
 
-<script lang="ts">
+<script>
 import { Icon } from '../../icons'
 import ContentBody from './content-body.svelte'
 
-export let srl: number
-export let content: string
-export let date: string
+export let srl
+export let content
+export let date
 
 $: _contentBody = content
 
-function onOpenLightbox({ detail: { src, alt } }): void
+function onOpenLightbox({ detail })
 {
   console.log('onOpenLightbox()')
 }

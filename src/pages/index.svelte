@@ -46,7 +46,7 @@
   </article>
 {/if}
 
-<script lang="ts">
+<script>
 import { ofetch } from 'ofetch'
 import { error } from '../store'
 import Error from '../components/error.svelte'
@@ -56,15 +56,15 @@ import Item from '../components/pages/index/item.svelte'
 import Loading from '../components/loading/loading-page.svelte'
 import Paginate from '../components/paginate.svelte'
 
-export let route: Route
+export let route
 let currentRoute
-let loading: boolean = true
-let nest: Nest = undefined
-let categories: Category[] = []
-let totalArticles: number = 0
-let articles: Article[] = []
+let loading = true
+let nest = undefined
+let categories = []
+let totalArticles = 0
+let articles = []
 let size = Number(import.meta.env.VITE_INDEX_SIZE)
-let title: string = 'Newest articles'
+let title = 'Newest articles'
 
 $: if (!route.params?.nest) updateIndex()
 $: if (route.params?.nest && (currentRoute?.params?.nest !== route.params?.nest)) updateNest()
@@ -81,37 +81,33 @@ $: _categories = categories.map(o => {
 $: _title = decodeURIComponent(title)
 $: _query = filteringQuery(route.query)
 
-function setTitle(): void
+function setTitle()
 {
   if (nest?.title)
   {
     title = nest.title
-    return
   }
   else if (nest)
   {
     title = 'unknown nest'
-    return
   }
   else if (route?.query?.q)
   {
     title = `S:/ ${currentRoute?.query?.q}`
-    return
   }
   else
   {
     title = 'Newest articles'
-    return
   }
 }
 
-async function updateIndex(): Promise<void>
+async function updateIndex()
 {
   try
   {
     currentRoute = route
     loading = true
-    let query: Query = {}
+    let query = {}
     if (Number(route.query?.page) > 1)
     {
       query.page = Number(route.query?.page)
@@ -121,7 +117,7 @@ async function updateIndex(): Promise<void>
       query.q = route.query?.q
     }
     setTitle()
-    let res: ResponseIndex = await ofetch('/api/', {
+    let res = await ofetch('/api/', {
       responseType: 'json',
       query,
     })
@@ -140,13 +136,13 @@ async function updateIndex(): Promise<void>
   }
 }
 
-async function updateNest(): Promise<void>
+async function updateNest()
 {
   try
   {
     currentRoute = route
     loading = true
-    let query: Query = {}
+    let query = {}
     if (Number(route.query?.page) > 1)
     {
       query.page = Number(route.query?.page)
@@ -155,7 +151,7 @@ async function updateNest(): Promise<void>
     {
       query.categorySrl = currentRoute.params.category
     }
-    let res: ResponseNest = await ofetch(`/api/nests/${currentRoute.params.nest}/`, {
+    let res = await ofetch(`/api/nests/${currentRoute.params.nest}/`, {
       responseType: 'json',
       query,
     })
@@ -175,19 +171,19 @@ async function updateNest(): Promise<void>
   }
 }
 
-async function updateNestArticles(): Promise<void>
+async function updateNestArticles()
 {
   try
   {
     currentRoute = route
     loading = true
-    let query: Query = {}
+    let query = {}
     if (Number(route.query?.page) > 1)
     {
       query.page = Number(route.query?.page)
     }
     query.categorySrl = currentRoute.params.category || ''
-    let res: ResponseArticles = await ofetch(`/api/nests/${nest.srl}/articles/`, {
+    let res = await ofetch(`/api/nests/${nest.srl}/articles/`, {
       responseType: 'json',
       query,
     })
@@ -204,7 +200,7 @@ async function updateNestArticles(): Promise<void>
   }
 }
 
-async function updatePageFromNest(): Promise<void>
+async function updatePageFromNest()
 {
   if (route.params.category)
   {
@@ -216,7 +212,7 @@ async function updatePageFromNest(): Promise<void>
   }
 }
 
-function filteringQuery(src: any): any
+function filteringQuery(src)
 {
   if (src.q) src.q = decodeURI(src.q)
   return src || {}

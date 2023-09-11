@@ -5,7 +5,7 @@
   </div>
 </article>
 
-<script lang="ts">
+<script>
 export let status
 export let message
 </script>
@@ -48,9 +48,6 @@ export let message
     --color-step-3: #09abb5;
   }
   @include mixins.responsive(tablet) {
-    &__image {
-      zoom: .5;
-    }
     &__title {
       margin-top: 36px;
       font-size: 72px;

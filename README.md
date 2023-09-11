@@ -5,7 +5,7 @@
 저장소를 클론 받으면 다음 명령어로 실행해줘야한다.
 
 ```bash
-git clone https://github.com/redgoose-dev/note.redgoose.me.git
+git clone https://github.com/gooose-eth/note.redgoose.me.git
 cd note.redgoose.me
 bun install
 ```
