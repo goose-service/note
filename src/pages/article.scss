@@ -2,10 +2,10 @@
 
 .article {
   --article-side-padding: 24px;
-  margin: var(--article-margin-top, 24px) 0 0 0;
+  margin: var(--article-top-margin, 24px) 0 0;
+  padding: 0 var(--article-side-padding);
   &__header {
     text-align: center;
-    padding: 0 var(--article-side-padding);
     h1 {
       margin: 0;
       font-size: 32px;
@@ -34,7 +34,6 @@
   }
   &__body {
     margin: 36px 0 0;
-    padding: 0 var(--article-side-padding);
     min-height: 15vh;
   }
   &__star {

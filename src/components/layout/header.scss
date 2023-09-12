@@ -130,8 +130,8 @@
       text-decoration: none;
       box-sizing: border-box;
       font-family: var(--font-eng);
-      color: var(--color-text);
-      font-weight: 500;
+      color: var(--color-edge);
+      font-weight: 600;
       font-size: 14px;
       line-height: 1.15;
       @include mixins.text-single-line();

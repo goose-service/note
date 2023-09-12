@@ -33,6 +33,7 @@ export let isKeyword = false
   --icon-margin: 0 auto;
   --icon-size: 20px;
   --icon-stroke: 2.5;
+  --icon-color: var(--color-edge);
   &:active {
     background: var(--header-active-bg);
   }
