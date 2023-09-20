@@ -9,7 +9,7 @@
     "dev": "node server/entry.js --development",
     "prebuild": "rm -rf ./dist",
     "build": "vite build",
-    "start": "bun server/entry.js --production"
+    "start": "node server/entry.js --production"
   },
   "browserslist": [
     "> 1%",
