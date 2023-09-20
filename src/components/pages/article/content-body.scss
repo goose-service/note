@@ -22,7 +22,7 @@
       }
     }
   }
-  :global(img) {
+  :global(:is(img, goose-dark-mode-image)) {
     @include mixins.button-setup();
   }
 }

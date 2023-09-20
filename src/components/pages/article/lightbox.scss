@@ -18,9 +18,14 @@
     img {
       display: block;
       max-width: 92vw;
-      max-height: 96vh;
+      max-height: 92vh;
       object-fit: contain;
       border-radius: 2px;
+    }
+    goose-dark-mode-image {
+      --goose-dmi-max-width: 92vw;
+      --goose-dmi-max-height: 92vh;
+      --goose-dmi-object-fit: contain;
     }
   }
   &__close {
