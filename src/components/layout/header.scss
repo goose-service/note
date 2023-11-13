@@ -327,3 +327,12 @@
     }
   }
 }
+
+.dark-mode-switch {
+  position: absolute;
+  top: 50%;
+  right: 58px;
+  z-index: 3;
+  transform: translateY(-50%);
+  -webkit-tap-highlight-color: transparent;
+}

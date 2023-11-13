@@ -20,7 +20,7 @@
   --font-code: 'Monaco', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
   --size-side-padding: 24px;
   --size-header-height: 48px;
-  @include mixins.dark-mode() {
+  @include mixins.dark-mode-root() {
     color-scheme: dark;
     --color-text-hsl: 0 0% 85%;
     --color-edge-hsl: 0 0% 98%;

@@ -1,4 +1,4 @@
-# redgoose-note v3
+# redgoose-note
 
 ## Install
 

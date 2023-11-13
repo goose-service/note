@@ -72,12 +72,16 @@
         </form>
       {/if}
     </div>
+    <nav class="dark-mode-switch">
+      <goose-dark-mode-switch bind:this={darkModeSwitch} theme={$theme}/>
+    </nav>
   </div>
 </header>
 
 <script>
-import { active } from 'tinro'
-import { router } from 'tinro'
+import { onMount, onDestroy } from 'svelte'
+import { active, router } from 'tinro'
+import { theme } from '../../store.js'
 import { Icon } from '../icons'
 import navigation from '../../../server/resource/navigation.json'
 import ToggleButton from './toggle-button.svelte'
@@ -87,6 +91,7 @@ let _searchInput
 let activeNavigation = false
 let activeSearchForm = false
 let keyword = route?.query?.q || ''
+let darkModeSwitch
 
 $: gnb = navigation.global.map((o) => ({
   label: o.label,
@@ -157,6 +162,18 @@ function updateKeyword()
 {
   keyword = route?.query?.q ? decodeURIComponent(route.query.q) : ''
 }
+
+function changeTheme({ detail })
+{
+  theme.update(detail.theme)
+}
+
+onMount(() => {
+  darkModeSwitch.addEventListener('change', changeTheme)
+})
+onDestroy(() => {
+  darkModeSwitch.removeEventListener('change', changeTheme)
+})
 </script>
 
 <style src="./header.scss" lang="scss"></style>
