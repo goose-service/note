@@ -335,4 +335,12 @@
   z-index: 3;
   transform: translateY(-50%);
   -webkit-tap-highlight-color: transparent;
+  goose-dark-mode-switch {
+    display: block;
+    --dark-switch-width: 26px;
+    --dark-switch-height: 26px;
+    --dark-switch-padding: 1px;
+    --dark-switch-icon-size: 16px;
+    --dark-switch-active-offset: 0px;
+  }
 }
