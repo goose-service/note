@@ -114,7 +114,7 @@ async function updateIndex()
     }
     if (route.query?.q)
     {
-      query.q = route.query?.q
+      query.q = decodeURIComponent(route.query?.q)
     }
     setTitle()
     let res = await ofetch('/api/', {

@@ -138,7 +138,7 @@ function onSubmitKeywordSearch()
 {
   if (keyword)
   {
-    router.goto(`/?q=${keyword}`)
+    router.goto(`/?q=${encodeURIComponent(keyword)}`)
   }
   else
   {
