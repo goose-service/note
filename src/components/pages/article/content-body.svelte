@@ -76,4 +76,6 @@ function parsingMarkdown()
 }
 </script>
 
-<style src="./content-body.scss" lang="scss"></style>
+<style lang="scss">
+@import './content-body';
+</style>

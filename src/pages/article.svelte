@@ -152,4 +152,6 @@ function onCloseLightbox()
 onMount(() => fetchData().then())
 </script>
 
-<style src="./article.scss" lang="scss"></style>
+<style lang="scss">
+@import './article';
+</style>

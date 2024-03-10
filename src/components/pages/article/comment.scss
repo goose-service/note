@@ -60,6 +60,20 @@
       --size-text: 15px;
       --size-text-length: 1.64;
     }
+    :global(.redgoose-body pre) {
+      position: static;
+      transform: none;
+      width: auto;
+    }
+    :global(.redgoose-body :where(img, .grid-item)) {
+      position: static;
+      zoom: unset;
+      transform: none;
+      width: auto;
+      max-width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+    }
     &__meta {
       a {
         opacity: 0;

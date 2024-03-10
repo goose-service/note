@@ -26,4 +26,6 @@ function onOpenLightbox({ detail })
 }
 </script>
 
-<style src="./comment.scss" lang="scss"></style>
+<style lang="scss">
+@import './comment';
+</style>
