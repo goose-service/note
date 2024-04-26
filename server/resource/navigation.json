@@ -15,6 +15,11 @@
       "href": "/nest/development/"
     },
     {
+      "label": "A.I",
+      "key": "ai",
+      "href": "/nest/ai/"
+    },
+    {
       "label": "Graphics",
       "key": "graphics",
       "href": "/nest/graphics/"
