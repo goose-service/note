@@ -2,6 +2,7 @@ import { instance } from './index.js'
 import { getEnv } from '../libs/entry-assets.js'
 import { ERROR_CODE } from '../libs/assets.js'
 import { dateFormat } from '../libs/date.js'
+import { setThumbnailPath } from '../libs/text.js'
 
 /**
  * model article
@@ -54,7 +55,7 @@ export async function modelArticle({ srl, updateHit })
   result.nestName = article.data.nest_name
   result.categoryName = article.data.category_name
   result.content = article.data.content
-  result.image = article.data.json?.thumbnail?.path ? `${host}/${article.data.json.thumbnail.path}` : null
+  result.image = article.data.json?.thumbnail?.path ? `${host}/${setThumbnailPath(article.data.json.thumbnail.path)}` : null
   result.date = article.data.order
   result.hit = article.data.hit
   result.star = article.data.star
