@@ -1,0 +1,3 @@
+# note.redgoose.me v4
+
+...

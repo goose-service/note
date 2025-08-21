@@ -1,0 +1,128 @@
+@use '../../scss/mixins';
+
+.navigation {}
+
+.navigation-toggle {
+  --toggle-icon-width: var(--size-header-height);
+  svg {
+    width: 24px;
+    height: 24px;
+    color: var(--color-light);
+  }
+  @include mixins.responsive(tablet) {
+    display: none;
+  }
+}
+
+.navigation-body {
+  display: block;
+  position: fixed;
+  left: 0;
+  right: 0;
+  box-sizing: border-box;
+  padding: 30px 0;
+  user-select: none;
+  background: var(--color-reverse);
+  box-shadow: 0 .5px 0 hsl(0 0% 0% / 20%), 0 4px 20px hsl(0 0% 0% / 20%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 160ms ease-out;
+  &.on {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  ul {
+    display: grid;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    box-sizing: border-box;
+    font-size: 0;
+  }
+  a {
+    display: block;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: opacity 120ms ease-out;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 10px 20px;
+    font-family: var(--font-eng);
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.15;
+    color: var(--color-edge);
+    &.active {
+      cursor: default;
+      background: hsla(0 0% 0% / 30%);
+      color: var(--color-light);
+    }
+    &:not(.active):active {
+      background: hsla(0 0% 0% / 8%);
+    }
+    &:focus-visible {
+      outline: 3px dashed var(--color-key);
+      outline-offset: -3px;
+    }
+  }
+  @media (min-width: 767px) {
+    opacity: 0;
+    transition: opacity 160ms ease-out;
+  }
+  @include mixins.responsive(tablet) {
+    position: static;
+    height: var(--size-header-height);
+    padding: 0;
+    background: none;
+    box-shadow: none;
+    opacity: unset;
+    pointer-events: unset;
+    transition: none;
+    ul {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      height: 100%;
+      &:hover {
+        li:not(:hover) {
+          opacity: .5;
+        }
+      }
+    }
+    li {
+      height: 100%;
+      transition: opacity 120ms ease-out;
+    }
+    a {
+      display: grid;
+      align-content: center;
+      height: 100%;
+      margin: 0;
+      padding: 0 10px;
+      font-weight: 600;
+      font-size: 13px;
+      color: var(--color-light);
+      text-decoration: none;
+      transition: color 120ms ease-out, background 120ms ease-out;
+      &.active {
+        background: none;
+        color: var(--color-key);
+      }
+      &:not(.active):active {
+        background: hsla(0 0% 0% / 10%);
+      }
+    }
+  }
+  @include mixins.responsive(desktop) {
+    a {
+      padding: 0 16px;
+      font-size: 14px;
+    }
+  }
+  @include mixins.dark-mode() {
+    background: hsl(0 0% 28%);
+    @include mixins.responsive(tablet) {
+      background: none;
+    }
+  }
+}

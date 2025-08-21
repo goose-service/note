@@ -1,0 +1,43 @@
+{
+  "home": {
+    "label": "GoOSe Note",
+    "href": "/"
+  },
+  "global": [
+    {
+      "label": "Blog",
+      "key": "blog",
+      "href": "/nest/blog/"
+    },
+    {
+      "label": "Development",
+      "key": "development",
+      "href": "/nest/development/"
+    },
+    {
+      "label": "A.I",
+      "key": "ai",
+      "href": "/nest/ai/"
+    },
+    {
+      "label": "Graphics",
+      "key": "graphics",
+      "href": "/nest/graphics/"
+    },
+    {
+      "label": "Concept",
+      "key": "concept",
+      "href": "/nest/concept/"
+    },
+    {
+      "label": "ETC",
+      "key": "note-etc",
+      "href": "/nest/note-etc/"
+    },
+    {
+      "label": "GoOSe",
+      "key": "redgoose",
+      "href": "https://redgoose.me"
+    }
+  ]
+}

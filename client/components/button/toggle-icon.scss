@@ -1,0 +1,62 @@
+@use '../../scss/mixins';
+
+.button-toggle-icon {
+  position: relative;
+  display: block;
+  width: var(--toggle-icon-width, 24px);
+  height: var(--toggle-icon-width, 24px);
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: hsla(0 0% 0% / 0%);
+  box-sizing: border-box;
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+  -webkit-tap-highlight-color: hsla(0 0% 0% / 0%);
+  transition: background-color 160ms ease-out, scale 160ms ease-out;
+  font-size: 0;
+  &:focus-visible {
+    outline: 3px dashed var(--color-key);
+    outline-offset: -3px;
+  }
+  :deep(.icon) {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform-origin: 50% 50%;
+    transition: translate 200ms ease-out, scale 200ms ease-out;
+    translate: -50% -50%;
+    &:nth-child(1) {
+      scale: 1;
+    }
+    &:nth-child(2) {
+      scale: 0;
+    }
+  }
+  &:active {
+    :deep(.icon) {
+      &:nth-child(1) {
+        scale: .75;
+      }
+    }
+  }
+  &.on {
+    background: mixins.mix-alpha(var(--color-dark), 15%);
+    :deep(.icon) {
+      &:nth-child(1) {
+        scale: 0;
+      }
+      &:nth-child(2) {
+        scale: 1;
+      }
+    }
+    &:active {
+      :deep(.icon) {
+        &:nth-child(2) {
+          scale: .75;
+        }
+      }
+    }
+  }
+}
