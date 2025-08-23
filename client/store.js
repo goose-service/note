@@ -1,5 +1,5 @@
 import { reactive } from 'vue'
-import { storageControl } from './libs/util.js'
+import { detectDarkMode, storageControl } from './libs/util.js'
 
 const THEME = {
   LIGHT: 'light',
@@ -16,7 +16,7 @@ class Store {
 
   constructor()
   {
-    this.data.theme = storageControl(STORAGE_KEY_THEME) || THEME.LIGHT
+    this.data.theme = storageControl(STORAGE_KEY_THEME) || (detectDarkMode() ? THEME.DARK : THEME.LIGHT)
     this.changeTheme(this.data.theme)
   }
 

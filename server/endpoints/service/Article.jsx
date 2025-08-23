@@ -6,6 +6,7 @@ import apiArticle from '../api/article.js'
 import Layout from './components/Layout.jsx'
 import ErrorScreen from './components/ErrorScreen.jsx'
 import Empty from './components/Empty.jsx'
+import article from "../api/article.js";
 
 const dev = isDev()
 
@@ -45,7 +46,6 @@ async function Article(req, _ctx)
             <article>
               <h1>{_res.title}</h1>
               <header>
-                <h2>아티클 정보</h2>
                 <dl>
                   {_res.nestName && (
                     <>
@@ -65,20 +65,20 @@ async function Article(req, _ctx)
                       <dd>{_res.regdate}</dd>
                     </>
                   )}
-                </dl>
-              </header>
-              <article class="content">
-                {_res.content}
-              </article>
-              <footer>
-                <h2>메타데이터</h2>
-                <dl>
                   <dt>조회수</dt>
                   <dd>{_res.hit}</dd>
                   <dt>좋아요</dt>
                   <dd>{_res.star}</dd>
                 </dl>
-              </footer>
+              </header>
+              <article>
+                {_res.content}
+              </article>
+              {_res.comment && (
+                <Comment
+                  total={_res.comment.total}
+                  index={_res.comment.index}/>
+              )}
             </article>
           ) : (
             <Empty/>
@@ -103,6 +103,20 @@ async function Article(req, _ctx)
   onResponse(req, response, _ctx)
 
   return response
+}
+
+const Comment = ({ total, index }) => {
+  return (
+    <article>
+      <h1>{total}개의 댓글</h1>
+      {index.map((item) => (
+        <section key={item.srl}>
+          <div>{item.content}</div>
+          <em>Written on {item.date}</em>
+        </section>
+      ))}
+    </article>
+  )
 }
 
 export default Article

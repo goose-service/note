@@ -27,7 +27,7 @@
   opacity: 0;
   pointer-events: none;
   transition: opacity 160ms ease-out;
-  &.on {
+  &.on, &:has(:focus-visible) {
     opacity: 1;
     pointer-events: auto;
   }
@@ -61,8 +61,7 @@
       background: hsla(0 0% 0% / 8%);
     }
     &:focus-visible {
-      outline: 3px dashed var(--color-key);
-      outline-offset: -3px;
+      @include mixins.focus-outline();
     }
   }
   @media (min-width: 767px) {
@@ -98,7 +97,7 @@
       align-content: center;
       height: 100%;
       margin: 0;
-      padding: 0 10px;
+      padding: 0 12px;
       font-weight: 600;
       font-size: 13px;
       color: var(--color-light);
@@ -121,8 +120,18 @@
   }
   @include mixins.dark-mode() {
     background: hsl(0 0% 28%);
+    a {
+      &.active {
+        background: hsla(0 0% 0% / 20%);
+      }
+    }
     @include mixins.responsive(tablet) {
       background: none;
+      a {
+        &.active {
+          background: none;
+        }
+      }
     }
   }
 }

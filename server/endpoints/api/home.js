@@ -29,6 +29,7 @@ async function apiHome(req, _ctx = undefined)
         size: apiAssets.size,
         order: 'regdate',
         sort: 'desc',
+        q: query.q || '',
         page,
       },
     })

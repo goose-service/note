@@ -1,0 +1,121 @@
+@use '../../scss/mixins';
+
+.comments {
+  > h1 {
+    margin: 0;
+    font-size: 0;
+  }
+  > ul {
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 16px;
+    max-width: 680px;
+  }
+  @include mixins.responsive(tablet) {
+    > ul {
+      gap: 32px;
+    }
+  }
+}
+
+.comment {
+  padding: 24px;
+  background: var(--color-light);
+  box-sizing: border-box;
+  border-radius: 4px;
+  scroll-margin-top: calc(var(--size-header-height) + 32px);
+  min-width: 0;
+  box-shadow:
+    0 0 0 .5px hsl(0 0% 0% / 20%),
+    0 4px 24px hsl(0 0% 0% / 8%),
+    0 16px 40px hsl(0 0% 0% / 10%);
+  .redgoose-body {
+    --markdown-size-text: 14px;
+    --markdown-size-text-length: 1.52;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    :is(img, pre, .grid-item) {
+      position: static;
+      transform: none;
+      transform-origin: unset;
+      cursor: default;
+      width: auto;
+      max-width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    :is(goose-dark-mode-image) {
+      --goose-dmi-position: static;
+      --goose-dmi-margin: 0 auto;
+      --goose-dmi-max-width: 100%;
+      --goose-dmi-max-height: none;
+      --goose-dmi-transform: none;
+    }
+  }
+  .meta {
+    margin: 24px 0 0;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    em {
+      display: block;
+      font-family: var(--font-eng);
+      font-size: 12px;
+      color: var(--color-weak);
+      font-style: normal;
+      user-select: none;
+    }
+    a {
+      display: block;
+      margin: -10px;
+      padding: 10px;
+      cursor: pointer;
+      border: none;
+      background: none;
+      box-sizing: border-box;
+      outline: none;
+      user-select: none;
+      -webkit-tap-highlight-color: hsla(0 0% 0% / 0%);
+      --icon-size: 18px;
+      --icon-stroke: 2;
+      --icon-color: var(--color-key);
+      &:active {
+        opacity: .5;
+      }
+      &:focus-visible {
+        @include mixins.focus-outline();
+      }
+    }
+  }
+  @include mixins.responsive(tablet) {
+    padding: 56px;
+    border-radius: 12px;
+    .redgoose-body {
+      --markdown-size-text: 15px;
+      --markdown-size-text-length: 1.64;
+    }
+    .meta a {
+      opacity: 0;
+      transition: opacity 120ms ease-out;
+    }
+    &:hover {
+      .meta a {
+        opacity: 1;
+      }
+    }
+  }
+  @include mixins.dark-mode() {
+    background: var(--color-blur);
+    box-shadow:
+      0 0 0 .5px hsl(0 0% 100% / 10%),
+      0 4px 8px hsl(0 0% 0% / 10%),
+      0 8px 24px hsl(0 0% 0% / 15%);
+    .meta {
+      em {
+        color: var(--color-weak);
+      }
+    }
+  }
+}

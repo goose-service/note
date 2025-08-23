@@ -39,3 +39,9 @@ export function hashScroll(hash)
     _el.scrollIntoView(true)
   }, 20)
 }
+
+export function detectDarkMode()
+{
+  const mql = window.matchMedia('(prefers-color-scheme: dark)')
+  return mql.matches
+}

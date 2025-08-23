@@ -26,7 +26,7 @@
   </div>
   <footer class="layout-footer">
     <p class="layout-footer__copyright">
-      Copyright 2013-{{_currentYear}} redgoose. All right reserved.
+      Copyright 2013-{{_currentYear}} <a href="https://redgoose.me" target="_blank">GoOSe</a>. All right reserved.
     </p>
   </footer>
 </div>

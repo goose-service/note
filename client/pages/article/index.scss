@@ -1,0 +1,69 @@
+@use '../../scss/mixins';
+
+.article {
+  margin: 42px 0 0;
+  padding: 0 var(--size-side-padding);
+  @include mixins.responsive(tablet) {
+    margin-top: 64px;
+  }
+}
+
+.article-header {
+  text-align: center;
+  h1 {
+    margin: 0;
+    font-size: 28px;
+    line-height: 1.05;
+    letter-spacing: -.1rem;
+    word-break: break-all;
+    color: var(--color-edge);
+    font-weight: 800;
+  }
+  p {
+    margin: 5px 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    span {
+      display: block;
+      font-family: var(--font-eng);
+      font-size: 10px;
+      color: var(--color-weak);
+      line-height: 1.15;
+      &:not(:first-child):before {
+        content: '/';
+        margin: 0 5px;
+      }
+    }
+  }
+  @include mixins.responsive(tablet) {
+    h1 {
+      font-size: 36px;
+    }
+    p {
+      span {
+        font-size: 11px;
+      }
+    }
+  }
+}
+
+.article-body {
+  margin: 20px 0 0;
+  min-height: 15vh;
+  @include mixins.responsive(tablet) {
+    max-width: 900px;
+    margin: 36px auto 0;
+  }
+}
+
+.article-star {
+  margin: 30px 0 0;
+}
+
+.article-comment {
+  margin: 54px 0 0;
+  @include mixins.responsive(tablet) {
+    margin-top: 78px;
+  }
+}

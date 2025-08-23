@@ -86,6 +86,13 @@
   text-overflow: ellipsis;
 }
 
+// focus outline
+@mixin focus-outline($size: 3px, $offset: -3px)
+{
+  outline: #{$size} dashed var(--color-key);
+  outline-offset: #{$offset};
+}
+
 
 // FUNCTIONS
 

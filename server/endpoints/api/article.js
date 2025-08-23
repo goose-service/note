@@ -2,7 +2,7 @@ import ServiceCookie from '../../classes/ServiceCookie.js'
 import ServiceError from '../../classes/ServiceError.js'
 import { onRequest, onResponse } from '../../libs/server.js'
 import { requestApi } from '../../libs/api.js'
-import { catchResponse, makeThumbnailPath, parsingContent, getCookieKey } from './_libs.js'
+import { catchResponse, makeThumbnailPath, parsingContent, getCookieKey, filteringComment } from './_libs.js'
 
 /**
  * article
@@ -33,7 +33,7 @@ async function apiArticle(req, _ctx = undefined)
     const cookieStarKey = getCookieKey('star', srl)
 
     // get article data
-    const { article, nest, category } = await requestApi(`/mix/`, {
+    const { article, nest, category, comment } = await requestApi(`/mix/`, {
       method: 'post',
       json: [
         {
@@ -60,6 +60,15 @@ async function apiArticle(req, _ctx = undefined)
             fields: 'srl,name',
           },
         },
+        {
+          key: 'comment',
+          url: '/comment/',
+          params: {
+            module: 'article',
+            module_srl: '{{article.data.srl}}',
+            unlimited: '1',
+          },
+        },
       ],
     })
     // check response
@@ -84,6 +93,10 @@ async function apiArticle(req, _ctx = undefined)
       star: article.data.star,
       regdate: article.data.created_at,
       usedUpStar: cookie.existValue(cookieStarKey),
+      comment: comment.data ? {
+        total: comment.data.total,
+        index: comment.data.index?.length > 0 ? comment.data.index.map(filteringComment) : [],
+      } : null,
     })
   }
   catch (e)

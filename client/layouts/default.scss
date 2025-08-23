@@ -47,18 +47,16 @@
     user-select: none;
     outline: none;
     &:focus-visible {
-      outline: 3px dashed var(--color-key);
-      outline-offset: -3px;
+      @include mixins.focus-outline();
     }
   }
   img {
     display: block;
-    width: 68px;
+    width: 62px;
     height: auto;
     filter:
       drop-shadow(0 0 1px hsla(0 0% 0% / 20%))
-      drop-shadow(0 2px 2px hsla(0 0% 0% / 20%))
-      drop-shadow(0 4px 10px hsla(0 0% 0% / 25%));
+      drop-shadow(0 2px 2px hsla(0 0% 0% / 20%));
   }
   @include mixins.responsive(tablet) {
     left: 12px;
@@ -68,7 +66,7 @@
     a {
       padding: 0;
       &:focus-visible {
-        outline-offset: 0px;
+        outline-offset: 0;
       }
     }
     img {
@@ -104,6 +102,9 @@
     --dark-switch-icon-size: 16px;
     --dark-switch-active-offset: 0px;
     --dark-switch-bg: var(--color-reverse);
+    --dark-switch-focus-color: var(--color-key);
+    --dark-switch-focus-width: 3px;
+    --dark-switch-focus-style: dashed;
   }
   @include mixins.responsive(tablet) {
     right: 60px;
@@ -130,6 +131,11 @@
     font-weight: 400;
     color: var(--color-weak);
     user-select: none;
+    a {
+      &:focus-visible {
+        @include mixins.focus-outline(3px, 3px);
+      }
+    }
   }
   @include mixins.responsive(tablet) {
     margin: 72px 0 0;

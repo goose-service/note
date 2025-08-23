@@ -1,6 +1,6 @@
 import { marked, Renderer } from 'marked'
 import { isDev, printMessage } from '../../libs/server.js'
-import { htmlToText } from '../../libs/string.js'
+import { htmlToText, dateFormat } from '../../libs/string.js'
 
 const { API_CLIENT_URL, COOKIE_PREFIX } = Bun.env
 const dev = isDev()
@@ -19,9 +19,19 @@ export function filteringArticle(src)
   }
 }
 
+export function filteringComment(src)
+{
+  if (!src) return null
+  return {
+    srl: src.srl,
+    content: parsingContent(src.content),
+    date: dateFormat(new Date(src.created_at), '{yyyy}-{MM}-{dd}'),
+  }
+}
+
 export function makeThumbnailPath(code)
 {
-  return code ? `${API_CLIENT_URL}/file/${code}/` : null
+  return (code && typeof code === 'string') ? `${API_CLIENT_URL}/file/${code}/` : null
 }
 
 export function parsingContent(src)

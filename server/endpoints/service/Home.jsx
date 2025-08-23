@@ -36,7 +36,7 @@ async function Home(req, _ctx)
         <Layout>
           {(index?.length > 0) ? (
             <section>
-              <h1>작업물</h1>
+              <h1>최신 아티클</h1>
               <ul>
                 {index.map((item) => (
                   <li>

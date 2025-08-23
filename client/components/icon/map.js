@@ -6,8 +6,10 @@ const icons = {
   'chevron-right': lucide.ChevronRight,
   'chevrons-right': lucide.ChevronsRight,
   'chevron-down': lucide.ChevronDown,
+  'link': lucide.Link,
   'x': lucide.X,
   'search': lucide.Search,
+  'image': lucide.Image,
 }
 
 export function iconRandomPick()

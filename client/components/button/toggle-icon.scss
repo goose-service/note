@@ -17,8 +17,7 @@
   transition: background-color 160ms ease-out, scale 160ms ease-out;
   font-size: 0;
   &:focus-visible {
-    outline: 3px dashed var(--color-key);
-    outline-offset: -3px;
+    @include mixins.focus-outline();
   }
   :deep(.icon) {
     position: absolute;

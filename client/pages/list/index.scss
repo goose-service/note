@@ -1,0 +1,117 @@
+@use '../../scss/mixins';
+
+.index {
+  margin: 42px 0 0;
+  @include mixins.responsive(tablet) {
+    margin-top: 50px;
+  }
+  @include mixins.responsive(desktop) {
+    margin-top: 60px;
+  }
+}
+
+.index-header {
+  margin: 0 0 16px;
+  padding: 0 var(--size-side-padding);
+  h1 {
+    margin: 0;
+    font-family: var(--font-eng);
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--color-edge);
+    letter-spacing: -.5px;
+    text-align: center;
+    line-height: 1.05;
+    user-select: none;
+  }
+  @include mixins.responsive(tablet) {
+    margin-bottom: 0;
+    h1 {
+      font-size: 30px;
+      letter-spacing: -1.5px;
+    }
+  }
+  @include mixins.responsive(desktop) {
+    h1 {
+      font-size: 36px;
+      letter-spacing: -1.5px;
+    }
+  }
+}
+
+.index-category {
+  margin: 0 auto;
+  max-width: 1000px;
+  padding: 0 var(--size-side-padding);
+  @include mixins.responsive(tablet) {
+    margin-top: 8px;
+  }
+}
+
+.index-body {
+  margin: var(--size-side-padding) 0 0;
+  ul {
+    margin: 0 auto;
+    padding: 0 var(--size-side-padding);
+    list-style: none;
+    max-width: 1440px;
+    display: grid;
+    grid-template-columns: repeat(var(--items-column, 1), 1fr);
+    grid-gap: var(--items-gap, 10px);
+  }
+  li {
+    min-width: 0;
+  }
+  @include mixins.responsive(tablet) {
+    margin-top: 24px;
+    ul {
+      --items-column: 2;
+      --items-gap: 16px;
+    }
+  }
+  @include mixins.responsive(max) {
+    margin-top: 36px;
+    ul {
+      --items-column: 3;
+      --items-gap: 20px;
+    }
+  }
+}
+
+.index-paginate {
+  margin: 30px 0 0;
+  .paginate--desktop {
+    display: none;
+  }
+  @include mixins.responsive(tablet) {
+    margin-top: 36px;
+    .paginate--mobile {
+      display: none;
+    }
+    .paginate--desktop {
+      display: flex;
+    }
+  }
+}
+
+.empty {
+  height: 100dvh;
+  min-height: calc(72dvh - var(--size-header-height));
+  max-height: calc(72dvh - var(--size-header-height));
+}
+
+.pagination {
+  margin: 24px 0 0;
+  .paginate--desktop {
+    display: none;
+  }
+  @include mixins.responsive(tablet) {
+    margin-top: 42px;
+    .paginate--mobile {
+      display: none;
+    }
+    .paginate--desktop {
+      display: flex;
+    }
+  }
+}

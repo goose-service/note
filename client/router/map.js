@@ -1,30 +1,29 @@
-import ServiceError from '../libs/error.js'
-
 export default [
   {
     path: '/',
     name: 'Home',
-    component: () => import('../pages/home/index.vue'),
+    component: () => import('../pages/list/index.vue'),
+    props: {},
     meta: { layout: 'default', active: 'home' },
   },
-  // {
-  //   path: '/nest/:code/',
-  //   name: 'Nest',
-  //   component: () => import('../pages/nest/index.vue'),
-  //   meta: { layout: 'default', active: 'nest' },
-  // },
-  // {
-  //   path: '/nest/:code/:category/',
-  //   name: 'NestCategory',
-  //   component: () => import('../pages/nest/index.vue'),
-  //   meta: { layout: 'default', active: 'nest' },
-  // },
-  // {
-  //   path: '/article/:srl/',
-  //   name: 'Article',
-  //   component: () => import('../pages/article/index.vue'),
-  //   meta: { layout: 'default', active: 'article' },
-  // },
+  {
+    path: '/nest/:nest/',
+    name: 'Nest',
+    component: () => import('../pages/list/index.vue'),
+    meta: { layout: 'default', active: 'nest' },
+  },
+  {
+    path: '/nest/:nest/:category/',
+    name: 'NestCategory',
+    component: () => import('../pages/list/index.vue'),
+    meta: { layout: 'default', active: 'nest' },
+  },
+  {
+    path: '/article/:srl/',
+    name: 'Article',
+    component: () => import('../pages/article/index.vue'),
+    meta: { layout: 'default', active: 'article' },
+  },
   {
     path: '/:pathMatch(.*)*',
     name: 'NotFound',
