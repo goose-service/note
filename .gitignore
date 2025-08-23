@@ -1,9 +1,9 @@
 # directories
-node_modules/
-dist/
+.AppleDouble/
 .idea/
 .vscode/
-.AppleDouble/
+node_modules/
+dist/
 __legacy/
 
 # files
