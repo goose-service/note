@@ -33,7 +33,7 @@
 </template>
 
 <script setup>
-import { reactive, computed, inject } from 'vue'
+import { reactive, computed, inject, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import navigation from '../../server/resource/navigation.json'
 import Navigation from '../components/layout/navigation.vue'
@@ -44,11 +44,15 @@ const route = useRoute()
 const store = inject('store')
 const state = reactive({
   activeNavigation: false,
-  search: route.query.q || '',
+  search: '',
 })
 
 const _currentYear = computed(() => {
   return (new Date()).getFullYear()
+})
+
+watch(() => route.query.q, (value, oldValue) => {
+  if (value !== oldValue) state.search = value
 })
 
 function onChangeTheme(_e)

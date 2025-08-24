@@ -23,9 +23,10 @@ async function apiHome(req, _ctx = undefined)
     const page = Number(query.page || 1)
     const res = await requestApi('/article/', {
       query: {
-        app_srl: apiAssets.appSrl,
+        app: apiAssets.appSrl,
         fields: apiAssets.articleIndexFields,
         mod: 'nest,category',
+        mode: 'public',
         size: apiAssets.size,
         order: 'regdate',
         sort: 'desc',

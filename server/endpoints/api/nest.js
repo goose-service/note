@@ -30,11 +30,13 @@ async function apiNest(req, _ctx = undefined)
            url: '/nest/{srl}/',
            params: {
              srl: code,
+             app_srl: apiAssets.appSrl,
            },
         },
         {
           key: 'category',
           url: '/category/',
+          if: '{{nest.data}}',
           params: {
             module: 'nest',
             module_srl: '{{nest.data.srl}}',
@@ -47,11 +49,13 @@ async function apiNest(req, _ctx = undefined)
         {
           key: 'article',
           url: '/article/',
+          if: '{{nest.data}}',
           params: {
             fields: apiAssets.articleIndexFields,
             app_srl: apiAssets.appSrl,
             nest_srl: '{{nest.data.srl}}',
             category_srl: category_srl || undefined,
+            mode: 'public',
             size: apiAssets.size,
             order: 'regdate',
             sort: 'desc',
@@ -62,7 +66,7 @@ async function apiNest(req, _ctx = undefined)
       ],
     })
     const { nest, category, article } = res
-    if (!(nest?.data || article?.data))
+    if (!(nest?.data))
     {
       throw new ServiceError('Not found article.', {
         status: 204,
@@ -95,8 +99,8 @@ async function apiNest(req, _ctx = undefined)
         }
       }) : [],
       article: {
-        total: article.data?.total || 0,
-        index: (article.data?.index?.length > 0) ? article.data.index.map(filteringArticle) : [],
+        total: article?.data?.total || 0,
+        index: (article?.data?.index?.length > 0) ? article.data.index.map(filteringArticle) : [],
       },
       assets: {
         page,
