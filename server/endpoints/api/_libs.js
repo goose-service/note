@@ -1,6 +1,6 @@
 import { marked, Renderer } from 'marked'
 import { isDev, printMessage } from '../../libs/server.js'
-import { htmlToText, dateFormat } from '../../libs/string.js'
+import { dateFormat } from '../../libs/string.js'
 
 const { API_CLIENT_URL, COOKIE_PREFIX } = Bun.env
 const dev = isDev()
@@ -42,10 +42,10 @@ export function parsingContent(src)
   // parse markdown content
   const renderer = new Renderer()
   renderer.heading = (ctx) => {
-    const { depth, text } = ctx
+    const { depth, text, tokens } = ctx
     const id = text.replace(/\s+/g, '_')
+    const _text = renderer.parser.parseInline(tokens)
     let _str = `<h${depth} id="${id}">`
-    let _text = htmlToText(text)
     _str += `<a href="#${id}" class="anchor">${sharp}</a>`
     _str += _text
     _str += `</h${depth}>`
@@ -56,10 +56,11 @@ export function parsingContent(src)
     return `<img src="${href}" alt="${title || text}" loading="lazy"/>`
   }
   renderer.link = (ctx) => {
-    const { href, title, text } = ctx
+    const { href, title, tokens } = ctx
     const _target = /^http/.test(href) ? ' target="_blank"' : ''
     const _title = title ? ` title="${title}"` : ''
-    return `<a href="${href}"${_target}${_title}>${text}</a>`
+    const _text = renderer.parser.parseInline(tokens)
+    return `<a href="${href}"${_target}${_title}>${_text}</a>`
   }
   return marked.parse(src, {
     gfm: true,
