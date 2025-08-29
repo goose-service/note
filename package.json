@@ -1,6 +1,6 @@
 {
   "name": "note.redgoose.me",
-  "version": "4.0.2",
+  "version": "4.0.3",
   "repository": "https://github.com/goose-service/note.git",
   "author": "redgoose <scripter@me.com>",
   "type": "module",
