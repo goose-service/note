@@ -24,7 +24,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import shuffle from 'auto-writer/src/shuffle'
+import autoWriter from 'auto-writer'
 import Icon from '../icon/index.vue'
 
 const props = defineProps({
@@ -39,10 +39,10 @@ const $description = ref()
 function onMouseEnter(e)
 {
   const arr = [ $title.value, $description.value ]
-  arr.forEach((el, k) => {
-    if (!el) return
-    setTimeout(() => shuffle(el, {
-      text: el.innerText,
+  arr.forEach(($el, k) => {
+    if (!$el) return
+    setTimeout(() => autoWriter($el, {
+      text: $el.innerText,
       pattern: 'abcdefghijklmnopqrstuvwxyz0123456789-_!@#$%^&*()+~<>ㄱㄴㄷㄹㅁㅂㅅㅇㅈㅊㅋㅌㅍㅎㄲㄸㅃㅆㅉ',
       randomTextType: k === 0 ? 'pattern' : 'unicode',
     }), 180 * k)
