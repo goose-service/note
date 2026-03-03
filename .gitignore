@@ -4,10 +4,9 @@
 .vscode/
 node_modules/
 dist/
-__legacy/
+.github/
 
 # files
 .DS_Store
 .env.*
 docker-compose.yml
-podman-compose.yml

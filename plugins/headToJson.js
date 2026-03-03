@@ -48,6 +48,9 @@ async function writeFile(obj)
   await Bun.write('dist/head.json', raw)
 }
 
+/**
+ * @returns {import('vite').Plugin}
+ */
 function pluginHeadToJson()
 {
   return {
