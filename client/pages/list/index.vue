@@ -172,6 +172,7 @@ async function _fetchArticle()
     let _query = {}
     if (state.nest?.srl) _query.nest = state.nest.srl
     if (route.params.category) _query.category = route.params.category
+    if (route.query.q) _query.q = route.query.q
     if (route.query.page > 1) _query.page = Number(route.query.page)
     const res = await ofetch(`/api/article/`, { query: _query })
     if (!res) throw new ServiceError('No Content', 204)

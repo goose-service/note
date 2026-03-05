@@ -33,6 +33,7 @@ async function apiArticles(req, ctx)
         size: apiAssets.size,
         order: 'regdate',
         sort: 'desc',
+        q: query.q || '',
         page,
         mod: 'nest,category',
       },
