@@ -64,17 +64,12 @@
   }
   @include mixins.responsive(tablet) {
     margin-top: 24px;
-    ul {
-      --items-column: 2;
-      --items-gap: 16px;
-    }
+    --items-column: 2;
+    --items-gap: 16px;
   }
-  @include mixins.responsive(max) {
-    margin-top: 36px;
-    ul {
-      --items-column: 3;
-      --items-gap: 20px;
-    }
+  @include mixins.responsive(desktop-large) {
+    margin-top: 32px;
+    --items-column: 3;
   }
 }
 

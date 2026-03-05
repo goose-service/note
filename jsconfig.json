@@ -1,25 +1,28 @@
 {
   "compilerOptions": {
-    "lib": [ "ESNext" ],
+    "lib": [ "ESNext", "DOM", "DOM.Iterable" ],
     "target": "ESNext",
     "module": "ESNext",
-    "moduleDetection": "force",
-    "allowJs": true,
-    "checkJs": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true,
     "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
-    "verbatimModuleSyntax": true,
+    "allowJs": true,
+    "checkJs": false,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
     "noEmit": true,
     "strict": false,
-    "skipLibCheck": true,
-    "noFallthroughCasesInSwitch": true,
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
-    "noPropertyAccessFromIndexSignature": false,
-    "jsx": "react-jsx",
-    "jsxImportSource": "@kitajs/html"
-  }
+    "jsx": "preserve"
+  },
+  "include": [
+    "client/**/*.js",
+    "client/**/*.vue",
+    "server/**/*.js",
+    "server/**/*.jsx",
+    "plugins/**/*.js",
+    "vite.config.js"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }
