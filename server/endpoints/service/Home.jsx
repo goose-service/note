@@ -1,7 +1,7 @@
 import ServiceError from '../../classes/ServiceError.js'
 import { isDev, onRequest, onResponse, printMessage } from '../../libs/server.js'
 import { getQuery } from '../../libs/util.js'
-import { setResponse, checkingBot, renderIndex } from './_libs.js'
+import { setResponse, checkingBot, renderIndex, getCanonicalUrl, getErrorStatus } from './_libs.js'
 import apiHome from '../api/home.js'
 import Layout from './components/Layout.jsx'
 import Paginate from './components/Paginate.jsx'
@@ -32,12 +32,15 @@ async function Home(req, _ctx)
       const _res = await res.json()
       const query = getQuery(req.url)
       const index = _res.index
+      const canonicalUrl = getCanonicalUrl(req)
       response = setResponse((
-        <Layout>
+        <Layout
+          _meta={{ 'og:url': canonicalUrl }}
+          _link={{ canonical: canonicalUrl }}>
           {(index?.length > 0) ? (
-            <section>
+            <section class="index-section">
               <h1>최신 아티클</h1>
-              <ul>
+              <ul class="item-list">
                 {index.map((item) => (
                   <li>
                     <IndexItem {...item}/>
@@ -64,7 +67,7 @@ async function Home(req, _ctx)
     if (dev) printMessage('error', `[${_e.status || 500}] ${_e.message}`)
     response = setResponse((
       <ErrorScreen code={_e.status} message="Failed get data."/>
-    ))
+    ), getErrorStatus(_e.status))
   }
 
   // trigger response event

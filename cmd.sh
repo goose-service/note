@@ -1,20 +1,19 @@
 #!/bin/sh
 
 # set docker container name
-IMAGE_NAME="redgoose/note.redgoose.me:latest"
-TMP_FILE="_tmp.tar"
+IMAGE_NAME="redgoose/note.redgoose.me:local"
+UPLOAD_IMAGE_NAME="redgoose/note.redgoose.me:latest"
 HOST="redgoose.me"
 
 build() {
-  bun run build
   docker build --force-rm -t $IMAGE_NAME .
   docker image prune -f
 }
 
 upload() {
-  docker save -o $TMP_FILE $IMAGE_NAME
-  cat $TMP_FILE | ssh $HOST 'docker load'
-  rm $TMP_FILE
+  docker image tag $IMAGE_NAME $UPLOAD_IMAGE_NAME
+  docker save $UPLOAD_IMAGE_NAME | ssh $HOST 'docker load'
+  docker image rm $UPLOAD_IMAGE_NAME >/dev/null
 }
 
 case "$1" in

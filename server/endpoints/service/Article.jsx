@@ -1,12 +1,11 @@
 import ServiceError from '../../classes/ServiceError.js'
 import { isDev, onRequest, onResponse, printMessage } from '../../libs/server.js'
-import { setResponse, checkingBot, renderIndex, contentToDescription } from './_libs.js'
+import { setResponse, checkingBot, renderIndex, contentToDescription, getCanonicalUrl, getErrorStatus, formatDate } from './_libs.js'
 import { html } from '../../classes/Meta.js'
 import apiArticle from '../api/article.js'
 import Layout from './components/Layout.jsx'
 import ErrorScreen from './components/ErrorScreen.jsx'
 import Empty from './components/Empty.jsx'
-import article from "../api/article.js";
 
 const dev = isDev()
 
@@ -28,56 +27,62 @@ async function Article(req, _ctx)
           status: res.status,
         })
       }
-      const { srl } = req.params
-      const _res = await res.json()
-      const _description = contentToDescription(_res.content)
-      let _title = `${_res.title} 🪴 ${html.title}`
-      let _meta = {
+      const { data: article } = await res.json()
+      if (!article) throw new ServiceError('Not found article data.', { status: 404 })
+      const _description = contentToDescription(article.content)
+      const _title = `${article.title} 🪴 ${html.title}`
+      const canonicalUrl = getCanonicalUrl(req)
+      const _meta = {
         'description': _description,
-        'og:title': `${_res.title} 🪴 ${html.title}`,
+        'og:title': _title,
         'og:description': _description,
-        'og:url': `${html.meta['og:url']}/article/${srl}/`,
-        'og:image': _res.image,
+        'og:url': canonicalUrl,
+        'og:image': article.image || html.meta['og:image'],
+        'og:type': 'article',
       }
-      let _link = {}
       response = setResponse((
-        <Layout title={_title} _meta={_meta} _link={_link}>
-          {_res ? (
-            <article>
-              <h1>{_res.title}</h1>
-              <header>
+        <Layout title={_title} _meta={_meta} _link={{ canonical: canonicalUrl }}>
+          {article ? (
+            <article class="page">
+              <header class="page-header">
+                <h1>{article.title}</h1>
                 <dl>
-                  {_res.nestName && (
+                  {article.nestName && (
                     <>
                       <dt>둥지</dt>
-                      <dd>{_res.nestName}</dd>
+                      <dd>{article.nestName}</dd>
                     </>
                   )}
-                  {_res.categoryName && (
+                  {article.categoryName && (
                     <>
                       <dt>분류</dt>
-                      <dd>{_res.categoryName}</dd>
+                      <dd>{article.categoryName}</dd>
                     </>
                   )}
-                  {_res.regdate && (
+                  {article.regdate && (
                     <>
                       <dt>등록일</dt>
-                      <dd>{_res.regdate}</dd>
+                      <dd><time datetime={article.regdate}>{formatDate(article.regdate)}</time></dd>
                     </>
                   )}
-                  <dt>조회수</dt>
-                  <dd>{_res.hit}</dd>
-                  <dt>좋아요</dt>
-                  <dd>{_res.star}</dd>
                 </dl>
               </header>
-              <article>
-                {_res.content}
-              </article>
-              {_res.comment && (
+              <section class="content" aria-label="본문">
+                {article.content}
+              </section>
+              <footer class="article-footer">
+                <h2>메타데이터</h2>
+                <dl>
+                  <dt>조회수</dt>
+                  <dd>{article.hit}</dd>
+                  <dt>좋아요</dt>
+                  <dd>{article.star}</dd>
+                </dl>
+              </footer>
+              {article.comment && (
                 <Comment
-                  total={_res.comment.total}
-                  index={_res.comment.index}/>
+                  total={article.comment.total}
+                  index={article.comment.index}/>
               )}
             </article>
           ) : (
@@ -96,7 +101,7 @@ async function Article(req, _ctx)
     if (dev) printMessage('error', `[${_e.status || 500}] ${_e.message}`)
     response = setResponse((
       <ErrorScreen code={_e.status} message="Failed get data."/>
-    ))
+    ), getErrorStatus(_e.status))
   }
 
   // trigger response event
@@ -107,15 +112,15 @@ async function Article(req, _ctx)
 
 const Comment = ({ total, index }) => {
   return (
-    <article>
-      <h1>{total}개의 댓글</h1>
-      {index.map((item) => (
-        <section key={item.srl}>
-          <div>{item.content}</div>
-          <em>Written on {item.date}</em>
-        </section>
-      ))}
-    </article>
+    <section class="comments" aria-label="댓글">
+      <h2>{total || 0}개의 댓글</h2>
+      {index?.length > 0 ? index.map((item) => (
+        <article class="comment" key={item.srl}>
+          <div class="content">{item.content}</div>
+          <footer><time datetime={item.date}>Written on {item.date}</time></footer>
+        </article>
+      )) : <p>등록된 댓글이 없습니다.</p>}
+    </section>
   )
 }
 

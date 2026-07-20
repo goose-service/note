@@ -25,7 +25,7 @@ import Icon from '../icon/index.vue'
 import ContentBody from './content-body.vue'
 
 const props = defineProps({
-  total: Number,
+  total: { type: Number, default: 0 },
   index: Array,
 })
 const emits = defineEmits([ 'open:image' ])

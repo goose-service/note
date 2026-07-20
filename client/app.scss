@@ -1,5 +1,5 @@
-@use 'normalize';
-@use 'mixins';
+@use 'scss/normalize';
+@use 'scss/mixins';
 @import url('https://assets.redgoose.me/fonts/index.css');
 
 :root {
@@ -41,6 +41,10 @@
 
 html {
   touch-action: manipulation;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-edge) transparent;
+  -webkit-tap-highlight-color: transparent;
+  scrollbar-gutter: auto;
 }
 body {
   margin: 0;
@@ -48,7 +52,6 @@ body {
   color: var(--color-text);
   background: var(--color-bg);
   -webkit-touch-callout: none;
-  overflow-x: clip;
 }
 body, button, input, textarea, select {
   font-family: var(--font-base);

@@ -43,7 +43,7 @@
 
 <script setup>
 import { reactive, computed, onMounted, nextTick } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
+import { useRoute } from 'vue-router'
 import { ofetch } from 'ofetch'
 import ServiceError from '../../libs/error.js'
 import { hashScroll } from '../../libs/util.js'
@@ -55,7 +55,6 @@ import StarButton from '../../components/article/star-button.vue'
 import Comments from '../../components/article/comments.vue'
 import Lightbox from '../../components/article/lightbox.vue'
 
-const router = useRouter()
 const route = useRoute()
 const state = reactive({
   loading: true,
@@ -69,10 +68,10 @@ const _title = computed(() => {
   return state.article?.title || ''
 })
 const _description = computed(() => {
-  return [
-    ...state.article?.description,
-    dateFormat(new Date(state.article?.regdate), '{yyyy}-{MM}-{dd}'),
-  ]
+  const date = state.article?.regdate
+    ? dateFormat(new Date(state.article.regdate), '{yyyy}-{MM}-{dd}')
+    : null
+  return [ ...(state.article?.description || []), date ].filter(Boolean)
 })
 
 onMounted(async () => {
@@ -80,19 +79,19 @@ onMounted(async () => {
   {
     state.loading = true
     const res = await ofetch(`/api/article/${route.params.srl}/`)
-    if (!res) throw new ServiceError('No Content', 204)
+    if (!res?.data) throw new ServiceError('No Content', 204)
     state.article = {
-      srl: res.srl,
-      title: res.title,
-      description: [ res.nestName, res.categoryName ],
-      content: res.content,
-      regdate: res.regdate,
+      srl: res.data.srl,
+      title: res.data.title,
+      description: [ res.data.nestName, res.data.categoryName ].filter(Boolean),
+      content: res.data.content,
+      regdate: res.data.regdate,
       star: {
-        count: res.star,
-        disabled: res.usedUpStar,
+        count: res.data.star,
+        disabled: res.data.usedUpStar,
       },
     }
-    state.comment = res.comment
+    state.comment = res.data.comment
     // scroll to hash content
     if (location.hash)
     {
@@ -132,11 +131,11 @@ async function onClickStar()
   if (!state.article?.star) return
   try
   {
-    const res = await ofetch(`/api/article/${route.params.srl}/star/`, {
+    await ofetch(`/api/article/${route.params.srl}/star/`, {
       method: 'post',
     })
     state.article.star.disabled = true
-    state.article.star.count = res.count
+    state.article.star.count += 1
   }
   catch (_e)
   {

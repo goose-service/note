@@ -4,9 +4,8 @@ import vue from '@vitejs/plugin-vue'
 import pluginHeadToJson from './plugins/headToJson.js'
 
 const { HOST, PORT, PORT_CLIENT } = Bun.env
-const proxyUrl = `http://${HOST}:${PORT}`
 
-const config = defineConfig({
+export default defineConfig(({
   root: 'client',
   publicDir: './public',
   base: '/',
@@ -16,17 +15,17 @@ const config = defineConfig({
     open: false,
     proxy: {
       '/api': {
-        target: `${proxyUrl}/api`,
+        target: `http://${HOST}:${PORT}/api`,
         changeOrigin: true,
         rewrite: path => path.replace(/^\/api\/?/, '/'),
       },
       '/rss': {
-        target: `${proxyUrl}/rss`,
+        target: `http://${HOST}:${PORT}/rss`,
         changeOrigin: true,
         rewrite: path => path.replace(/^\/rss\/?/, '/'),
       },
       '/': {
-        target: proxyUrl,
+        target: `http://${HOST}:${PORT}`,
         changeOrigin: true,
         bypass: (_req, _res, _options) => {
           if (!isbot(_req.headers['user-agent'])) return _req.url
@@ -36,39 +35,29 @@ const config = defineConfig({
   },
   css: {
     preprocessorOptions: {
-      scss: /** @type {any} */ ({
-        api: 'modern-compiler',
-      }),
+      scss: {},
     },
   },
   build: {
-    outDir: '../dist',
-    emptyOutDir: true,
-    rollupOptions: {
+    outDir: '../dist/client',
+    emptyOutDir: false,
+    rolldownOptions: {
       output: {
         assetFileNames: assetInfo => {
-          const name = assetInfo.name ?? assetInfo.names?.[0] ?? 'asset'
-          const info = name.split('.')
-          let ext = info[info.length - 1]
-          if (/png|jpe?g|svg|gif|ico|webp|avif/i.test(ext)) ext = 'images/'
-          else if (/css/.test(ext)) ext = 'css/'
-          else if (/woff?2|ttf/i.test(ext)) ext = 'fonts/'
-          else ext = ''
-          return `assets/${ext}[name]-[hash][extname]`
-        },
-        manualChunks: {
-          vue: [
-            'vue',
-            'vue-router',
-          ],
+          const info = assetInfo.name?.split('.') || ''
+          let ext = info ? info[info.length - 1] : ''
+          let subDir = ''
+          if (/png|jpe?g|svg|gif|ico|webp|avif/i.test(ext)) subDir = 'images/'
+          else if (/css/.test(ext)) subDir = 'css/'
+          else if (/woff?2|ttf/i.test(ext)) subDir = 'fonts/'
+          return `${subDir}[name]-[hash][extname]`
         },
       },
     },
-    minify: 'terser',
-    terserOptions: {
-      format: {
-        comments: false,
-      },
+  },
+  resolve: {
+    alias: {
+      '@': new URL('./client', import.meta.url).pathname,
     },
   },
   plugins: [
@@ -81,6 +70,4 @@ const config = defineConfig({
     }),
     pluginHeadToJson(),
   ],
-})
-
-export default config
+}))

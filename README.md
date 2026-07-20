@@ -40,7 +40,7 @@ bun run build
 빌드가 완료되면 `dist` 디렉토리가 생성됩니다. 이 디렉토리의 내용으로 웹 서버를 실행하기 위하여 다음과 같은 명령어를 실행합니다.
 
 ```shell
-bun run preview
+bun run prod:preview
 ```
 
 서버가 실행되었으면 `.env`에서 설정한 `PORT` 포트로 접속할 수 있습니다. ex) `http://localhost:80`
