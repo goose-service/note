@@ -153,7 +153,7 @@ async function _fetch()
     }
     else
     {
-      throw new ServiceError(_e?.message)
+      throw ServiceError.from(_e)
     }
   }
   finally
@@ -195,7 +195,7 @@ async function _fetchArticle()
     }
     else
     {
-      throw new ServiceError(_e?.message)
+      throw ServiceError.from(_e)
     }
   }
   finally
